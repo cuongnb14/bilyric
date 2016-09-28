@@ -1,0 +1,33 @@
+{% extends 'frontend/base.html' %}
+{% load staticfiles %}
+
+{% block title %}{{ song.name }} - {{ song.artist }}{% endblock %}
+
+{% block content %}
+    <div class="mdl-grid">
+        <div class="mdl-layout-spacer"></div>
+        <div class="mdl-cell mdl-cell--10-col">
+            <div class="mdl-grid">
+                <div class="mdl-cell mdl-cell--8-col">
+                    <h3>{{ song.name }}
+                        <small>{{ song.artist }}</small>
+                    </h3>
+
+                    <div id="song-frame">
+                        <div id="subtitle">
+                            <p id="sub1">{{ song.name }}
+                            <p>
+                            <p id="sub2">{{ song.artist }}
+                            <p>
+                        </div>
+                        <iframe id="zmp3-frame" scrolling="no" width="100%" height="100%"
+                                src="{% url 'frontend:zmp3_song' song.zmp3_xml %}" frameborder="0"
+                                allowfullscreen="true">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mdl-layout-spacer"></div>
+    </div>
+{% endblock %}

@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Zing MP3 - Player</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <link rel="stylesheet" href="http://static.mp3.zdn.vn/skins/zmp3-v4.1/plugins/player/css/style-2.6.css" media="all" type="text/css" />
+    <link rel="stylesheet" href="http://static.mp3.zdn.vn/skins/zmp3-v4.1/css/style-4.0.css" media="all" type="text/css" />
+    <style type="text/css">
+        body {
+            /*min-width: 500px;*/
+            margin: 0;
+            padding: 0;
+        }
+
+        .slimScrollDiv {
+            width: 100%;
+        }
+
+        .zm-head .zm-lyrics {
+            top: 50%;
+            padding: 0 30px;
+            margin-top: -55px;
+        }
+
+        .zm-head {
+            height: 100%
+        }
+
+        .zm-player-song .zm-control {
+            top: inherit;
+            bottom: 0
+        }
+        /* Override CSS for player embed */
+
+        .zm-head .zm-info-song.otr {
+            position: relative;
+            top: 5px;
+            /*left: auto;*/
+            /*right: auto;*/
+        }
+        .zm-head .zm-info-song.otr {
+            text-align: left;
+        }
+        .zm-head .zm-info-song.otr h3{
+            font-size: 20px;
+            font-weight: 400;
+        }
+        .zm-head .zm-info-song.otr h4{
+            font-size: 15px;
+            font-weight: 400;
+             color: #ccc;
+        }
+    </style>
+    <script type="text/javascript">
+        var MP3 = {
+            VIP: 09,
+            VIP_EXPIRE: 0,
+            ZALO_ID: 0,
+            ACCOUNT_ID: 0,
+            ACCOUNT_NAME: '',
+            DISPLAY_NAME: '',
+            BANNER_OFF: 0,
+            MP3_URL: '',
+            IMG_URL: 'http://image.mp3.zdn.vn',
+            INTER_URL: '',
+            LOG_URL: '',
+            LOG_INFO: '',
+            LOG_INFO4: '',
+            LABEL_URL: '',
+            IP: '',
+            IS_PC: 1
+        };
+    </script>
+</head>
+
+<body>
+    <div class="wrap-body group container" style="width: 100%">
+        <div class="wrap-content" style="width: 100%">
+            <div class="player">
+                <div id="html5player" data-xml="http://mp3.zing.vn/xml/song-xml/{{ song_xml }}" class="zm-player zm-player-song zm-player-album" role="application" aria-label="media player" style="width: 100%;" data-autoplay="true" data-mute="false">
+                    <div class="zm-head jp-jplayer">
+                        <div class="zm-cover fn-thumb" style="background-image: url('http://static.mp3.zdn.vn/skins/zmp3-v4.1/images/default2/1190x350.jpg')">
+                            <div class="zm-mask"></div>
+                        </div>
+                        <div class="zm-lyrics">
+                            <div class="zm-box-lyrics fn-msgbox none">
+                                <p class="fn-msg" style="white-space: normal;"></p>
+                            </div>
+                            <div class="zm-box-lyrics fn-lyrics-content">
+                                <p class="fn-item"> <span style="width: 0;"></span> </p><br />
+                                <p class="fn-item"> <span style="width: 0;"></span> </p><br /> </div>
+                        </div>
+                        <div class="zm-info-song otr fn-info none">
+                            <h3 class="fn-name"></h3>
+                            <h4 class="fn-artist"></h4> </div>
+                        <div class="zm-lrc none"> <span>LRC</span> <i>OFF</i> </div>
+                        <div class="banner-in-player _bannerAds none" data-zoneid="870285593013603088" data-zads="ct=vi;category=[1, 8];songkey=ZW7U867U;name=Anh-Cu-Di-Di;singer=Hari-Won" style="margin-top: -20px; width: 95%; max-width: 840px; min-width: 640px;"> <span class="close-banner _bannerHide"></span> </div>
+                    </div>
+                    <div class="zm-process-bar jp-progress">
+                        <div class="zm-loaded jp-seek-bar" style="width:0%">
+                            <div class="zm-buffer jp-play-bar" style="width:0%"><span class="zm-node"></span></div>
+                        </div>
+                    </div>
+                    <div class="zm-control jp-controls"> <span class="zm-icon zm-icon-play jp-play" style="display: none;"></span> <span class="zm-icon zm-icon-play jp-pause"></span> <span class="zm-icon zm-icon-volume jp-mute" style="display:none;"></span> <span class="zm-icon zm-icon-volume-mute jp-unmute" style="display:none;"></span>
+                        <div class="zm-volume jp-volume-bar">
+                            <div class="zm-volume-avaiable jp-volume-bar-value" style="width:0%"><span class="zm-volume-node"></span></div>
+                        </div>
+                        <!-- /.volume -->
+                        <div class="zm-time"> <em class="jp-current-time">00:00</em> <em>/</em> <em class="jp-duration">00:00</em> </div>
+                        <div class="zm-jump-mv"> <a href="#" class="none fn-mv_link">MV</a> </div> <span class="zm-icon zm-rp zm-icon-repeat fn-repeat"></span>
+                        <div class="zm-quanlity fn-quality"> <span class="zm-quanlity-display fn-switch fn-current" data-quality="128">128 kbps</span>
+                            <div class="zm-tooltip fn-list none">
+                                <ul class="zm-list-quanlity">
+                                    <li class="fn-item" data-quality="320"><span>320 kbps</span></li>
+                                    <li class="fn-item" data-quality="128"><span>128 kbps</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!--<div class="zm-jump-lyric"> <a href="#" class="fn-lrc-switch">Lyric</a> </div>-->
+                    </div>
+                </div>
+                <div id="player5" class="none"></div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="http://static.mp3.zdn.vn/skins/zmp3-v4.1/js/jquery-2.1.0.min.js"></script>
+    <script type="text/javascript" src="http://static.mp3.zdn.vn/skins/zmp3-v4.1/plugins/scroll/jquery.slimscroll.js"></script>
+    <script type="text/javascript" src="http://static.mp3.zdn.vn/skins/zmp3-v4.1/plugins/jplayer/js/jplayer/jquery.jplayer.min.js"></script>
+    <script type="text/javascript">
+        var playerHeight = 0;
+        $(document).ready(function() {
+            zmp3HTML5.init();
+            playerHeight = $('#html5player').height();
+            scrollbarInit();
+        });
+
+        function scrollbarInit() {
+            var height = $('.fn-scrollbar').height();
+            $('.fn-scrollbar').slimScroll().off('slimscroll');
+            $('.fn-scrollbar').slimScroll({
+                height: height > 152 ? '150px' : height + 'px'
+            });
+        }
+        var zmp3Common = {
+            trackPageview: function(lnk) {},
+            tracking: function(lnk) {},
+            trackingOn: function(el, pre, ev) {
+                if (!pre) pre = '';
+                var log = el.attr('suglog');
+                var href = el.attr('href');
+                if (href) {
+                    var from = el.attr('tracking');
+                    if (href.search(MP3.MP3_URL) != -1) href = '/' + href.replace(MP3.MP3_URL, '');
+                    if (from) href += '?' + from;
+                    zmp3Common.tracking(pre + href);
+                }
+                if (log) {
+                    $.get(MP3.LOG_URL + log);
+                    if (!(ev && (ev.ctrlKey || ev.button > 0))) setTimeout(function() {
+                        location.href = el.attr('href');
+                    }, 400);
+                    return false;
+                }
+                return true;
+            }
+        };
+        var zmp3Player = {
+            width: [1190, 860, 650],
+            height: [710, 522, 405],
+            isExpand: false,
+            ord: 0,
+            ratio: 1.7778,
+            player: null,
+            repeat: 0,
+            setUrl: function(idx) {
+                var q = '';
+                if (idx > 1) {
+                    var s = location.search.replace('\?', '');
+                    if (s.length > 0) {
+                        var params = s.split('&'),
+                            isExists = false;
+                        for (var x in params) {
+                            if (params[x].indexOf('st') === 0) {
+                                params[x] = 'st=' + idx;
+                                isExists = true;
+                            }
+                        }
+                        if (!isExists) {
+                            params.push('st=' + idx);
+                        }
+                        q = '?' + params.join('&');
+                    } else {
+                        q = '?st=' + idx;
+                    }
+                }
+                if (typeof history.replaceState === 'function') {
+                    history.replaceState({
+                        state: 1,
+                        rand: Math.random()
+                    }, document.title, q);
+                } else {
+                    location.hash = 'st=' + idx;
+                }
+            },
+            focusItem: function(arg) {
+                arg = parseInt(arg);
+                if (isNaN(arg)) arg = 1;
+                var title = document.title.split('|');
+                var link = location.href;
+                if ($('.fn-playlist-item').length > 0) {
+                    $('.fn-playlist-item').removeClass('playing').removeClass('pause').removeClass('fn-current');
+                    var el = $('.fn-playlist-item[data-order=' + arg + ']').addClass('playing').addClass('fn-current');
+                    if (arg !== this.ord) {
+                        link = $('a.fn-name', el).attr('href');
+                        zmp3Common.trackPageview(link);
+                        zmp3Player.setUrl(arg);
+                        if (title.length > 2) {
+                            title[0] = $('a.fn-name', el).attr('title');
+                            document.title = title.join(' | ');
+                        } else {
+                            document.title = $('a.fn-name', el).attr('title') + ' | ' + document.title;
+                        }
+                    }
+                }
+                this.ord = arg;
+            },
+            pauseItem: function(arg) {
+                $('.fn-playlist-item').removeClass('playing');
+                $('.fn-playlist-item[data-order=' + (arg < 10 ? '0' + arg : arg) + ']').addClass('pause');
+            }
+        };
+        var zmp3Storage = {
+            getParam: function(k, d) {
+                if (typeof localStorage !== 'undefined' && localStorage.getItem(k) != null) {
+                    return localStorage.getItem(k);
+                }
+                return d;
+            },
+            setParam: function(k, v) {
+                if (typeof localStorage !== 'undefined') {
+                    return localStorage.setItem(k, v);
+                }
+                return null;
+            }
+        };
+        var zmp3HTML5 = {
+            width: [860, 650],
+            quality: 0,
+            currentItem: null,
+            current: 0,
+            currentTime: 0,
+            player: null,
+            repeat: 0,
+            isPlaylist: false,
+            ratio: 3.6,
+            lrcOn: false,
+            adTimer: null,
+            nextTimer: null,
+            iupnext: -1,
+            prevList: [],
+            playlist: [],
+            isPaused: true,
+            lrcInterval: null,
+            preloadTimer: null,
+            lastLrcIdx: -1,
+            attempts: 0,
+            lrcRowInterval: null,
+            updateLrc: function() {
+                var _this = this;
+                if (this.lrcInterval != null) clearTimeout(this.lrcInterval);
+                if (this.lrcOn) {
+                    _this.lastLrcIdx = 0;
+                    var items = $('.fn-lyrics-content .fn-item');
+                    var curTime = this.currentTime;
+                    var width = 0;
+                    for (var i = 0; i < this.currentItem.lrcTime.length; i++) {
+                        var nexttime = i < this.currentItem.lrcTime.length - 1 ? this.currentItem.lrcTime[i + 1] : 0;
+                        if (this.currentTime >= this.currentItem.lrcTime[i] && this.currentTime < nexttime) {
+                            var content = this.currentItem.lrcContent;
+                            $(items[Math.abs(i % 2)]).data('mask', content[i]).html(content[i] + '<span>' + content[i] + '</span>');
+                            $(items[Math.abs(i % 2 - 1)]).data('mask', content[i + 1]).html(content[i + 1] + '<span>' + content[i + 1] + '</span>');
+                            break;
+                        }
+                    }
+                    this.lrcInterval = setInterval(function() {
+                        items.removeClass('current');
+                        curTime += 0.05;
+                        for (var i = _this.lastLrcIdx; i < _this.currentItem.lrcTime.length; i++) {
+                            var time = _this.currentItem.lrcTime[i];
+                            var nexttime = i < _this.currentItem.lrcTime.length - 1 ? _this.currentItem.lrcTime[i + 1] : 0;
+                            if (nexttime > curTime + 100) break;
+                            if (curTime >= time && curTime < nexttime) {
+                                var content = _this.currentItem.lrcContent;
+                                time = 100 * (curTime - time) / (nexttime - time);
+                                var next = time > 20;
+                                if (i != _this.lastLrcIdx) {
+                                    width = 0;
+                                    _this.lastLrcIdx = i;
+                                }
+                                $(items[i % 2]).addClass('current');
+                                time = nexttime - _this.currentItem.lrcTime[i];
+                                width += 100 / (time * 10);
+                                if (width > 160) clearTimeout(zmp3HTML5.lrcRowInterval);
+                                $('span', items[i % 2]).css('width', width + '%');
+                                if (next) {
+                                    $(items[Math.abs(i % 2 - 1)]).data('mask', content[i + 1]).html(content[i + 1] + '<span>' + content[i + 1] + '</span>');
+                                }
+                                break;
+                            }
+                        }
+                    }, 50);
+                }
+            },
+            loadLrc: function(stat) {
+                $('.fn-lyrics-content .fn-item').empty();
+                if (stat.media.lyric.length > 35 && this.currentItem.lrcTime.length < 2) {
+                    $.get(stat.media.lyric, function(lrcStr) {
+                        var arr = lrcStr.split(/\r\n|\r|\n/);
+                        var lrcTime = [];
+                        var lrcContent = [];
+                        $.each(arr, function(idx, row) {
+                            do {
+                                var time = row.match(/^\[(\d{2}):(\d{2})\.(\d{2})\](.*)$/);
+                                if (time && time.length == 5 && typeof time[4] != 'undefined') {
+                                    var sec = (Number(time[1]) * 60 + Number(time[2])) + Number(time[3]) / 100;
+                                    lrcTime.push(sec);
+                                    row = time[4];
+                                    lrcContent.push(time[4].replace(/\[.+]/, ''));
+                                } else {
+                                    break;
+                                }
+                            } while (1);
+                        });
+                        for (var i = 0; i < lrcTime.length; i++) {
+                            for (var x = 0; x < lrcTime.length; x++) {
+                                if (lrcTime[i] < lrcTime[x]) {
+                                    var t = lrcTime[x];
+                                    lrcTime[x] = lrcTime[i];
+                                    lrcTime[i] = t;
+                                    t = lrcContent[x];
+                                    lrcContent[x] = lrcContent[i];
+                                    lrcContent[i] = t || '&nbsp;&nbsp;&nbsp;';
+                                }
+                            }
+                        }
+                        for (var i = 0; i < 4; i++) {
+                            lrcContent[i] = lrcContent[i].replace('Bài Hát:', '').replace('Bài hát:', '').replace('Ca Sĩ:', '').replace('Ca sĩ:', '');
+                        }
+                        zmp3HTML5.currentItem.lrcTime = lrcTime;
+                        zmp3HTML5.currentItem.lrcContent = lrcContent;
+                    });
+                } else {
+                    this.lrcShow(false, false);
+                }
+            },
+            adShow: function(show, t) {
+                var adbox = $('#html5player ._bannerAds').first();
+                var adbtn = $('#html5player ._bannerShow').first();
+                if (this.adTimer != null) clearTimeout(this.adTimer);
+                if (show) {
+                    t = parseInt(t);
+                    if (t > 100) this.adTimer = setTimeout(function() {
+                        zmp3HTML5.adShow(false);
+                    }, t);
+                    adbox.removeClass('none');
+                    adbtn.addClass('none');
+                } else {
+                    adbox.addClass('none');
+                    adbtn.removeClass('none');
+                }
+                this.resize();
+            },
+            init: function() {
+                var url = $('#html5player').removeClass('none').data('xml').split('/');
+                this.isPlaylist = $('#playlistItems').length > 0;
+                if (!MP3.BANNER_OFF) {
+                    $('#html5player ._bannerHide').first().click(function() {
+                        zmp3HTML5.adShow(false);
+                        return false;
+                    });
+                    $('#html5player ._bannerShow').first().click(function() {
+                        zmp3HTML5.adShow(true);
+                        return false;
+                    });
+                }
+                $.getJSON('http://mp3.zing.vn' + '/html5xml/' + url[url.length - 2] + '/' + url[url.length - 1] + '?callback=?', function(rs) {
+                    for (var i in rs.data) {
+                        var item = rs.data[i];
+                        item.title = item.name;
+                        item.mp3 = item.source_list[0] || '#';
+                        item.mp3 = item.source_base + '/' + item.mp3;
+                        item.lrcTime = [];
+                        item.lrcContent = [];
+                        delete(item.name);
+                        zmp3HTML5.playlist.push(item);
+                        for (var i in item.qualities) {
+                            $('.fn-quality .fn-item[data-quality=' + item.qualities[i] + ']').removeClass('disabled');
+                        }
+                    }
+                    zmp3HTML5.initPlayer();
+                });
+            },
+            lrcShow: function(show, rem) {
+                $('.fn-msgbox').addClass('none');
+                if (this.currentItem != null) {
+                    if (show) {
+                        this.lrcOn = false;
+                        $('.fn-lrc-switch').addClass('active');
+                        $('.fn-lyrics-content').removeClass('none');
+                        $('.fn-info').addClass('none');
+                        if (rem) zmp3Storage.setParam('_zpLrc', 1);
+                    } else {
+                        this.lrcOn = false;
+                        $('.fn-lrc-switch').removeClass('active');
+                        $('.fn-lyrics-content').addClass('none');
+                        $('.fn-info').removeClass('none');
+                        if (rem) zmp3Storage.setParam('_zpLrc', 0);
+                    }
+                }
+                this.updateLrc();
+            },
+            resize: function() {
+                var width = $(window).width();
+                setTimeout(function() {
+                    var width0 = $('#html5player').width();
+                    $('#html5player').css('width', "100%").css('height', width / zmp3HTML5.ratio);
+                    var ratio = 1;
+                    if (width < width0 || width < zmp3HTML5.width[0]) {
+                        ratio = zmp3HTML5.width[1] / zmp3HTML5.width[0];
+                    }
+                    var adbox = $('#html5player ._bannerAds').first();
+                    adbox.css('width', adbox.data('width') * ratio).css('height', adbox.data('height') * ratio);
+                }, 50);
+            },
+            showMsg: function(msg) {
+                this.lrcShow(false);
+                var msgbox = $('.fn-msgbox').removeClass('none');
+                $('.fn-msg', msgbox).html(msg);
+                $('.fn-info').addClass('none');
+            },
+            setQuality: function(q, time, rem) {
+                q = parseInt(q);
+                if (q !== 128 && q !== 320) q = 128;
+                $('.fn-quality .fn-list').addClass('none');
+                $('.fn-quality .fn-item').addClass('none').removeClass('active');
+                var exists = false;
+                var item = this.playlist[this.current];
+                if (item.code > 200) {
+                    this.showMsg(item.msg);
+                    this.currentItem = item;
+                    zmp3HTML5.player.jPlayer('setMedia', item);
+                } else {
+                    for (var x in item.qualities) {
+                        if (parseInt(item.qualities[x]) === q && item.source_list[x].length - item.source_base.length > 5) {
+                            exists = true;
+                            if (this.currentItem == null || item.source_base + '/' + item.source_list[x] != this.currentItem.mp3) {
+                                item.mp3 = item.source_base + '/' + item.source_list[x];
+                                this.currentItem = item;
+                                $('.fn-quality .fn-current').html(isNaN(parseInt(q)) ? q : q + 'kbps');
+                                $('.fn-quality .fn-item[data-quality=' + q + ']').addClass('active');
+                                zmp3HTML5.player.jPlayer('setMedia', item).jPlayer('load');
+                                if (this.isPaused) {
+                                    zmp3HTML5.player.jPlayer('pause', time);
+                                } else {
+                                    zmp3HTML5.player.jPlayer('play', time);
+                                }
+                            }
+                        }
+                        $('.fn-quality .fn-item[data-quality=' + item.qualities[x] + ']').removeClass('none');
+                    }
+                    if (rem) zmp3Storage.setParam('_zpQua', q);
+                    if (!exists && q != 128) {
+                        this.setQuality(128, time, rem);
+                    }
+                }
+                return exists;
+            },
+            upnext: function(t) {
+                if (this.repeat > 0 || this.isPlaylist) {
+                    this.next();
+                } else if (parseInt(zmp3Storage.getParam('_zpAuto', 1)) != 0) {
+                    if (this.iupnext > -1) {
+                        $('.fn-lyrics-content').addClass('none');
+                        var link = $('.fn-link', $('.fn-upnext')).attr('href');
+                        if (zmp3HTML5.nextTimer != null) clearTimeout(zmp3HTML5.nextTimer);
+                        if (t > 100) {
+                            $('.fn-upnext').removeClass('none');
+                            zmp3HTML5.nextTimer = setTimeout(function() {
+                                location.href = link;
+                            }, t);
+                        } else {
+                            location.href = link;
+                        }
+                    }
+                }
+            },
+            prev: function() {
+                var index = this.prevList.indexOf(this.current);
+                index = index > 0 ? this.prevList[index - 1] : this.current - 1;
+                this.playAt(index);
+            },
+            next: function() {
+                var index = this.current;
+                var max = this.playlist.length;
+                switch (parseInt(this.repeat)) {
+                    case 3:
+                        do {
+                            index = Math.floor(max * Math.random());
+                        } while (this.prevList.indexOf(index) != -1);
+                        break;
+                    case 0:
+                    case 2:
+                        index++;
+                        if (index >= max) index = 0;
+                        break;
+                    case 1:
+                        break;
+                }
+                this.playAt(index);
+            },
+            focusItem: function(i) {
+                this.prevList.push(i);
+                if (this.prevList.length == this.playlist.length) {
+                    this.prevList.splice(0, 1);
+                }
+                zmp3Player.focusItem(i + 1);
+            },
+            loadForPlay: function(i) {
+                if (zmp3HTML5.nextTimer != null) clearTimeout(zmp3HTML5.nextTimer);
+                if (i > this.playlist.length - 1) {
+                    i = 0;
+                } else if (i < 0) {
+                    i = this.playlist.length - 1;
+                }
+                this.current = i;
+                this.setQuality(zmp3Storage.getParam('_zpQua'), 0, false);
+                if (!MP3.BANNER_OFF) {
+                    var adbox = $('#html5player ._bannerAds').first();
+                    $('.ads', adbox).remove();
+                    if (this.adTimer != null) clearTimeout(this.adTimer);
+                    this.adTimer = setTimeout(function() {
+                        var vs = window.adtimaTargetingString || adbox.data('zads');
+                        $.get('http://api.adtimaserver.vn/rdext/json2?zoneId=' + adbox.data('zoneid') + '&count=1&vs=' + vs, {
+                            format: "json"
+                        }, function(rs) {
+                            if (rs.data.length > 0) {
+                                adbox.append('<div class="ads"><iframe width="100%" height="100%" src="' + rs.data[0].url + '" /></div>').data('width', rs.data[0].iwidth).data('height', rs.data[0].iheight);
+                                zmp3HTML5.adShow(true, rs.data[0].adtime);
+                            }
+                        })
+                    }, 1000);
+                }
+            },
+            playAt: function(i) {
+                this.loadForPlay(i);
+                this.player.jPlayer('stop');
+                this.player.jPlayer('play', 0);
+            },
+            setRepeat: function(st, rem) {
+                st = parseInt(st);
+                var con = $('#html5player');
+                for (var i = 0; i < 4; i++) {
+                    con.removeClass('is-repeat-' + i);
+                }
+                if (this.playlist.length < 2) {
+                    if (st == 1) st = 2;
+                    else if (st > 2) st = 0;
+                }
+                if (st > 3 || isNaN(st)) {
+                    st = 0;
+                }
+                if (!this.isPlaylist) {
+                    if (st == 0 && (parseInt(zmp3Storage.getParam('_zpAuto', 1)) != 0)) {
+                        $('.fn-next', con).removeClass('none');
+                    } else {
+                        $('.fn-next', con).addClass('none');
+                    }
+                } else {
+                    $('.fn-prev', con).removeClass('none');
+                }
+                con.addClass('is-repeat-' + st);
+                this.repeat = st;
+                if (rem) zmp3Storage.setParam('_zpLoop' + (this.isPlaylist ? '' : '1'), st);
+            },
+            pauseItem: function() {
+                if (zmp3HTML5.lrcInterval != null) clearInterval(zmp3HTML5.lrcInterval);
+                this.isPaused = true;
+                zmp3Player.pauseItem(zmp3HTML5.current + 1);
+            },
+            initPlayer: function() {
+                this.player = $('#player5');
+                var con = $('#html5player');
+                var vol = parseFloat(zmp3Storage.getParam('_zpVol'));
+                if (isNaN(vol)) vol = .8;
+                this.player.jPlayer({
+                    preload: 'auto',
+                    cssSelectorAncestor: '#html5player',
+                    stateClass: {
+                        playing: "is-playing",
+                        seeking: "is-seeking",
+                        muted: "is-muted",
+                    }
+                });
+                this.player.PauseMedia = function() {
+                    zmp3HTML5.player.jPlayer('pause');
+                };
+                var player = zmp3Player.player = this.player;
+                if (con.data('mute')) {
+                    player.jPlayer("mute", true);
+                } else {
+                    player.jPlayer("volume", vol);
+                }
+                this.setRepeat(zmp3Storage.getParam('_zpLoop' + (this.isPlaylist ? '' : '1'), 2));
+                var index = 1;
+                if (location.search.length > 0) {
+                    var regEx = /(\?|\&)st\=(\d+)/i;
+                    var match = regEx.exec(location.search);
+                    if (match) {
+                        index = match[2];
+                    }
+                }
+                if (con.data('autoplay')) {
+                    this.playAt(index - 1);
+                } else {
+                    this.loadForPlay(index - 1);
+                }
+                player.bind($.jPlayer.event.error, function(e) {
+                    var stat = e.jPlayer.status;
+                    if (zmp3HTML5.nextTimer != null) clearTimeout(zmp3HTML5.nextTimer);
+                    if (stat.media.code > 200) {
+                        zmp3HTML5.showMsg(stat.media.msg);
+                        zmp3HTML5.nextTimer = setTimeout(function() {
+                            zmp3HTML5.upnext(5000);
+                        }, 5000);
+                    } else {
+                        if (typeof stat.media.mp3 == 'undefined' || stat.media.mp3.length < stat.media.source_base + 5) {
+                            if (stat.media.msg) {
+                                zmp3UI.showMsg(stat.media.msg, 0, 10000);
+                            }
+                            zmp3HTML5.nextTimer = setTimeout(function() {
+                                zmp3HTML5.upnext(5000);
+                            }, 5000);
+                        } else if (zmp3HTML5.attempts < 3) {
+                            zmp3HTML5.attempts++;
+                            zmp3HTML5.player.jPlayer('load');
+                            if (!zmp3HTML5.isPaused) zmp3HTML5.player.jPlayer('play', zmp3HTML5.currentTime);
+                        } else {
+                            zmp3HTML5.attempts = 0;
+                            zmp3HTML5.nextTimer = setTimeout(function() {
+                                zmp3HTML5.upnext(5000);
+                            }, 5000);
+                        }
+                    }
+                });
+                player.bind($.jPlayer.event.loadstart, function(e) {
+                    var stat = e.jPlayer.status;
+                    var id = stat.media.id;
+                    $('.fn-info .fn-name').html(stat.media.title);
+                    $('.fn-info .fn-artist').html(stat.media.artist);
+                    $('.fn-thumb', con).css('background-image', 'url("' + MP3.IMG_URL + (stat.media.cover ? stat.media.cover : '/default') + '")');
+                    zmp3HTML5.loadLrc(stat);
+                });
+                player.bind($.jPlayer.event.timeupdate, function(e) {
+                    zmp3HTML5.currentTime = e.jPlayer.status.currentTime;
+                });
+                player.bind($.jPlayer.event.volumechange, function(e) {
+                    zmp3Storage.setParam('_zpVol', e.jPlayer.options.volume);
+                });
+                player.bind($.jPlayer.event.play, function(e) {
+                    zmp3HTML5.attempts = 0;
+                    zmp3HTML5.isPaused = false;
+                    if (e.jPlayer.status.media.mv_link) {
+                        $('.fn-mv_link', con).removeClass('none').attr('href', e.jPlayer.status.media.mv_link);
+                    } else {
+                        $('.fn-mv_link', con).addClass('none');
+                    }
+                    zmp3HTML5.focusItem(zmp3HTML5.current);
+                    zmp3HTML5.lrcShow(parseInt(zmp3Storage.getParam('_zpLrc', 1)));
+                    zmp3HTML5.updateLrc();
+                });
+                player.bind($.jPlayer.event.pause, function(e) {
+                    zmp3HTML5.pauseItem();
+                });
+                player.bind($.jPlayer.event.seeking, function(e) {
+                    zmp3HTML5.currentTime = e.jPlayer.status.currentTime;
+                });
+                player.bind($.jPlayer.event.seeked, function(e) {
+                    zmp3HTML5.updateLrc();
+                });
+                player.bind($.jPlayer.event.ended, function(e) {
+                    zmp3HTML5.upnext(5000);
+                });
+                $('.fn-quality .fn-switch').click(function() {
+                    var box = $('.fn-quality');
+                    if ($('.fn-list', box).hasClass('none')) {
+                        $('.fn-list', box).removeClass('none');
+                    } else {
+                        $('.fn-list', box).addClass('none');
+                    }
+                    return false;
+                });
+                $('.fn-quality .fn-item').click(function() {
+                    if (!$(this).hasClass('none')) {
+                        zmp3HTML5.setQuality($(this).data('quality'), zmp3HTML5.currentTime, true);
+                    }
+                    return false;
+                });
+                $('.fn-playlist-item a.fn-name').click(function(e) {
+                    zmp3HTML5.playAt(parseInt($(this).data('order')) - 1);
+                    return false;
+                });
+                zmp3HTML5.resize();
+                $(window).resize(function() {
+                    zmp3HTML5.resize();
+                });
+                $('.fn-repeat', con).click(function() {
+                    zmp3HTML5.setRepeat(zmp3HTML5.repeat + 1, true);
+                    return false;
+                });
+                $('.jp-volume-bar').mousedown(function() {
+                    var parentOffset = $(this).offset(),
+                        width = $(this).width();
+                    $(window).mousemove(function(e) {
+                        var x = e.pageX - parentOffset.left,
+                            volume = x / width;
+                        if (volume > 1) {
+                            player.jPlayer("volume", 1);
+                        } else if (volume <= 0) {
+                            player.jPlayer("mute");
+                        } else {
+                            player.jPlayer("volume", volume);
+                            player.jPlayer("unmute");
+                        }
+                    }).mouseup(function() {
+                        $(window).unbind("mousemove");
+                    });
+                    return false;
+                });
+                $('.fn-next', con).click(function() {
+                    zmp3HTML5.upnext(0);
+                    return false;
+                });
+                $('.fn-prev', con).click(function() {
+                    zmp3HTML5.prev(0);
+                    return false;
+                });
+                $('.fn-lrc-switch').click(function() {
+                    zmp3HTML5.lrcShow(parseInt(zmp3Storage.getParam('_zpLrc', 1)) < 1, true);
+                    return false;
+                });
+//                this.lrcShow(parseInt(zmp3Storage.getParam('_zpLrc', 0)));
+                this.lrcShow(false, false);
+            }
+        };
+    </script>
+</body>
+
+</html>

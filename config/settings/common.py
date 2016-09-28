@@ -39,12 +39,15 @@ THIRD_PARTY_APPS = (
     'allauth',  # registration
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
+    'bootstrap_pagination',
 )
 
 # Apps specific for this project go here.
 LOCAL_APPS = (
     # custom users app
-    'bilyric.users.apps.UsersConfig',
+    # 'bilyric.users.apps.UsersConfig',
+    'bilyric.frontend',
+    'bilyric.backend',
     # Your stuff: custom apps go here
 )
 
@@ -100,9 +103,19 @@ MANAGERS = ADMINS
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
 DATABASES = {
     # Raises ImproperlyConfigured exception if DATABASE_URL not in os.environ
-    'default': env.db('DATABASE_URL', default='postgres:///bilyric'),
+    #'default': env.db('DATABASE_URL', default='postgres:///bilyric'),
 }
-DATABASES['default']['ATOMIC_REQUESTS'] = True
+#DATABASES['default']['ATOMIC_REQUESTS'] = True
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'dualsub',
+        'USER': 'root',
+        'PASSWORD': 'dualsub@123',
+        'HOST': '127.0.0.1',
+        'PORT': '3308',
+    }
+}
 
 
 # GENERAL CONFIGURATION
@@ -209,19 +222,19 @@ AUTHENTICATION_BACKENDS = (
 )
 
 # Some really nice defaults
-ACCOUNT_AUTHENTICATION_METHOD = 'username'
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+#ACCOUNT_AUTHENTICATION_METHOD = 'username'
+#ACCOUNT_EMAIL_REQUIRED = True
+#ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
-ACCOUNT_ALLOW_REGISTRATION = env.bool('DJANGO_ACCOUNT_ALLOW_REGISTRATION', True)
-ACCOUNT_ADAPTER = 'bilyric.users.adapters.AccountAdapter'
-SOCIALACCOUNT_ADAPTER = 'bilyric.users.adapters.SocialAccountAdapter'
+#ACCOUNT_ALLOW_REGISTRATION = env.bool('DJANGO_ACCOUNT_ALLOW_REGISTRATION', True)
+#ACCOUNT_ADAPTER = 'bilyric.users.adapters.AccountAdapter'
+#SOCIALACCOUNT_ADAPTER = 'bilyric.users.adapters.SocialAccountAdapter'
 
 # Custom user app defaults
 # Select the correct user model
-AUTH_USER_MODEL = 'users.User'
-LOGIN_REDIRECT_URL = 'users:redirect'
-LOGIN_URL = 'account_login'
+#AUTH_USER_MODEL = 'users.User'
+#LOGIN_REDIRECT_URL = 'users:redirect'
+#LOGIN_URL = 'account_login'
 
 # SLUGLIFIER
 AUTOSLUG_SLUGIFY_FUNCTION = 'slugify.slugify'

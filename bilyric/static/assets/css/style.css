@@ -1,0 +1,56 @@
+.bl-container {
+  width: 80%;
+}
+.mdl-layout--fixed-header {
+  /*background: url('/static/assets/images/parallax2.jpg') center / cover;*/
+}
+
+#parallax {
+  height: 300px;
+  background-image: url("/static/assets/images/parallax2.jpg");
+}
+
+#parallax .site-title {
+  z-index: 2;
+  color: #fff;
+  padding-left: 10em;
+  padding-top: 80px;
+}
+
+#parallax .site-title .site-name {
+  font-family: 'Lobster', cursive;
+  font-size: 6em;
+  margin: 0;
+}
+
+#parallax .site-title .slogan {
+  color: #fff;
+  font-size: 3em;
+  margin: 0;
+}
+
+/* song-frame  */
+#song-frame {
+    position: relative;
+    height: 300px;
+}
+#subtitle {
+    position: absolute;
+    width: 100%;
+    top: 18%;
+    left: 0px;
+    z-index: 1000;
+    font-family: 'Roboto', sans-serif !important;
+    text-shadow: -1px 0 black,0 1px black,1px 0 black,0 -1px #000;
+    font-size: 2em !important;
+    line-height: 1em !important;
+}
+#sub1 {
+    text-align: center;
+    color: yellow;
+}
+#sub2 {
+    text-align: center;
+    color: #46ff19;
+}
+/* end song-frame  */

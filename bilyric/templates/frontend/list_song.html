@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load bootstrap_pagination %}
+
+{% block title %}All Songs{% endblock %}
+{% block content %}
+<div class="container">
+    <h4 class="text-bil col-md-12">TẤT CẢ BÀI HÁT</h4>
+    {% for song_item in songs %}
+    <div class=" col-md-4">
+        <div class="clearfix song-item">
+            <i class="fa fa-music fa-2x pull-left"></i>
+            <div class="pull-left">
+                <p class="song-name"><a href="{% url 'frontend:play_song' song_item.slug %}">{{ song_item.name }}</a>
+                </p>
+                <p class="song-artist">{{ song_item.artist }}</p>
+            </div>
+            <div class="pull-right">
+                <p class="song-name"><i class="fa fa-headphones" aria-hidden="true"></i> {{song_item.view}}</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    <div class="col-md-12">
+        {% bootstrap_paginate songs range=5 show_first_last="true" first_label="First" last_label="End" %}
+    </div>
+</div>
+
+{% endblock %}

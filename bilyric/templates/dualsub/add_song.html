@@ -1,0 +1,102 @@
+{% extends 'dualsub/base.html' %}
+{% load staticfiles %}
+{% block title %}Add Song{% endblock %}
+
+{% block page_title %}
+    Add Song
+{% endblock %}
+
+{% block style %}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <!--{% if status %}-->
+    <div class="col-md-12">
+        <div class="alert alert-dismissible alert-success">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <strong>{{status}}</strong> {{message}}</a>.
+        </div>
+    </div>
+    <!--{% endif %}-->
+
+
+
+
+    <div class="col-md-12 form-group">
+        <label for="zmp3-link" class="col-md-2 control-label input-sm">ZMP3 Link</label>
+        <div class="col-md-7">
+            <input type="text" class="form-control input-sm" id="zmp3-link" name="zmp3_link">
+        </div>
+        <div class="col-md-2">
+            <button id="get-zmp3id" class="btn btn-primary input-sm">Get ZMP3ID</button>
+        </div>
+    </div>
+    <form action="{% url 'dualsub:add_song'%}" method="post" class="form-group" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="col-md-12 form-group">
+            <label for="name" class="col-md-2 control-label input-sm">Song name:</label>
+            <div class="col-md-3">
+                <input required type="text" class="col-md-3 form-control input-sm" id="name" name="name">
+            </div>
+        </div>
+
+        <div class="col-md-12 form-group">
+            <label for="artist" class="col-md-2 control-label input-sm">Song artist:</label>
+            <div class="col-md-3">
+                <input type="text" class="col-md-3 form-control input-sm" id="artist" name="artist">
+            </div>
+        </div>
+
+        <div class="col-md-12 form-group">
+            <label for="slug" class="col-md-2 control-label input-sm">Song slug:</label>
+            <div class="col-md-3">
+                <input required type="text" class=" form-control input-sm" id="slug" name="slug">
+            </div>
+        </div>
+
+        <div class="col-md-12 form-group">
+            <label for="zmp3id" class="col-md-2 control-label input-sm">ZMP3 ID</label>
+            <div class="col-md-3">
+                <input required type="text" class=" form-control input-sm" id="zmp3id" name="zmp3id">
+            </div>
+        </div>
+
+        <div class="col-md-12 form-group">
+            <label for="zmp3xml" class="col-md-2 control-label input-sm">ZMP3 XML</label>
+            <div class="col-md-3">
+                <input required type="text" class=" form-control input-sm" id="zmp3xml" name="zmp3xml">
+            </div>
+        </div>
+
+        <div class="col-md-12 form-group">
+            <label for="sub1" class="col-md-2 control-label input-sm">Subtitle 1</label>
+            <div class="col-md-3">
+                <input required type="file" class=" form-control input-sm" id="sub1" name="sub1">
+            </div>
+        </div>
+
+        <div class="col-md-12 form-group">
+            <label for="sub2" class="col-md-2 control-label input-sm">Subtitle 2</label>
+            <div class="col-md-3">
+                <input type="file" class=" form-control input-sm" id="sub2" name="sub2">
+            </div>
+        </div>
+        <div class="col-md-12 form-group">
+            <input type="submit" value="Submit" class="btn btn-primary input-sm"/>
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'plugins/srt/srt2.js' %}"></script>
+
+<script src="{% static 'assets/js/subtitle.js' %}"></script>
+
+{% endblock %}
