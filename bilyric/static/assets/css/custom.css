@@ -1,534 +1,343 @@
-/**
- * Copyright 2015 Google Inc. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 body {
-  margin: 0;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    /*background-color: #F0F0F0;*/
+    padding-top: 54px;
+    /*background-image: url("/static/assets/images/weather.png");*/
 }
 
-/* Disable ugly boxes around images in IE10 */
-a img{
-  border: 0px;
+.navbar{
+    background-color: #2dcd75;
+    background-image: url("/static/assets/images/bg-topbar.jpg");
+    border: none;
+    -webkit-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.49);
+    -moz-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.49);
+    box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.49);
 }
 
-::-moz-selection {
-  background-color: #6ab344;
-  color: #fff;
+.navbar .navbar-brand{
+    font-family: 'Lobster', cursive;
+    font-size: 2.5em;
+}
+.navbar a{
+    text-transform: capitalize;
+    color: #fefefe !important;
+    font-weight: bold !important;
 }
 
-::selection {
-  background-color: #6ab344;
-  color: #fff;
+.nav li{
+    border-top: #2dcd75 solid 2px !important;
+    /*border-bottom: #14a0f8 solid 3px !important;*/
 }
 
-.android-search-box .mdl-textfield__input {
-  color: rgba(0, 0, 0, 0.87);
+.nav li:hover{
+    border-top: #ffffff solid 2px !important;
+    background-color: #363C3F !important;
 }
 
-.android-header .mdl-menu__container {
-  z-index: 50;
-  margin: 0 !important;
+.nav li:hover a{
+    color: #2dcd75 !important;
 }
 
-
-.mdl-textfield--expandable {
-  width: auto;
+.nav .dropdown-menu li {
+    border-top: none !important;
 }
 
-.android-fab {
-  position: absolute;
-  right: 20%;
-  bottom: -26px;
-  z-index: 3;
-  background: #64ffda !important;
-  color: black !important;
+.navbar-default .navbar-nav>.open>a{
+    background-color: #2dcd75 !important;
 }
 
-.android-mobile-title {
-  display: none !important;
+.nav .dropdown-menu a {
+    color: #4e4e4e !important;
 }
 
-
-.android-logo-image {
-  height: 28px;
-  width: 140px;
+.btn-bil{
+    background-color: #2dcd75;
+    color: #fff;
 }
 
-
-.android-header {
-  overflow: visible;
-  background-color: white;
+.btn-bil:hover{
+    background-color: #5ce59a;
+    color: #fff;
 }
 
-  .android-header .material-icons {
-    color: #767777 !important;
-  }
-
-  .android-header .mdl-layout__drawer-button {
-    background: transparent;
-    color: #767777;
-  }
-
-  .android-header .mdl-navigation__link {
-    color: #757575;
-    font-weight: 700;
-    font-size: 14px;
-  }
-
-  .android-navigation-container {
-    /* Simple hack to make the overflow happen to the left instead... */
-    direction: rtl;
-    order: 1;
-    width: 500px;
-    transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1),
-        width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .android-navigation {
-    /* ... and now make sure the content is actually LTR */
-    direction: ltr;
-    justify-content: flex-end;
-    width: 800px;
-  }
-
-  .android-search-box.is-focused + .android-navigation-container {
-    opacity: 0;
-    width: 100px;
-  }
-
-
-  .android-navigation .mdl-navigation__link {
-    display: inline-block;
-    height: 60px;
-    line-height: 68px;
-    background-color: transparent !important;
-    border-bottom: 4px solid transparent;
-  }
-
-    .android-navigation .mdl-navigation__link:hover {
-      border-bottom: 4px solid #8bc34a;
-    }
-
-  .android-search-box {
-    order: 2;
-    margin-left: 16px;
-    margin-right: 16px;
-  }
-
-  .android-more-button {
-    order: 3;
-  }
-
-
-.android-drawer {
-  border-right: none;
+.fa-music {
+    color: #2dcd75;
+}
+.song-title{
+    margin-top: 0;
+}
+.song-artist {
+    color: #afb4b7;
 }
 
-  .android-drawer-separator {
-    height: 1px;
-    background-color: #dcdcdc;
-    margin: 8px 0;
-  }
-
-  .android-drawer .mdl-navigation__link.mdl-navigation__link {
-    font-size: 14px;
-    color: #757575;
-  }
-
-  .android-drawer span.mdl-navigation__link.mdl-navigation__link {
-    color: #8bc34a;
-  }
-
-  .android-drawer .mdl-layout-title {
-    position: relative;
-    background: #6ab344;
-    height: 160px;
-  }
-
-    .android-drawer .android-logo-image {
-      position: absolute;
-      bottom: 16px;
-    }
-
-.android-be-together-section {
-  position: relative;
-  height: 800px;
-  width: auto;
-  background-color: #f3f3f3;
-  background: url('images/slide01.jpg') center 30% no-repeat;
-  background-size: cover;
+#parallax{
+    height: 400px;
+    background-image: url("/static/assets/images/parallax.jpg");
 }
 
-.logo-font {
-  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
-  line-height: 1;
-  color: #767777;
-  font-weight: 500;
-}
-
-.android-slogan {
-  font-size: 60px;
-  padding-top: 160px;
-}
-
-.android-sub-slogan {
-  font-size: 21px;
-  padding-top: 24px;
-}
-
-.android-create-character {
-  font-size: 21px;
-  padding-top: 400px;
-}
-
-  .android-create-character a {
-    text-decoration: none;
-    color: #767777;
-    font-weight: 300;
-  }
-
-.android-screen-section {
-  position: relative;
-  padding-top: 60px;
-  padding-bottom: 80px;
-}
-
-.android-screens {
-  text-align: right;
-  width: 100%;
-  white-space: nowrap;
-  overflow-x: auto;
-}
-
-.android-screen {
-  text-align: center;
-}
-
-.android-screen .android-link {
-  margin-top: 16px;
-  display: block;
-  z-index: 2;
-}
-
-.android-image-link {
-  text-decoration: none;
-}
-
-.android-wear {
-  display: inline-block;
-  width: 160px;
-  margin-right: 32px;
-}
-
-  .android-wear .android-screen-image {
-    width: 40%;
-    z-index: 1;
-  }
-
-
-.android-phone {
-  display: inline-block;
-  width: 64px;
-  margin-right: 48px;
-}
-
-  .android-phone .android-screen-image {
-    width: 100%;
-    z-index: 1;
-  }
-
-
-.android-tablet {
-  display: inline-block;
-  width: 110px;
-  margin-right: 64px;
-}
-
-  .android-tablet .android-screen-image {
-    width: 100%;
-    z-index: 1;
-  }
-
-  .android-tablet .android-link {
-    display: block;
+#parallax .site-title{
     z-index: 2;
-  }
-
-
-.android-tv {
-  display: inline-block;
-  width: 300px;
-  margin-right: 80px;
+    color: #fff;
+    padding-left: 10em;
+    padding-top: 80px;
+}
+#parallax .site-title .site-name{
+    font-family: 'Lobster', cursive;
+    font-size: 6em;
+    margin: 0;
+}
+#parallax .site-title .slogan{
+    color: #fff;
+    font-size: 3em;
+    margin: 0;
 }
 
-  .android-tv .android-screen-image {
+
+#content {
+    padding-top: 0px;
+    min-height: 85vh;
+    background-color: #ffffff;
+}
+#main-content {
+    margin-top: 20px;
+}
+#play-page {
+    margin-top: 10px;
+}
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover{
+    background-color: #2dcd75;
+    border-color: #2dcd75;
+}
+.bil-tab li a {
+    color: #afb4b7;
+    border: none;
+    border-bottom: #fff solid 2px;
+}
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+    border: none;
+    border-bottom: #363c3f solid 2px;
+    color: #363c3f;
+}
+.nav-tabs>li>a:hover {
+    border: none;
+    background: none;
+    border-bottom: #363c3f solid 2px;
+    color: #363c3f;
+}
+.bil-tab{
+    list-style: none;
+    border: none;
+    height: 26px;
+    margin-bottom: 15px;
+}
+.bil-tab li{
+    padding-right: 10px;
+    font-size: 1.2em;
+}
+.bil-tab li a:hover, a:focus{
+    text-decoration: none;
+}
+
+
+/* song-frame  */
+#song-frame {
+    position: relative;
+    height: 16em;
+}
+#subtitle {
+    position: absolute;
     width: 100%;
-    z-index: 1;
-  }
-
-
-.android-auto {
-  display: inline-block;
-  width: 300px;
-  overflow: hidden;
+    top: 18%;
+    left: 0px;
+    z-index: 1000;
+    font-family: 'Roboto', sans-serif !important;
+    text-shadow: -1px 0 black,0 1px black,1px 0 black,0 -1px #000;
+    font-size: 2em !important;
+    line-height: 1em !important;
+}
+#sub1 {
+    text-align: center;
+    color: yellow;
+}
+#sub2 {
+    text-align: center;
+    color: #46ff19;
+}
+/* end song-frame  */
+/* song-item */
+.song-item {
+    border-bottom: #f3f3f3 solid 1px;
+    padding-top: 0.8em;
+    padding-bottom: 0.5em;
+}
+.song-item p{
+    margin: 0;
+    font-size: 1.1em;
+    line-height: 1.3em;
+    max-width: 15em;
 }
 
-  .android-auto .android-screen-image {
-    display: block;
-    height: 300px;
-    z-index: 1;
-  }
-
-
-.android-wear-section {
-  position: relative;
-  background: url('images/wear.png') center top no-repeat;
-  background-size: cover;
-  height: 800px;
-}
-
-.android-wear-band {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  text-align: center;
-  background-color: #37474f;
-}
-
-.android-wear-band-text {
-  max-width: 800px;
-  margin-left: 25%;
-  padding: 24px;
-  text-align: left;
-  color: white;
-}
-
-  .android-wear-band-text p {
-    padding-top: 8px;
-  }
-
-.android-link {
-  text-decoration: none;
-  color: #8bc34a !important;
-}
-
-  .android-link:hover {
-    color: #7cb342 !important;
-  }
-
-  .android-link .material-icons {
-    position: relative;
-    top: -1px;
-    vertical-align: middle;
-  }
-
-.android-alt-link {
-  text-decoration: none;
-  color: #64ffda !important;
-  font-size: 16px;
-}
-
-  .android-alt-link:hover {
-    color: #00bfa5 !important;
-  }
-
-  .android-alt-link .material-icons {
-    position: relative;
-    top: 6px;
-  }
-
-.android-customized-section {
-  text-align: center;
-}
-
-.android-customized-section-text {
-  max-width: 500px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 80px 16px 0 16px;
-}
-
-  .android-customized-section-text p {
-    padding-top: 16px;
-  }
-
-.android-customized-section-image {
-  background: url('images/devices.jpg') center top no-repeat;
-  background-size: cover;
-  height: 400px;
-}
-
-.android-more-section {
-  padding: 80px 0;
-  max-width: 1044px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-  .android-more-section .android-section-title {
-    margin-left: 12px;
-    padding-bottom: 24px;
-  }
-
-.android-card-container {
-}
-
-  .android-card-container .mdl-card__media {
+.song-item .song-name {
+    width: 100%;
+    white-space: nowrap;
     overflow: hidden;
-    background: transparent;
-  }
-
-    .android-card-container .mdl-card__media img {
-      width: 100%;
-    }
-
-  .android-card-container .mdl-card__title {
-    background: transparent;
-    height: auto;
-  }
-
-  .android-card-container .mdl-card__title-text {
-    color: black;
-    height: auto;
-  }
-
-  .android-card-container .mdl-card__supporting-text {
-    height: auto;
-    color: black;
-    padding-bottom: 56px;
-  }
-
-  .android-card-container .mdl-card__actions {
-    position: absolute;
-    bottom: 0;
-  }
-
-  .android-card-container .mdl-card__actions a {
-    border-top: none;
-    font-size: 16px;
-  }
-
-.android-footer {
-  background-color: #fafafa;
-  position: relative;
+    text-overflow: ellipsis;
+}
+.song-item a{
+    color: #363c3f;
+}
+.song-item a:hover {
+    text-decoration: none;
+    color: #2dcd75;
+}
+/*end song item*/
+.text-bil{
+    color: #363c3f;
 }
 
-  .android-footer a:hover {
-    color: #8bc34a;
-  }
-
-  .android-footer .mdl-mega-footer--top-section::after {
-    border-bottom: none;
-  }
-
-  .android-footer .mdl-mega-footer--middle-section::after {
-    border-bottom: none;
-  }
-
-  .android-footer .mdl-mega-footer--bottom-section {
-    position: relative;
-  }
-
-  .android-footer .mdl-mega-footer--bottom-section a {
-    margin-right: 2em;
-  }
-
-  .android-footer .mdl-mega-footer--right-section a .material-icons {
-    position: relative;
-    top: 6px;
-  }
-
-
-.android-link-menu:hover {
-  cursor: pointer;
+.sidebar{
+    padding-left: 0;
 }
 
+.sidebar h5 {
+    margin-top: 0;
+}
 
-/**** Mobile layout ****/
-@media (max-width: 900px) {
-  .android-navigation-container {
-    display: none;
-  }
+/*!*  transcript  *!*/
+#transcript p{
+    z-index: 1000;
+    position: relative;
+    color: #353535;
+}
+#transcript ul{
+    padding: 0;
+}
 
-  .android-title {
-    display: none !important;
-  }
+#transcript li {
+    margin: 0;
+    font-size: 17px;
+    list-style: none;
+}
 
-  .android-mobile-title {
-    display: block !important;
-    position: absolute;
-    left: calc(50% - 70px);
-    top: 12px;
-    transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  }
+#transcript .tline {
+    border-bottom: #f3f3f3 solid 1px;
+    padding-top: 0.7em;
+    padding-left: 0.7em;
+    cursor: pointer;
+}
 
-  /* WebViews in iOS 9 break the "~" operator, and WebViews in OS X 10.10 break
-     consecutive "+" operators in some cases. Therefore, we need to use both
-     here to cover all the bases. */
-  .android.android-search-box.is-focused ~ .android-mobile-title,
-  .android-search-box.is-focused + .android-navigation-container + .android-mobile-title {
-    opacity: 0;
-  }
+#transcript .tline p{
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+}
 
-  .android-more-button {
-    display: none;
-  }
+#transcript .tsub1 {
+    /*font-weight: 600;*/
+}
 
-  .android-search-box.is-focused {
-    width: calc(100% - 48px);
-  }
+#transcript .tsub2 {
+    /*font-weight: 500;*/
+    font-size: 15px;
+}
 
-  .android-search-box .mdl-textfield__expandable-holder {
+#transcript .active p{
+    color: #ff6a06!important;
+}
+/* end  transcript  */
+
+#footer {
+    background-color: #ebebeb;
+    color: #303030;
+    padding: 0.5em;
+    min-height: 20px;
     width: 100%;
-  }
+    text-align: center;
+}
 
-  .android-be-together-section {
-    height: 350px;
-  }
+/* */
+#shift {
+    text-align: center;
+}
 
-  .android-slogan {
-    font-size: 26px;
-    margin: 0 16px;
-    padding-top: 24px;
-  }
+#search-box{
+    position: relative;
+    z-index: 1001;
+}
 
-  .android-sub-slogan {
-    font-size: 16px;
-    margin: 0 16px;
-    padding-top: 8px;
-  }
+#search-box .selectize-input input{
+    min-width: 24em;
+    color: black;
 
-  .android-create-character {
-    padding-top: 200px;
-    font-size: 16px;
-  }
+}
 
-  .android-create-character img {
-    height: 12px;
-  }
+.family-song {
+    padding-top: 3em;
+}
 
-  .android-fab {
-    display: none;
-  }
+#page-logo{
+    /*background-image: url("/static/beta.png");*/
+    background-size: 60px 41px;
+    background-repeat: no-repeat;
+    background-position: top right;
+    display: inline-block;
+    padding-right: 1.5em;
+}
 
-  .android-wear-band-text {
-    margin-left: 0;
-    padding: 16px;
-  }
+/* Dành cho điện thoại */
+@media all and (max-width: 767px) {
+    #parallax .site-title{
+        padding-left: 2em;
+        padding-top: 60px;
+    }
+    .navbar{
+        height: inherit;
+    }
+    #slider {
+        display: none;
+    }
+    .last-song{
+        padding: 0;
+    }
+    #main-content{
+        padding: 0;
+    }
+    #wrap-body{
+        padding: 0;
+    }
+    #play-page{
+        padding: 0;
+    }
+    #play-page {
+        padding: 0;
+    }
+    #play-page .song-panel{
+        display: none;
+    }
+    #song-frame {
+        display: none;
+    }
+    .sidebar{
+        padding: 0;
+    }
+    .content{
+        padding: 0;
 
-  .android-footer .mdl-mega-footer--bottom-section {
-    display: none;
-  }
+    }
+    .song-title{
+        margin-top: 0;
+    }
+    #transcript p{
+        text-align: center;
+        font-size: 1.4em!important;
+    }
+    #transcript{
+        margin-bottom: 1em;
+    }
+}
+
+
+/**/
+#action .action-item {
+    margin-right: 0.3em;
 }

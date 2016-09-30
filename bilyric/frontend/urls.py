@@ -9,3 +9,7 @@ urlpatterns = [
     url(r'^favor-song$', views.favor_song, name='favor_song'),
     url(r'^logout/$', views.logout, name='logout')
 ]
+
+urlpatterns += [
+    url(r'^ajax/subtitles/(?P<song_id>\d*)$', views.ajax_subtitles, name='ajax_subtitles'),
+]

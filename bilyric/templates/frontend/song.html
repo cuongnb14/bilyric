@@ -3,31 +3,260 @@
 
 {% block title %}{{ song.name }} - {{ song.artist }}{% endblock %}
 
-{% block content %}
-    <div class="mdl-grid">
-        <div class="mdl-layout-spacer"></div>
-        <div class="mdl-cell mdl-cell--10-col">
-            <div class="mdl-grid">
-                <div class="mdl-cell mdl-cell--8-col">
-                    <h3>{{ song.name }}
-                        <small>{{ song.artist }}</small>
-                    </h3>
+{% block style %}
+<link href="{% static 'plugins/jquery/jquery.mCustomScrollbar.css' %}" rel="stylesheet">
 
-                    <div id="song-frame">
-                        <div id="subtitle">
-                            <p id="sub1">{{ song.name }}
-                            <p>
-                            <p id="sub2">{{ song.artist }}
-                            <p>
+<style>
+    .off-lights {
+        width: 100%; height: 100%; left: 0px; top: 0px; position: fixed; opacity: 0.8; z-index: 999; background: rgb(0, 0, 0);
+    }
+</style>
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'plugins/srt/srt2.js' %}"></script>
+
+<script src="{% static 'assets/js/subtitle.js' %}"></script>
+
+<!--link: http://manos.malihu.gr/jquery-custom-content-scroller  -->
+<script src="{% static 'plugins/jquery/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+<script>
+jQuery(document).ready(function ($) {
+
+    setTimeout(function(){
+        $.ajax({
+            url: "{% url 'frontend:ajax_subtitles' song.id %}",
+            async: true,
+            cache: false,
+            success: function (data) {
+
+            }
+        });
+    }, 5000);
+
+    var subtitle = {};
+    $.ajax({
+        url: "{% url 'frontend:ajax_subtitles' song.id %}",
+        async: false,
+        cache: false,
+        success: function (data) {
+            subtitle = data;
+        }
+    });
+    processSubtitle(subtitle);
+
+    $("#lights").click(function(){
+        $("#lights-background").addClass("off-lights");
+        $(".tline p").css('color','#eee');
+        $("#search-box").css("z-index", '998');
+    });
+    $("#lights-background").click(function(){
+        $(this).removeClass("off-lights");
+        $(".tline p").css('color','#353535');
+        $("#search-box").css("z-index", '1001');
+    });
+
+
+});
+</script>
+{% endblock %}
+
+
+{% block content %}
+<div class="container" id="play-page">
+    <div class="col-md-8">
+        <h3 class="song-title">{{ song.name }}
+            <small>{{ song.artist }}</small>
+        </h3>
+
+        <div id="song-frame">
+            <div id="subtitle">
+                <p id="sub1">{{ song.name }}
+                <p>
+                <p id="sub2">{{ song.artist }}
+                <p>
+            </div>
+            <iframe id="zmp3-frame" scrolling="no" width="100%" height="100%"
+                    src="{% url 'frontend:zmp3_song' song.zmp3_xml %}" frameborder="0" allowfullscreen="true">
+            </iframe>
+        </div>
+
+
+        <div class="form-group row">
+            <!--<label for="shift" class="col-md-2 control-label input-sm">Shift subtitle(s): </label>-->
+            <!--<div class="col-md-2">-->
+                <!--<input type="number" class="form-control input-sm" id="shift" value="0" step="0.5">-->
+            <!--</div>-->
+            <div class="col-md-6" id="action">
+                <div class="pull-left action-item">
+                     <button  class="btn btn-sm btn-bil" id="lights"><i class="fa fa-lightbulb-o" aria-hidden="true"></i> Tắt đèn</button>
+                </div>
+                <div class="pull-left action-item">
+                         {% if favor %}
+                         <button data-action="remove" data-song="{{ song.id }}" class="btn btn-sm btn-bil favor" title="Xóa khỏi bài hát yêu thích">
+                            <i class="fa fa-heart" aria-hidden="true"></i>
+                         </button>
+                         {% else %}
+                           {% if user.is_authenticated %}
+                              <button data-action="add" data-song="{{ song.id }}" class="btn btn-sm btn-bil favor" title="Thêm vào bài hát yêu thích">
+                                <i class="fa fa-heart-o" aria-hidden="true"></i>
+                              </button>
+                            {% else %}
+                                <button data-toggle="modal" data-target="#login-modal" class="btn btn-sm btn-bil" title="Thêm vào bài hát yêu thích">
+                                    <i class="fa fa-heart-o" aria-hidden="true"></i>
+                                </button>
+
+{#                            <!-- Modal -->#}
+{#                            <div class="modal fade bs-example-modal-sm" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">#}
+{#                              <div class="modal-dialog modal-sm" role="dialog">#}
+{#                                <div class="modal-content">#}
+{#                                  <div class="modal-header">#}
+{#                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>#}
+{#                                    <h4 class="modal-title" id="myModalLabel">Đăng nhập</h4>#}
+{#                                  </div>#}
+{#                                  <div class="modal-body">#}
+{#                                      <a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}" class="btn btn-bil">Đăng nhập bằng Facebook</a>#}
+{#                                  </div>#}
+{#                                  <div class="modal-footer">#}
+{#                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>#}
+{#                                  </div>#}
+{#                                </div>#}
+{#                              </div>#}
+{#                            </div>#}
+
+                            {% endif %}
+                         {% endif %}
+                </div>
+            </div>
+
+
+
+            <div class="pull-right" style="padding-right: 1em">
+                <h6>Lượt nghe: <strong>{{song.view}}</strong></h6>
+            </div>
+        </div>
+        {% if user.is_authenticated and perms.dualsub.change_song and perms.dualsub.change_subtitle %}
+
+            <div class="panel panel-default">
+              <div class="panel-heading clearfix">
+                    <h3 class="panel-title pull-left">Admin toolbar</h3>
+                    <div class="pull-right">
+                        <button id="toggle-toolbar" class="btn btn-bil btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                    </div>
+              </div>
+              <div class="panel-body" id="admin-toolbar" style="display: none">
+                    <div  class="form-group">
+                        <div class="row">
+                            <label for="shift" class="col-md-2 control-label input-sm">Shift subtitle(s): </label>
+                            <div class="col-md-2">
+                                <input type="number" class="form-control input-sm" id="shift" value="0" step="0.5">
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-bil btn-sm" id="save-shift" data-url="{% url 'frontend:ajax_subtitles' song.id %}"> Save Lyrics </button>
+                            </div>
+                            <div class="col-md-1">
+                                <button class="btn btn-bil btn-sm" id="bybot" data-song="{{song.id}}">
+                                    {% if song.bybot %}
+                                    <i data-value="0" class="fa fa-user-times"></i>
+                                    {% else %}
+                                    <i class="fa fa-user" data-value="1"></i>
+                                    {% endif %}
+                                </button>
+                            </div>
+
+                            <div class="col-md-1">
+                                <button class="btn btn-bil btn-sm" id="visible" data-song="{{song.id}}">
+                                    {% if song.visible %}
+                                    <i data-value="0" class="fa fa-eye"></i>
+                                    {% else %}
+                                    <i class="fa fa-eye-slash" data-value="1"></i>
+                                    {% endif %}
+                                </button>
+                            </div>
                         </div>
-                        <iframe id="zmp3-frame" scrolling="no" width="100%" height="100%"
-                                src="{% url 'frontend:zmp3_song' song.zmp3_xml %}" frameborder="0"
-                                allowfullscreen="true">
-                        </iframe>
+
+
+                        <div class="row form-group">
+                            <label for="zmp3-link" class="col-md-2 control-label input-sm">ZMP3 link: </label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control input-sm" id="zmp3-link" >
+                            </div>
+                            <div class="col-md-1">
+                                <button class="btn btn-bil btn-sm" id="get-zmp3id" > Get ZMP3ID </button>
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <label for="zmp3id" class="col-md-2 control-label input-sm">ZMP3 ID: </label>
+                            <div class="col-md-2">
+                                <input type="text" class="form-control input-sm" id="zmp3id" value="{{song.zmp3_id}}">
+                            </div>
+
+                            <label for="zmp3xml" class="col-md-2 control-label input-sm">ZMP3 XML: </label>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control input-sm" id="zmp3xml" value="{{song.zmp3_xml}}">
+                            </div>
+                            <div class="col-md-1">
+                                <button data-song="{{song.id}}" class="btn btn-bil btn-sm" id="save-zmp3id" > Save ZMP3ID </button>
+                            </div>
+                        </div>
+                    </div>
+
+              </div>
+            </div>
+
+
+        {% endif %}
+
+        <hr>
+        <div class="song-panel">
+            <div class="clearfix col-md-12">
+                <h4 class="title-panel text-bil pull-left" style="margin-top: 0">CÓ THỂ BẠN THÍCH NGHE</h4>
+                <div class="pull-right">
+                    Auto play: <input type="checkbox" id="auto-play" class="switch form-control input-xs">
+                </div>
+            </div>
+
+            {% for song_item in songs %}
+            <div class="col-md-6">
+                <div class="song-item clearfix">
+                    <i class="fa fa-music fa-2x pull-left"></i>
+                    <div class="pull-left">
+                        <p class="song-name random-song" data-slug="{{song_item.slug}}"><a href="{% url 'frontend:play_song' song_item.slug %}">{{ song_item.name }}</a>
+                        </p>
+                        <p class="song-artist">{{ song_item.artist }}</p>
+                    </div>
+                    <div class="pull-right">
+                        <p class="song-name"><i class="fa fa-headphones" aria-hidden="true"></i> {{song_item.view}}</p>
                     </div>
                 </div>
             </div>
+            {% endfor %}
         </div>
-        <div class="mdl-layout-spacer"></div>
+
     </div>
+    <div class="col-md-4 sidebar">
+        <div id="transcript">
+            <ul>
+
+            </ul>
+        </div>
+        <div class="song-panel family-song">
+            <h4 class="title-panel text-bil">BÀI HÁT TƯƠNG TỰ</h4>
+            {% for song_item in song_artist %}
+            <div class="song-item clearfix">
+                <i class="fa fa-music fa-2x pull-left"></i>
+                <div class="pull-left">
+                    <p class="song-name random-song" data-slug="{{song_item.slug}}"><a href="{% url 'frontend:play_song' song_item.slug %}">{{ song_item.name }}</a>
+                    </p>
+                    <p class="song-artist">{{ song_item.artist }}</p>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+
+    </div>
+</div>
+
+<div id="lights-background" ></div>
 {% endblock %}

@@ -1,6 +1,7 @@
-.bl-container {
-  width: 80%;
+body {
+  min-height: 1800px;
 }
+
 .mdl-layout--fixed-header {
   /*background: url('/static/assets/images/parallax2.jpg') center / cover;*/
 }
@@ -31,26 +32,77 @@
 
 /* song-frame  */
 #song-frame {
-    position: relative;
-    height: 300px;
+  position: relative;
+  height: 300px;
 }
+
 #subtitle {
-    position: absolute;
-    width: 100%;
-    top: 18%;
-    left: 0px;
-    z-index: 1000;
-    font-family: 'Roboto', sans-serif !important;
-    text-shadow: -1px 0 black,0 1px black,1px 0 black,0 -1px #000;
-    font-size: 2em !important;
-    line-height: 1em !important;
+  position: absolute;
+  width: 100%;
+  top: 18%;
+  left: 0px;
+  z-index: 1000;
+  font-family: 'Roboto', sans-serif !important;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px #000;
+  font-size: 2em !important;
+  line-height: 1em !important;
 }
+
+#subtitle p {
+  font-size: 1.2em ;
+  line-height: 1em ;
+}
+
 #sub1 {
-    text-align: center;
-    color: yellow;
+  text-align: center;
+  color: yellow;
 }
+
 #sub2 {
-    text-align: center;
-    color: #46ff19;
+  text-align: center;
+  color: #46ff19;
 }
+
 /* end song-frame  */
+
+/*!*  transcript  *!*/
+#transcript p{
+    z-index: 1000;
+    position: relative;
+    color: #353535;
+}
+#transcript ul{
+    padding: 0;
+}
+
+#transcript li {
+    margin: 0;
+    font-size: 17px;
+    list-style: none;
+}
+
+#transcript .tline {
+    border-bottom: #f3f3f3 solid 1px;
+    padding-top: 0.7em;
+    padding-left: 0.7em;
+    cursor: pointer;
+}
+
+#transcript .tline p{
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+#transcript .tsub1 {
+    /*font-weight: 600;*/
+}
+
+#transcript .tsub2 {
+    /*font-weight: 500;*/
+    font-size: 15px;
+}
+
+#transcript .active p{
+    color: #ff6a06!important;
+}
+/* end  transcript  */

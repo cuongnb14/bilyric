@@ -8,8 +8,10 @@ from django.http import Http404
 from django.shortcuts import render, redirect
 from ratelimit.decorators import ratelimit
 from django.db.models import Q
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
-from bilyric.backend.models import Song, Tracking, Favor
+from bilyric.backend.models import Song, Subtitle, Favor
 
 RATE = getattr(settings, 'RATE', '10/s')
 
@@ -106,3 +108,28 @@ def favor_song(request):
 def logout(request):
     auth_logout(request)
     return redirect('/')
+
+
+# Ajax part
+#########################################################################################
+
+@csrf_exempt
+def ajax_subtitles(request, song_id):
+    if (request.method == 'GET'):
+        subtitle = Subtitle.objects.get(song_id=song_id)
+        subtitle = {'sub1': subtitle.sub1, 'sub2': subtitle.sub2}
+        return JsonResponse(subtitle)
+    if (request.method == 'POST'):
+        if request.user.is_authenticated() and request.user.has_perms('dualsub.change_subtitle'):
+            try:
+                subtitles = request.POST
+                subtitle = Subtitle.objects.get(song_id=song_id)
+                subtitle.sub1 = subtitles['sub1']
+                subtitle.sub2 = subtitles['sub2']
+                subtitle.save()
+                data = {"status": "success", "message": "Update subtitle success"}
+            except Exception as e:
+                data = {"status": "error", "message": str(e)}
+        else:
+            data = {"status": "error", "message": "Permission denied"}
+        return JsonResponse(data)

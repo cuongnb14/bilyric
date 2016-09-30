@@ -1,62 +1,71 @@
 {% extends 'frontend/base.html' %}
 {% load staticfiles %}
 
-
+{% block title %}BiLyric | Dual subtitles for song{% endblock %}
 {% block content %}
-    <div id="parallax" class="row">
-        <div class="site-title">
-            <h1 class="site-name">BiLyric</h1>
-            <h3 class="slogan">Dual subtitles for song</h3>
+<div id="parallax" class="row">
+    <div class="site-title">
+        <h1 class="site-name">BiLyric</h1>
+        <h3 class="slogan">Dual subtitles for song</h3>
+    </div>
+</div>
+<div id="main-content" class="row">
+
+    <ul class="nav-tabs bil-tab">
+        <li class="active"><a href="#last-song" data-toggle="tab" aria-expanded="false">MỚI NHẤT</a></li>
+        <li class=""><a href="#top-song" data-toggle="tab" aria-expanded="true">NGHE NHIỀU NHẤT</a></li>
+    </ul>
+    <div id="myTabContent" class="tab-content bil-tab-content">
+        <div class="tab-pane fade" id="last-song">
+            <div class="col-md-12 last-song">
+                <div class="song-panel">
+                    <!--<h4 class="text-primary title-panel col-md-12" style="margin-top: 0">BÀI HÁT MỚI THÊM</h4>-->
+                    {% for song_item in last_songs %}
+                    <div class="col-md-4">
+                        <div class="song-item clearfix">
+                            <i class="fa fa-music fa-2x pull-left"></i>
+                            <div class="pull-left">
+                                <p class="song-name random-song" data-slug="{{song_item.slug}}"><a
+                                        href="{% url 'frontend:play_song' song_item.slug %}">{{ song_item.name }}</a>
+                                </p>
+                                <p class="song-artist">{{ song_item.artist }}</p>
+                            </div>
+                            <div class="pull-right">
+                                <p class="song-name"><i class="fa fa-headphones" aria-hidden="true"></i> {{song_item.view}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade active in" id="top-song">
+            <div class="col-md-12 top-rate">
+                <div class="song-panel">
+                    <!--<h4 class="text-primary title-panel col-md-12" style="margin-top: 0">TOP BÀI HÁT NGHE NHIỀU NHẤT</h4>-->
+                    {% for song_item in most_songs %}
+                    <div class="col-md-4">
+                        <div class="song-item clearfix">
+                            <i class="fa fa-music fa-2x pull-left"></i>
+                            <div class="pull-left">
+                                <p class="song-name random-song" data-slug="{{song_item.slug}}"><a
+                                        href="{% url 'frontend:play_song' song_item.slug %}">{{ song_item.name }}</a>
+                                </p>
+                                <p class="song-artist">{{ song_item.artist }}</p>
+                            </div>
+                            <div class="pull-right">
+                                <p class="song-name"><i class="fa fa-headphones" aria-hidden="true"></i> {{song_item.view}}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% endfor %}
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
-        <div class="mdl-tabs__tab-bar">
-            <a href="#newest-panel" class="mdl-tabs__tab is-active">Mới nhất</a>
-            <a href="#mostest-panel" class="mdl-tabs__tab">Nghe nhiều nhất</a>
-        </div>
+</div>
 
-        <div class="mdl-tabs__panel is-active" id="newest-panel">
-            <ul class="demo-list-two mdl-list">
-                <div class="mdl-grid">
-                {% for song_item in last_songs %}
-                <div class="mdl-cell mdl-cell--4-col">
-                    <li class="mdl-list__item mdl-list__item--two-line">
-                        <span class="mdl-list__item-primary-content">
-                            <i class="material-icons mdl-list__item-avatar">music_note</i>
-                          <span>{{ song_item.name }}</span>
-                          <span class="mdl-list__item-sub-title">{{ song_item.artist }}</span>
-                        </span>
-                        <span class="mdl-list__item-secondary-content">
-                          <span class="mdl-list__item-secondary-info"> {{song_item.view}} lượt nghe</span>
-{#                          <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">headset</i></a>#}
-                        </span>
-                    </li>
-                </div>
-                {% endfor %}
-                </div>
-            </ul>
-        </div>
-        <div class="mdl-tabs__panel" id="mostest-panel">
-            <ul class="demo-list-two mdl-list">
-                <div class="mdl-grid">
-                {% for song_item in most_songs %}
-                <div class="mdl-cell mdl-cell--4-col">
-                    <li class="mdl-list__item mdl-list__item--two-line">
-                        <span class="mdl-list__item-primary-content">
-                            <i class="material-icons mdl-list__item-avatar">music_note</i>
-                          <span>{{ song_item.name }}</span>
-                          <span class="mdl-list__item-sub-title">{{ song_item.artist }}</span>
-                        </span>
-                        <span class="mdl-list__item-secondary-content">
-                          <span class="mdl-list__item-secondary-info"> {{song_item.view}} lượt nghe</span>
-{#                          <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">headset</i></a>#}
-                        </span>
-                    </li>
-                </div>
-                {% endfor %}
-                </div>
-            </ul>
-        </div>
-    </div>
+
 {% endblock %}

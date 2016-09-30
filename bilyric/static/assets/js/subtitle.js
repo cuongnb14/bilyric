@@ -1,3 +1,16 @@
+/**
+ * Requirement mCustomScrollbar.js
+ * Create transcript for html element have format:
+ *      <div id="transcript">
+            <ul>
+
+            </ul>
+        </div>
+ *
+ * @param sub1 Srt subtitle 1
+ * @param sub2 Srt subtitle 2
+ * @returns {*|jQuery|HTMLElement}
+ */
 function appendTranscript(sub1, sub2) {
     var transcript = $("#transcript>ul");
     for (i = 0; i < sub1.lines.length; i++) {
@@ -23,6 +36,9 @@ function appendTranscript(sub1, sub2) {
     return $("#transcript");
 }
 
+// function PlayerAdapter(playerFrame) {
+//
+// }
 
 function processSubtitle(subtitle) {
     var sub1 = new Srt(subtitle["sub1"]);
@@ -98,8 +114,8 @@ function processSubtitle(subtitle) {
 
     zmp3HTML5 = null;
     $("#zmp3-frame").on("load", function () {
+        zmp3Frame = document.getElementById("zmp3-frame").contentWindow;
         zmp3HTML5 = zmp3Frame.zmp3HTML5;
-
     });
 
     var play = setInterval(function () {
