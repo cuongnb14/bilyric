@@ -124,6 +124,8 @@
 <!-- Toastr and config -->
 <script src="{% static 'plugins' %}/toastr/toastr.min.js"></script>
 <script>
+    // Configs url
+    SEARCH_URL = "{% url "frontend:ajax_search_song" %}";
     toastr.options = {
         "closeButton": false,
         "debug": false,

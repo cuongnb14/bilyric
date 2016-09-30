@@ -74,7 +74,7 @@ jQuery(document).ready(function ($) {
     $("#toggle-toolbar").click(function(){
         $("#admin-toolbar").slideToggle("400");
     });
-    
+
     $(".favor").click(function(){
         var context = this
         var song_id = $(this).data("song");
@@ -91,8 +91,8 @@ jQuery(document).ready(function ($) {
             }
         });
     });
-    
-    
+
+
     $("#bybot").click(function () {
         var value = $("#bybot>i").data("value");
         updateSong( $(this).data("song"), {'bybot': value}, function(){
@@ -125,7 +125,7 @@ jQuery(document).ready(function ($) {
         updateSong( $(this).data("song"),
                     {'zmp3_id': $("#zmp3id").val(), 'zmp3_xml': $("#zmp3xml").val()},
                     function(){
-            
+
                     }
             );
     });
@@ -150,7 +150,7 @@ jQuery(document).ready(function ($) {
     load: function(query, callback) {
         if (!query.length) return callback();
         $.ajax({
-            url: '/api/v1/songs',
+            url: SEARCH_URL,
             type: 'GET',
             data: {q: query},
             error: function() {
@@ -162,7 +162,7 @@ jQuery(document).ready(function ($) {
         });
     }
     });
-    
+
     $('#search-box>select').change(function(){
     if ( $(this).val() !== '' ) {
         window.open('/song/'+$(this).val(), '_self');
@@ -170,7 +170,7 @@ jQuery(document).ready(function ($) {
 });
 });
 
-//Cookie 
+//Cookie
 function createCookie(name,value,days) {
     if (days) {
         var date = new Date();
