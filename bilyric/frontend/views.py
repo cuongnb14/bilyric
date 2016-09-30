@@ -25,7 +25,7 @@ def index(request):
     last_songs = Song.objects.filter(Q(zmp3_xml__isnull=False), Q(visible=1)).order_by('-created_at')[:21]
     data['most_songs'] = most_songs
     data['last_songs'] = last_songs
-    #data['ip'] = request.ip_client
+    # data['ip'] = request.ip_client
     return render(request, 'frontend/index.html', data)
 
 
@@ -133,3 +133,30 @@ def ajax_subtitles(request, song_id):
         else:
             data = {"status": "error", "message": "Permission denied"}
         return JsonResponse(data)
+
+
+def ajax_increment_view(request, song_id):
+    if request.is_ajax():
+        try:
+            song = Song.objects.get(id=song_id)
+            song.view = song.view + 1
+            song.save()
+            return JsonResponse({"status": "success", "message": "increment view"})
+        except Exception:
+            traceback.print_exc()
+            return JsonResponse({"status": "error", "message": "error"})
+
+
+def ajax_search_song(request):
+    if (request.method == 'GET'):
+        q = request.GET.get("q", "")
+        if q != "":
+            songs = Song.objects.filter(Q(visible=1), Q(zmp3_xml__isnull=False),
+                                        Q(name__icontains=q) | Q(artist__icontains=q))
+            result = []
+            for song in songs:
+                result.append({'song_slug': song.slug, 'song_name': song.name, 'song_artist': song.artist,
+                               'title': song.name + " - " + song.artist})
+        else:
+            result = []
+        return JsonResponse({'songs': result})

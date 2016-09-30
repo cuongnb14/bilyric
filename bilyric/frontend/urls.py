@@ -12,4 +12,6 @@ urlpatterns = [
 
 urlpatterns += [
     url(r'^ajax/subtitles/(?P<song_id>\d*)$', views.ajax_subtitles, name='ajax_subtitles'),
+    url(r'^ajax/increment-view/(?P<song_id>\d*)$', views.ajax_increment_view, name='ajax_increment_view'),
+
 ]

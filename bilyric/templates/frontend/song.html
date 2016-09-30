@@ -25,7 +25,7 @@ jQuery(document).ready(function ($) {
 
     setTimeout(function(){
         $.ajax({
-            url: "{% url 'frontend:ajax_subtitles' song.id %}",
+            url: "{% url 'frontend:ajax_increment_view' song.id %}",
             async: true,
             cache: false,
             success: function (data) {
@@ -34,18 +34,19 @@ jQuery(document).ready(function ($) {
         });
     }, 5000);
 
-    var subtitle = {};
     $.ajax({
         url: "{% url 'frontend:ajax_subtitles' song.id %}",
         async: false,
         cache: false,
         success: function (data) {
             subtitle = data;
+            var subtitleHandler =  new Subtitles(data);
+            subtitleHandler.start();
         }
     });
-{#    processSubtitle(subtitle);#}
-    subtitleHandler =  new Subtitles(subtitle);
-    subtitleHandler.start();
+
+
+
     $("#lights").click(function(){
         $("#lights-background").addClass("off-lights");
         $(".tline p").css('color','#eee');
