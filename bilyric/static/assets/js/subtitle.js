@@ -56,7 +56,11 @@ function Subtitles(subtitles) {
     };
 
     this.isInIndex = function (time, index) {
-        return time > this.sub1.lines[index].start.abtime && time < this.sub1.lines[index].end.abtime;
+        try {
+            return time > this.sub1.lines[index].start.abtime && time < this.sub1.lines[index].end.abtime;
+        } catch (err) {
+            return false;
+        }
     };
 
     this.getIndex = function (time) {
@@ -69,6 +73,7 @@ function Subtitles(subtitles) {
     };
 
     this.action = function () {
+        console.log(this.index);
         this.jsub1.text(this.sub1.lines[this.index].subtitle);
         if (jQuery.type(this.sub2.lines) !== 'undefined') {
             this.jsub2.text(this.sub2.lines[this.index].subtitle);
@@ -95,19 +100,20 @@ function Subtitles(subtitles) {
                 return 0;
             }
             if (!this.isInIndex(currentTime, this.index)) {
+
                 if (this.isInIndex(currentTime, this.index + 1)) {
                     this.index += 1;
                     this.action();
                 } else {
                     this.index = this.getIndex(currentTime);
                     if (this.index != null) {
-                        this.action(this.index);
+                        this.action();
                     }
                 }
             }
             this.preTime = currentTime;
         } catch (err) {
-            //console.log(err);
+            console.log(err);
         }
     };
 
