@@ -43,8 +43,9 @@ jQuery(document).ready(function ($) {
             subtitle = data;
         }
     });
-    processSubtitle(subtitle);
-
+{#    processSubtitle(subtitle);#}
+    subtitleHandler =  new Subtitles(subtitle);
+    subtitleHandler.start();
     $("#lights").click(function(){
         $("#lights-background").addClass("off-lights");
         $(".tline p").css('color','#eee');

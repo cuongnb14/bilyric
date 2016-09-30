@@ -1,45 +1,26 @@
-/**
- * Requirement mCustomScrollbar.js
- * Create transcript for html element have format:
- *      <div id="transcript">
-            <ul>
+function PlayerAdapter(playerFrame) {
+    this.playerFrame = playerFrame;
 
-            </ul>
-        </div>
- *
- * @param sub1 Srt subtitle 1
- * @param sub2 Srt subtitle 2
- * @returns {*|jQuery|HTMLElement}
- */
-function appendTranscript(sub1, sub2) {
-    var transcript = $("#transcript>ul");
-    for (i = 0; i < sub1.lines.length; i++) {
-        var element = "";
-        if (jQuery.type(sub2.lines) !== 'undefined') {
-            element = '<li class="tline" data-index="' + i + '" id="tline-' + i + '">' +
-                '<p class="tsub1"> ' + sub1.lines[i].subtitle + '</p>' +
-                '<p class="tsub2">' + sub2.lines[i].subtitle + '</p>' +
-                '</li>';
-        } else {
-            element = '<li class="tline" data-index="' + i + '" id="tline-' + i + '">' +
-                '<p class="tsub1">' + sub1.lines[i].subtitle + '</p>' +
-                '</li>';
-        }
-        transcript.append(element);
+    this.getTimeSong = function () {
+        var dtime = this.playerFrame.document.getElementsByClassName('jp-duration')[0].textContent;
+        dtime = dtime.split(":");
+        durationTime = parseInt(dtime[0]) * 60 + parseInt(dtime[1]);
+        return durationTime;
+    };
+
+    this.getCurrentTime = function () {
+        return this.playerFrame.zmp3HTML5.currentTime;
+    };
+
+    this.playAt = function (absoluteTime) {
+        this.playerFrame.zmp3HTML5.player.jPlayer('play', absoluteTime);
     }
-
-    $("#transcript").mCustomScrollbar({
-        axis: "y",
-        setHeight: 500,
-        theme: "dark"
-    });
-    return $("#transcript");
 }
 
-// function PlayerAdapter(playerFrame) {
-//
-// }
-
+/**
+ * process subtitles
+ * @param subtitle array
+ */
 function processSubtitle(subtitle) {
     var sub1 = new Srt(subtitle["sub1"]);
     var sub2 = new Srt(subtitle["sub2"]);
@@ -110,7 +91,7 @@ function processSubtitle(subtitle) {
         preIndex = index;
     }
 
-    var zmp3Frame = document.getElementById("zmp3-frame").contentWindow;
+    // var zmp3Frame = document.getElementById("zmp3-frame").contentWindow;
 
     zmp3HTML5 = null;
     $("#zmp3-frame").on("load", function () {
@@ -118,13 +99,13 @@ function processSubtitle(subtitle) {
         zmp3HTML5 = zmp3Frame.zmp3HTML5;
     });
 
-    var play = setInterval(function () {
-        if (zmp3HTML5.currentTime == 0) {
-            zmp3HTML5.player.jPlayer("play", 0);
-        } else {
-            clearInterval(play);
-        }
-    }, 1000);
+    // var play = setInterval(function () {
+    //     if (zmp3HTML5.currentTime == 0) {
+    //         zmp3HTML5.player.jPlayer("play", 0);
+    //     } else {
+    //         clearInterval(play);
+    //     }
+    // }, 1000);
 
     function nextSong(currentTime) {
         if (durationTime == 0) {
@@ -213,4 +194,111 @@ function processSubtitle(subtitle) {
     });
 
     setInterval(updateSubtitle, 500);
+}
+
+
+function Subtitles(subtitles) {
+    this.sub1 = new Srt(subtitles["sub1"]);
+    this.sub2 = new Srt(subtitles["sub2"]);
+
+    this.jsub1 = $("#sub1");
+    this.jsub2 = $("#sub2");
+    this.transcript = $("#transcript");
+
+    this.index = 0;
+    this.preIndex = 0;
+    this.preTime = 0;
+
+    this.player = new PlayerAdapter(document.getElementById("zmp3-frame").contentWindow);
+
+    this.appendTranscript = function () {
+        var transcript = this.transcript.find("ul");
+        for (i = 0; i < this.sub1.lines.length; i++) {
+            var element = "";
+            if (jQuery.type(this.sub2.lines) !== 'undefined') {
+                element = '<li class="tline" data-index="' + i + '" id="tline-' + i + '">' +
+                    '<p class="tsub1"> ' + this.sub1.lines[i].subtitle + '</p>' +
+                    '<p class="tsub2">' + this.sub2.lines[i].subtitle + '</p>' +
+                    '</li>';
+            } else {
+                element = '<li class="tline" data-index="' + i + '" id="tline-' + i + '">' +
+                    '<p class="tsub1">' + this.sub1.lines[i].subtitle + '</p>' +
+                    '</li>';
+            }
+            transcript.append(element);
+        }
+
+        this.transcript.mCustomScrollbar({
+            axis: "y",
+            setHeight: 500,
+            theme: "dark"
+        });
+    };
+
+    this.isInIndex = function (time, index) {
+        return time > this.sub1.lines[index].start.abtime && time < this.sub1.lines[index].end.abtime;
+    };
+
+    this.getIndex = function (time) {
+        for (i = 0; i < this.sub1.lines.length; i++) {
+            if (this.isInIndex(time, i)) {
+                return i;
+            }
+        }
+        return this.index;
+    };
+
+    this.action = function () {
+        this.jsub1.text(this.sub1.lines[this.index].subtitle);
+        if (jQuery.type(this.sub2.lines) !== 'undefined') {
+            this.jsub2.text(this.sub2.lines[this.index].subtitle);
+        }
+        var preLine = this.index - 1;
+        if (preLine < 0) {
+            preLine = 0;
+        }
+        if (!this.transcript.is(":hover")) {
+            this.transcript.mCustomScrollbar("scrollTo", "#tline-" + preLine);
+        }
+        this.transcript.find("#tline-" + this.preIndex).removeClass("active");
+        this.transcript.find("#tline-" + this.index).addClass("active");
+        this.preIndex = this.index;
+    };
+
+    this.updateSubtitles = function () {
+        try {
+            currentTime = this.player.getCurrentTime();
+            // if (autoplay == 1) {
+            //     nextSong(currentTime);
+            // }
+            if (currentTime == this.preTime) {
+                return 0;
+            }
+            if (!this.isInIndex(currentTime, this.index)) {
+                if (this.isInIndex(currentTime, this.index + 1)) {
+                    this.index += 1;
+                    this.action();
+                } else {
+                    this.index = this.getIndex(currentTime);
+                    if (this.index != null) {
+                        this.action(this.index);
+                    }
+                }
+            }
+            this.preTime = currentTime;
+        } catch (err) {
+            //console.log(err);
+        }
+    };
+
+    this.start = function () {
+        this.appendTranscript();
+        context = this;
+        $(".tline").click(function () {
+            context.index = $(this).data("index");
+            context.player.playAt(context.sub1.lines[context.index].start.abtime);
+            context.action(context.index);
+        });
+        setInterval(this.updateSubtitles.bind(this), 500);
+    }
 }
