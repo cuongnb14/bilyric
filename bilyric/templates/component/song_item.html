@@ -1,0 +1,15 @@
+<div class="{{ col_class }}">
+    <div class="song-item clearfix">
+        <i class="fa fa-music fa-2x pull-left"></i>
+        <div class="pull-left">
+            <p class="song-name random-song" data-slug="{{ song_item.slug }}"><a
+                    href="{% url 'frontend:play_song' song_item.slug %}">{{ song_item.name }}</a>
+            </p>
+            <p class="song-artist">{{ song_item.artist }}</p>
+        </div>
+        <div class="pull-right">
+            <p class="song-name"><i class="fa fa-headphones"
+                                    aria-hidden="true"></i> {{ song_item.view }}</p>
+        </div>
+    </div>
+</div>

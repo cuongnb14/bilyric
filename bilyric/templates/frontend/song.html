@@ -124,31 +124,16 @@
 
 
             <hr>
-            <div class="song-panel">
+            <div class="song-panel row">
                 <div class="clearfix col-md-12">
                     <h4 class="title-panel text-bil pull-left" style="margin-top: 0">CÓ THỂ BẠN THÍCH NGHE</h4>
                     <div class="pull-right">
                         Auto play: <input type="checkbox" id="auto-play" class="switch form-control input-xs">
                     </div>
                 </div>
-
-                {% for song_item in songs %}
-                    <div class="col-md-6">
-                        <div class="song-item clearfix">
-                            <i class="fa fa-music fa-2x pull-left"></i>
-                            <div class="pull-left">
-                                <p class="song-name random-song" data-slug="{{ song_item.slug }}"><a
-                                        href="{% url 'frontend:play_song' song_item.slug %}">{{ song_item.name }}</a>
-                                </p>
-                                <p class="song-artist">{{ song_item.artist }}</p>
-                            </div>
-                            <div class="pull-right">
-                                <p class="song-name"><i class="fa fa-headphones"
-                                                        aria-hidden="true"></i> {{ song_item.view }}</p>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
+                    {% for song_item in songs %}
+                        {% include "component/song_item.html" with song_item=song_item col_class="col-md-6" %}
+                    {% endfor %}
             </div>
 
         </div>
@@ -158,21 +143,12 @@
 
                 </ul>
             </div>
-            <div class="song-panel family-song">
-                <h4 class="title-panel text-bil">BÀI HÁT TƯƠNG TỰ</h4>
+            <div class="song-panel family-song row">
+                <h4 class="title-panel text-bil col-md-12">BÀI HÁT TƯƠNG TỰ</h4>
                 {% for song_item in song_artist %}
-                    <div class="song-item clearfix">
-                        <i class="fa fa-music fa-2x pull-left"></i>
-                        <div class="pull-left">
-                            <p class="song-name random-song" data-slug="{{ song_item.slug }}"><a
-                                    href="{% url 'frontend:play_song' song_item.slug %}">{{ song_item.name }}</a>
-                            </p>
-                            <p class="song-artist">{{ song_item.artist }}</p>
-                        </div>
-                    </div>
+                    {% include "component/song_item.html" with song_item=song_item col_class="col-md-12" %}
                 {% endfor %}
             </div>
-
         </div>
     </div>
 
