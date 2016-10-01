@@ -45,11 +45,6 @@ jQuery(document).ready(function ($) {
         }
     });
 
-
-
-
-
-
 });
 </script>
 {% endblock %}
@@ -86,12 +81,12 @@ jQuery(document).ready(function ($) {
                 </div>
                 <div class="pull-left action-item">
                          {% if favor %}
-                         <button data-action="remove" data-song="{{ song.id }}" class="btn btn-sm btn-bil favor" title="Xóa khỏi bài hát yêu thích">
+                         <button data-action="delete" data-song="{{ song.id }}" class="btn btn-sm btn-bil favor" title="Xóa khỏi bài hát yêu thích">
                             <i class="fa fa-heart" aria-hidden="true"></i>
                          </button>
                          {% else %}
                            {% if user.is_authenticated %}
-                              <button data-action="add" data-song="{{ song.id }}" class="btn btn-sm btn-bil favor" title="Thêm vào bài hát yêu thích">
+                              <button data-action="post" data-song="{{ song.id }}" class="btn btn-sm btn-bil favor" title="Thêm vào bài hát yêu thích">
                                 <i class="fa fa-heart-o" aria-hidden="true"></i>
                               </button>
                             {% else %}

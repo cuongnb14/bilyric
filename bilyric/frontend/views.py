@@ -6,12 +6,14 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import Http404
 from django.shortcuts import render, redirect
-from ratelimit.decorators import ratelimit
 from django.db.models import Q
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 
+from ratelimit.decorators import ratelimit
+
 from bilyric.backend.models import Song, Subtitle, Favor
+from bilyric.base.utils import require_ajax
 
 RATE = getattr(settings, 'RATE', '10/s')
 
@@ -112,7 +114,7 @@ def logout(request):
 
 # Ajax part
 #########################################################################################
-
+@require_ajax
 @csrf_exempt
 def ajax_subtitles(request, song_id):
     if (request.method == 'GET'):
@@ -135,18 +137,19 @@ def ajax_subtitles(request, song_id):
         return JsonResponse(data)
 
 
+@require_ajax
 def ajax_increment_view(request, song_id):
-    if request.is_ajax():
-        try:
-            song = Song.objects.get(id=song_id)
-            song.view = song.view + 1
-            song.save()
-            return JsonResponse({"status": "success", "message": "increment view"})
-        except Exception:
-            traceback.print_exc()
-            return JsonResponse({"status": "error", "message": "error"})
+    try:
+        song = Song.objects.get(id=song_id)
+        song.view = song.view + 1
+        song.save()
+        return JsonResponse({"status": "success", "message": "increment view"})
+    except Exception:
+        traceback.print_exc()
+        return JsonResponse({"status": "error", "message": "error"})
 
 
+@require_ajax
 def ajax_search_song(request):
     if (request.method == 'GET'):
         q = request.GET.get("q", "")
@@ -160,3 +163,32 @@ def ajax_search_song(request):
         else:
             result = []
         return JsonResponse({'songs': result})
+
+
+@ratelimit(key='ip', rate=RATE, block=True)
+@csrf_exempt
+@require_ajax
+@login_required(login_url='/administration/login/')
+def ajax_favor(request, song_id):
+    if request.method == 'POST':
+        try:
+            song = Song.objects.get(pk=song_id)
+            if Favor.objects.is_favor(request.user, song):
+                return JsonResponse({"status": "error", "message": "Bài hát đã nằm trong danh sách yêu thích"})
+            else:
+                favor = Favor(user=request.user, song=song)
+                favor.save()
+                return JsonResponse({"status": "success", "message": "Đã thêm vào danh sách yêu thích"})
+        except Exception as e:
+            traceback.print_exc()
+            return JsonResponse({"status": "error", "message": "Error"})
+
+    if request.method == 'DELETE':
+        try:
+            song = Song.objects.get(pk=song_id)
+            favor = Favor.objects.filter(user=request.user, song=song)
+            favor.delete()
+            return JsonResponse({"status": "success", "message": " Đã xóa khỏi danh sách ưa thích"})
+        except Exception as e:
+            traceback.print_exc()
+            return JsonResponse({"status": "error", "message": "Bài hát đã được xóa khỏi danh sách ưa thích"})

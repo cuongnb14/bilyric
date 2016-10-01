@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'frontend/base.html' %}
 {% load staticfiles %}
 {% load bootstrap_pagination %}
 
@@ -23,7 +23,7 @@
                     <p class="song-artist">{{ song_item.artist }}</p>
                 </div>
                 <div class="pull-right">
-                    <button data-action="remove" data-song="{{ song_item.id }}" class="btn btn-sm btn-bil favor"
+                    <button data-action="delete" data-song="{{ song_item.id }}" class="btn btn-sm btn-bil favor"
                             title="Xóa khỏi bài hát yêu thích">
                         <i class="fa fa-heart" aria-hidden="true"></i>
                     </button>
