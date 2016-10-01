@@ -73,7 +73,6 @@ function Subtitles(subtitles) {
     };
 
     this.action = function () {
-        console.log(this.index);
         this.jsub1.text(this.sub1.lines[this.index].subtitle);
         if (jQuery.type(this.sub2.lines) !== 'undefined') {
             this.jsub2.text(this.sub2.lines[this.index].subtitle);

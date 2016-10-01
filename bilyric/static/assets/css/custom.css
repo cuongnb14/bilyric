@@ -7,7 +7,7 @@ body {
 
 .navbar{
     background-color: #2dcd75;
-    background-image: url("/static/assets/images/bg-topbar.jpg");
+    /*background-image: url("/static/assets/images/bg-topbar.jpg");*/
     border: none;
     -webkit-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.49);
     -moz-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.49);
