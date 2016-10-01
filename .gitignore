@@ -63,3 +63,5 @@ bilyric/media/
 tests/.hitch
 
 venv/
+
+config/settings/local.py
