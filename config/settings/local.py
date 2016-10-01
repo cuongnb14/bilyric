@@ -14,6 +14,54 @@ from .common import *  # noqa
 import socket
 import os
 
+# DATABASE CONFIGURATION
+# ------------------------------------------------------------------------------
+# See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
+DATABASES = {
+    # Raises ImproperlyConfigured exception if DATABASE_URL not in os.environ
+    # 'default': env.db('DATABASE_URL', default='postgres:///bilyric'),
+}
+# DATABASES['default']['ATOMIC_REQUESTS'] = True
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'bilyric',
+        'USER': 'root',
+        'PASSWORD': 'dualsub@123',
+        'HOST': '127.0.0.1',
+        'PORT': '3308',
+    }
+}
+
+# AllAuth CONFIGURATION
+# ------------------------------------------------------------------------------
+# See: http://django-allauth.readthedocs.io/en/stable/configuration.html
+ACCOUNT_ADAPTER = "allauth.account.adapter.DefaultAccountAdapter"
+LOGIN_REDIRECT_URL = "/"
+ACCOUNT_LOGOUT_REDIRECT_URL = "/"
+SOCIALACCOUNT_PROVIDERS = \
+    {'facebook':
+         {'METHOD': 'oauth2',
+          'SCOPE': ['email', 'public_profile', 'user_friends'],
+          'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+          'FIELDS': [
+              'id',
+              'email',
+              'name',
+              'first_name',
+              'last_name',
+              'verified',
+              'locale',
+              'timezone',
+              'link',
+              'gender',
+              'updated_time'],
+          'EXCHANGE_TOKEN': True,
+          #'LOCALE_FUNC': 'path.to.callable',
+          'VERIFIED_EMAIL': False,
+          'VERSION': 'v2.4'}
+     }
+
 # DEBUG
 # ------------------------------------------------------------------------------
 DEBUG = env.bool('DJANGO_DEBUG', default=True)
@@ -34,7 +82,6 @@ EMAIL_HOST = 'localhost'
 EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND',
                     default='django.core.mail.backends.console.EmailBackend')
 
-
 # CACHING
 # ------------------------------------------------------------------------------
 CACHES = {
@@ -47,7 +94,7 @@ CACHES = {
 # django-debug-toolbar
 # ------------------------------------------------------------------------------
 MIDDLEWARE_CLASSES += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
-INSTALLED_APPS += ('debug_toolbar', )
+INSTALLED_APPS += ('debug_toolbar',)
 
 INTERNAL_IPS = ['127.0.0.1', '10.0.2.2', ]
 # tricks to have debug toolbar when developing with docker
@@ -64,7 +111,7 @@ DEBUG_TOOLBAR_CONFIG = {
 
 # django-extensions
 # ------------------------------------------------------------------------------
-INSTALLED_APPS += ('django_extensions', )
+INSTALLED_APPS += ('django_extensions',)
 
 # TESTING
 # ------------------------------------------------------------------------------

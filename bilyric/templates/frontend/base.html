@@ -1,4 +1,6 @@
 {% load staticfiles %}
+{% load socialaccount %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -85,22 +87,22 @@
 </nav>
 
 <!-- Modal -->
-{#    <div class="modal fade bs-example-modal-sm" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">#}
-{#      <div class="modal-dialog modal-sm" role="dialog">#}
-{#        <div class="modal-content">#}
-{#          <div class="modal-header">#}
-{#            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>#}
-{#            <h4 class="modal-title" id="myModalLabel">Đăng nhập</h4>#}
-{#          </div>#}
-{#          <div class="modal-body">#}
-{#              <a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}" class="btn btn-bil">Đăng nhập bằng Facebook</a>#}
-{#          </div>#}
-{#          <div class="modal-footer">#}
-{#            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>#}
-{#          </div>#}
-{#        </div>#}
-{#      </div>#}
-{#    </div>#}
+    <div class="modal fade bs-example-modal-sm" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog modal-sm" role="dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Đăng nhập</h4>
+          </div>
+          <div class="modal-body">
+              <a href="{% provider_login_url "facebook" method="oauth2" %}?next={{ request.path }}">Facebook OAuth2</a>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
 <div id="content" class="col-md-12">
     {% block content %}{% endblock %}
@@ -159,7 +161,6 @@
   ga('create', 'UA-79780403-1', 'auto');
   ga('send', 'pageview');
 </script>
-
 {% block script %}{% endblock %}
 </body>
 </html>
