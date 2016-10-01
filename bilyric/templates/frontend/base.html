@@ -9,8 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>{% block title %}{% endblock %}</title>
-    <link rel="icon" href="{% static 'bilyric.png' %}" type="image/x-icon" />
-    <meta property="og:image" itemprop="thumbnailUrl" content="{% static 'thumb.png' %}" />
+    <link rel="icon" href="{% static 'bilyric.png' %}" type="image/x-icon"/>
+    <meta property="og:image" itemprop="thumbnailUrl" content="{% static 'thumb.png' %}"/>
 
     <!-- Bootstrap -->
     <link href="{% static 'plugins/bootstrap-3.3.6/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -55,9 +55,10 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
             <ul class="nav navbar-nav">
                 <!--<li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>-->
-{#                <li><a href="{% url 'frontend:index' %}">Home</a></li>#}
+                {#                <li><a href="{% url 'frontend:index' %}">Home</a></li>#}
                 <li><a href="{% url 'frontend:list_song' %}">ALL SONG</a></li>
-                {% if user.is_authenticated %}<li><a href="{% url 'frontend:favor_song' %}">FAVOR SONG</a></li>{% endif %}
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'frontend:favor_song' %}">FAVOR SONG</a></li>{% endif %}
             </ul>
             <form class="navbar-form navbar-left" role="search" action="{% url 'frontend:list_song' %}">
                 <div class="form-group" id="search-box">
@@ -68,17 +69,18 @@
             </form>
 
             <ul class="nav navbar-nav navbar-right">
-               {% if user and not user.is_anonymous %}
-                <li class="dropdown" >
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ user.get_full_name }} <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/logout">ĐĂNG XUẤT</a></li>
-                    </ul>
-                </li>
+                {% if user and not user.is_anonymous %}
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">{{ user.get_full_name }} <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/logout">ĐĂNG XUẤT</a></li>
+                        </ul>
+                    </li>
                 {% else %}
-                <li>
-                    <a href="#" data-toggle="modal" data-target="#login-modal" class="btn btn-sm">ĐĂNG NHẬP</a>
-                </li>
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#login-modal" class="btn btn-sm">ĐĂNG NHẬP</a>
+                    </li>
                 {% endif %}
             </ul>
 
@@ -86,23 +88,7 @@
     </div>
 </nav>
 
-<!-- Modal -->
-    <div class="modal fade bs-example-modal-sm" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-      <div class="modal-dialog modal-sm" role="dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Đăng nhập</h4>
-          </div>
-          <div class="modal-body">
-              <a href="{% provider_login_url "facebook" method="oauth2" %}?next={{ request.path }}">Facebook OAuth2</a>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          </div>
-        </div>
-      </div>
-    </div>
+{% include "component/login_modal.html" %}
 
 <div id="content" class="col-md-12">
     {% block content %}{% endblock %}
@@ -130,7 +116,6 @@
     SEARCH_URL = "{% url "frontend:ajax_search_song" %}";
 
 
-
     toastr.options = {
         "closeButton": false,
         "debug": false,
@@ -156,13 +141,20 @@
 
 <!-- Google Tracking -->
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
-  ga('create', 'UA-79780403-1', 'auto');
-  ga('send', 'pageview');
+    ga('create', 'UA-79780403-1', 'auto');
+    ga('send', 'pageview');
 </script>
 {% block script %}{% endblock %}
 </body>

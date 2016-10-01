@@ -1,0 +1,76 @@
+{% if user.is_authenticated and perms.dualsub.change_song and perms.dualsub.change_subtitle %}
+    <div class="panel panel-default">
+        <div class="panel-heading clearfix">
+            <h3 class="panel-title pull-left">Admin toolbar</h3>
+            <div class="pull-right">
+                <button id="toggle-toolbar" class="btn btn-bil btn-xs"><i class="fa fa-pencil-square-o"
+                                                                          aria-hidden="true"></i></button>
+            </div>
+        </div>
+        <div class="panel-body" id="admin-toolbar" style="display: none">
+            <div class="form-group">
+                <div class="row">
+                    <label for="shift" class="col-md-2 control-label input-sm">Shift subtitle(s): </label>
+                    <div class="col-md-2">
+                        <input type="number" class="form-control input-sm" id="shift" value="0" step="0.5">
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-bil btn-sm" id="save-shift"
+                                data-url="{% url 'frontend:ajax_subtitles' song.id %}"> Save Lyrics
+                        </button>
+                    </div>
+                    <div class="col-md-1">
+                        <button class="btn btn-bil btn-sm" id="bybot" data-song="{{ song.id }}">
+                            {% if song.bybot %}
+                                <i data-value="0" class="fa fa-user-times"></i>
+                            {% else %}
+                                <i class="fa fa-user" data-value="1"></i>
+                            {% endif %}
+                        </button>
+                    </div>
+
+                    <div class="col-md-1">
+                        <button class="btn btn-bil btn-sm" id="visible" data-song="{{ song.id }}">
+                            {% if song.visible %}
+                                <i data-value="0" class="fa fa-eye"></i>
+                            {% else %}
+                                <i class="fa fa-eye-slash" data-value="1"></i>
+                            {% endif %}
+                        </button>
+                    </div>
+                </div>
+
+
+                <div class="row form-group">
+                    <label for="zmp3-link" class="col-md-2 control-label input-sm">ZMP3 link: </label>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control input-sm" id="zmp3-link">
+                    </div>
+                    <div class="col-md-1">
+                        <button class="btn btn-bil btn-sm" id="get-zmp3id"> Get ZMP3ID</button>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <label for="zmp3id" class="col-md-2 control-label input-sm">ZMP3 ID: </label>
+                    <div class="col-md-2">
+                        <input type="text" class="form-control input-sm" id="zmp3id"
+                               value="{{ song.zmp3_id }}">
+                    </div>
+
+                    <label for="zmp3xml" class="col-md-2 control-label input-sm">ZMP3 XML: </label>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control input-sm" id="zmp3xml"
+                               value="{{ song.zmp3_xml }}">
+                    </div>
+                    <div class="col-md-1">
+                        <button data-song="{{ song.id }}" class="btn btn-bil btn-sm" id="save-zmp3id"> Save
+                            ZMP3ID
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endif %}

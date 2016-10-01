@@ -64,9 +64,8 @@ function favor(action, song_id, callback) {
 }
 
 jQuery(document).ready(function ($) {
-    $("#toggle-toolbar").click(function () {
-        $("#admin-toolbar").slideToggle("400");
-    });
+    
+    // user's favor
     $(".favor").click(function () {
         var context = this;
         var song_id = $(this).data("song");
@@ -84,7 +83,10 @@ jQuery(document).ready(function ($) {
         });
     });
 
-
+    // Admin bar
+    $("#toggle-toolbar").click(function () {
+        $("#admin-toolbar").slideToggle("400");
+    });
     $("#bybot").click(function () {
         var value = $("#bybot>i").data("value");
         updateSong($(this).data("song"), {'bybot': value}, function () {
@@ -93,7 +95,6 @@ jQuery(document).ready(function ($) {
             $("#bybot>i").data("value", 1 - value);
         });
     });
-
     $("#visible").click(function () {
         var value = $("#visible>i").data("value");
         updateSong($(this).data("song"), {'visible': value}, function () {
@@ -102,7 +103,6 @@ jQuery(document).ready(function ($) {
             $("#visible>i").data("value", 1 - value);
         });
     });
-
     $("#get-zmp3id").click(function () {
         get_zmp3id($("#zmp3-link").val(), function (data) {
             $("#zmp3id").val(data.message.zmp3id);
@@ -112,7 +112,6 @@ jQuery(document).ready(function ($) {
 
         })
     });
-
     $("#save-zmp3id").click(function () {
         updateSong($(this).data("song"),
             {'zmp3_id': $("#zmp3id").val(), 'zmp3_xml': $("#zmp3xml").val()},
@@ -121,7 +120,8 @@ jQuery(document).ready(function ($) {
             }
         );
     });
-
+    
+    // search box
     $('#search-box>select').selectize({
         valueField: 'song_slug',
         labelField: 'title',
@@ -154,12 +154,13 @@ jQuery(document).ready(function ($) {
             });
         }
     });
-
     $('#search-box>select').change(function () {
         if ($(this).val() !== '') {
             window.open('/song/' + $(this).val(), '_self');
         }
     });
+    
+    // turn off lights
     $("#lights").click(function () {
         $("#lights-background").addClass("off-lights");
         $(".tline p").css('color', '#eee');
