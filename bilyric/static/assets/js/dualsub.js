@@ -1,9 +1,13 @@
 // All Ajax
+
+// Configs url
+SEARCH_URL = "/ajax/search";
 FAVOR_BASE_URL = "/ajax/favor/";
+AJAX_SONG_BASE_URL = "/ajax/songs/";
 
 function updateSong(id, song, callback) {
     $.ajax({
-        url: "/api/v1/songs/" + id,
+        url: AJAX_SONG_BASE_URL + id,
         type: 'post',
         async: true,
         cache: false,
@@ -64,7 +68,7 @@ function favor(action, song_id, callback) {
 }
 
 jQuery(document).ready(function ($) {
-    
+
     // user's favor
     $(".favor").click(function () {
         var context = this;
@@ -120,7 +124,7 @@ jQuery(document).ready(function ($) {
             }
         );
     });
-    
+
     // search box
     $('#search-box>select').selectize({
         valueField: 'song_slug',
@@ -159,7 +163,7 @@ jQuery(document).ready(function ($) {
             window.open('/song/' + $(this).val(), '_self');
         }
     });
-    
+
     // turn off lights
     $("#lights").click(function () {
         $("#lights-background").addClass("off-lights");

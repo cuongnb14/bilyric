@@ -12,7 +12,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from ratelimit.decorators import ratelimit
 
-from bilyric.backend.models import Song, Subtitle, Favor
+from .models import Song, Subtitle, Favor
 from bilyric.base.utils import require_ajax
 
 RATE = getattr(settings, 'RATE', '10/s')
@@ -114,6 +114,7 @@ def logout(request):
 
 # Ajax part
 #########################################################################################
+
 @require_ajax
 @csrf_exempt
 def ajax_subtitles(request, song_id):
@@ -135,7 +136,6 @@ def ajax_subtitles(request, song_id):
         else:
             data = {"status": "error", "message": "Permission denied"}
         return JsonResponse(data)
-
 
 @require_ajax
 def ajax_increment_view(request, song_id):

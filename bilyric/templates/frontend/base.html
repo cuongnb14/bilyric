@@ -49,18 +49,16 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a id="page-logo" class="navbar-brand" href="{% url 'frontend:index' %}">BiLyric</a>
+            <a id="page-logo" class="navbar-brand" href="{% url 'songlyrics:index' %}">BiLyric</a>
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
             <ul class="nav navbar-nav">
-                <!--<li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>-->
-                {#                <li><a href="{% url 'frontend:index' %}">Home</a></li>#}
-                <li><a href="{% url 'frontend:list_song' %}">ALL SONG</a></li>
+                <li><a href="{% url 'songlyrics:list_song' %}">ALL SONG</a></li>
                 {% if user.is_authenticated %}
-                    <li><a href="{% url 'frontend:favor_song' %}">FAVOR SONG</a></li>{% endif %}
+                    <li><a href="{% url 'songlyrics:favor_song' %}">FAVOR SONG</a></li>{% endif %}
             </ul>
-            <form class="navbar-form navbar-left" role="search" action="{% url 'frontend:list_song' %}">
+            <form class="navbar-form navbar-left" role="search" action="{% url 'songlyrics:list_song' %}">
                 <div class="form-group" id="search-box">
                     <!--<input type="text" class="form-control" placeholder="Song name or artist" name="q">-->
                     <select></select>
@@ -112,8 +110,7 @@
 <!-- Toastr and config -->
 <script src="{% static 'plugins' %}/toastr/toastr.min.js"></script>
 <script>
-    // Configs url
-    SEARCH_URL = "{% url "frontend:ajax_search_song" %}";
+
 
 
     toastr.options = {

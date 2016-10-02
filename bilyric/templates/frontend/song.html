@@ -33,7 +33,7 @@
 
             setTimeout(function () {
                 $.ajax({
-                    url: "{% url 'frontend:ajax_increment_view' song.id %}",
+                    url: "{% url 'songlyrics:ajax_increment_view' song.id %}",
                     async: true,
                     cache: false,
                     success: function (data) {
@@ -43,7 +43,7 @@
             }, 5000);
 
             $.ajax({
-                url: "{% url 'frontend:ajax_subtitles' song.id %}",
+                url: "{% url 'songlyrics:ajax_subtitles' song.id %}",
                 async: false,
                 cache: false,
                 success: function (data) {
@@ -73,7 +73,7 @@
                     <p>
                 </div>
                 <iframe id="zmp3-frame" scrolling="no" width="100%" height="100%"
-                        src="{% url 'frontend:zmp3_song' song.zmp3_xml %}" frameborder="0" allowfullscreen="true">
+                        src="{% url 'songlyrics:zmp3_song' song.zmp3_xml %}" frameborder="0" allowfullscreen="true">
                 </iframe>
             </div>
 

@@ -47,8 +47,7 @@ THIRD_PARTY_APPS = (
 LOCAL_APPS = (
     # custom users app
     # 'bilyric.users.apps.UsersConfig',
-    'bilyric.frontend',
-    'bilyric.backend',
+    'bilyric.songlyrics',
     # Your stuff: custom apps go here
 )
 

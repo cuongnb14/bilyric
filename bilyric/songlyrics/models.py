@@ -25,8 +25,6 @@ class Song(TimeStampedModel):
     view = models.IntegerField(default=0)
     like = models.IntegerField(default=0)
     visible = models.IntegerField(default=1)
-    class Meta:
-        db_table = "dualsub_song"
 
 class Subtitle(TimeStampedModel):
     song = models.OneToOneField(
@@ -37,17 +35,11 @@ class Subtitle(TimeStampedModel):
     sub1 = models.TextField(null=True)
     sub2 = models.TextField(null=True)
 
-    class Meta:
-        db_table = "dualsub_subtitle"
-
 class Favor(TimeStampedModel):
     id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     song = models.ForeignKey(Song, on_delete=models.CASCADE)
     objects = FavorManager()
-
-    class Meta:
-        db_table = "dualsub_favor"
 
 class IpAddress(TimeStampedModel):
     id = models.AutoField(primary_key=True)
