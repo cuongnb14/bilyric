@@ -178,6 +178,10 @@ jQuery(document).ready(function ($) {
         $(".tline p").css('color', '#353535');
         $("#search-box").css("z-index", '1001');
     });
+
+    $("#bl-zoom").click(function () {
+        $("#content").toggleClass("zoom-x16");
+    });
 });
 
 
