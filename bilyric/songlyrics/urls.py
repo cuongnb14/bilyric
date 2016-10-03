@@ -1,5 +1,6 @@
 from django.conf.urls import url
 from . import views
+from . import admin
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
@@ -11,8 +12,10 @@ urlpatterns = [
 ]
 
 urlpatterns += [
-    url(r'^ajax/subtitles/(?P<song_id>\d*)$', views.ajax_subtitles, name='ajax_subtitles'),
+    url(r'^ajax/subtitles/(?P<song_id>\d*)$', admin.ajax_subtitles, name='ajax_subtitles'),
     url(r'^ajax/increment-view/(?P<song_id>\d*)$', views.ajax_increment_view, name='ajax_increment_view'),
     url(r'^ajax/favor/(?P<song_id>\d*)$', views.ajax_favor, name='ajax_favor'),
     url(r'^ajax/search$', views.ajax_search_song, name='ajax_search_song'),
+    url(r'^ajax/songs/(?P<song_id>\d*)$', admin.ajax_song, name='ajax_song'),
+    url(r'^ajax/get-zmp3id', admin.get_zmp3id, name='get_zmp3id'),
 ]

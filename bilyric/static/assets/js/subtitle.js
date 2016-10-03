@@ -18,6 +18,8 @@ function PlayerAdapter(playerFrame) {
 }
 
 function Subtitles(subtitles) {
+    this.subtitles = subtitles;
+
     this.sub1 = new Srt(subtitles["sub1"]);
     this.sub2 = new Srt(subtitles["sub2"]);
 
@@ -118,12 +120,45 @@ function Subtitles(subtitles) {
 
     this.start = function () {
         this.appendTranscript();
+
+        // event for subtitles
         context = this;
         $(".tline").click(function () {
             context.index = $(this).data("index");
             context.player.playAt(context.sub1.lines[context.index].start.abtime);
             context.action(context.index);
         });
+
+        $("#shift").change(function () {
+            var value = $("#shift").val();
+            context.sub1 = new Srt(context.subtitles["sub1"]);
+            context.sub1.shift(value, "seconds");
+            if (jQuery.type(context.sub2.lines) !== 'undefined') {
+                context.sub2 = new Srt(context.subtitles["sub2"]);
+                context.sub2.shift(value, "seconds");
+            }
+        });
+
+        $('#save-shift').click(function () {
+            var sub2Content = "";
+            if (jQuery.type(context.sub2.lines) !== 'undefined') {
+                sub2Content = context.sub2.getSrtContent()
+            }
+            $.ajax({
+                url: $(this).data("url"),
+                async: true,
+                type: 'post',
+                dataType: "json",
+                data: {
+                    'sub1': context.sub1.getSrtContent(),
+                    'sub2': sub2Content
+                },
+                success: function (data) {
+                    toastr[data.status](data.message);
+                }
+            });
+        });
+        
         setInterval(this.updateSubtitles.bind(this), 500);
     }
 }

@@ -4,6 +4,9 @@
 SEARCH_URL = "/ajax/search";
 FAVOR_BASE_URL = "/ajax/favor/";
 AJAX_SONG_BASE_URL = "/ajax/songs/";
+GET_ZMP3ID_URL = "/ajax/get-zmp3id";
+AJAX_SUBTITLES_BASE_URL = "ajax/subtitles/";
+
 
 function updateSong(id, song, callback) {
     $.ajax({
@@ -26,7 +29,7 @@ function updateSong(id, song, callback) {
 
 function get_zmp3id(zmp3_link, callback) {
     $.ajax({
-        url: "/api/v1/get-zmp3id",
+        url: GET_ZMP3ID_URL,
         type: 'get',
         async: true,
         cache: false,

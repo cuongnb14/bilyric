@@ -116,28 +116,6 @@ def logout(request):
 #########################################################################################
 
 @require_ajax
-@csrf_exempt
-def ajax_subtitles(request, song_id):
-    if (request.method == 'GET'):
-        subtitle = Subtitle.objects.get(song_id=song_id)
-        subtitle = {'sub1': subtitle.sub1, 'sub2': subtitle.sub2}
-        return JsonResponse(subtitle)
-    if (request.method == 'POST'):
-        if request.user.is_authenticated() and request.user.has_perms('dualsub.change_subtitle'):
-            try:
-                subtitles = request.POST
-                subtitle = Subtitle.objects.get(song_id=song_id)
-                subtitle.sub1 = subtitles['sub1']
-                subtitle.sub2 = subtitles['sub2']
-                subtitle.save()
-                data = {"status": "success", "message": "Update subtitle success"}
-            except Exception as e:
-                data = {"status": "error", "message": str(e)}
-        else:
-            data = {"status": "error", "message": "Permission denied"}
-        return JsonResponse(data)
-
-@require_ajax
 def ajax_increment_view(request, song_id):
     try:
         song = Song.objects.get(id=song_id)
