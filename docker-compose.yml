@@ -1,59 +1,26 @@
-version: '2'
+#
+# syntax: https://docs.docker.com/compose/yml/
+#
 
-volumes:
-  postgres_data: {}
-  postgres_backup: {}
+version: "2"
 
 services:
-  postgres:
-    build: ./compose/postgres
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-      - postgres_backup:/backups
-    env_file: .env
+    bilyric-server:
+        restart: always
+        image: cuongnb14/bilyric:0.1
+        networks:
+            - onfta-back
+        expose:
+            - "8000"
+        ports:
+            - "8000:8000"
+        volumes:
+            - .:/usr/src/app
+        env_file: docker-env
+        environment:
+            DJANGO_SETTINGS_MODULE: 'config.settings.local'
+        command: /usr/local/bin/gunicorn config.wsgi:application -w 2 -b :8000
 
-  django:
-    build:
-      context: .
-      dockerfile: ./compose/django/Dockerfile
-    user: django
-    depends_on:
-      - postgres
-      - redis
-    command: /gunicorn.sh
-    env_file: .env
-
-  nginx:
-    build: ./compose/nginx
-    depends_on:
-      - django
-
-    ports:
-      - "0.0.0.0:80:80"
-
-
-  redis:
-    image: redis:latest
-
-  celeryworker:
-    build:
-      context: .
-      dockerfile: ./compose/django/Dockerfile
-    user: django
-    env_file: .env
-    depends_on:
-     - postgres
-     - redis
-    command: celery -A bilyric.taskapp worker -l INFO
-
-  celerybeat:
-    build:
-      context: .
-      dockerfile: ./compose/django/Dockerfile
-    user: django
-    env_file: .env
-    depends_on:
-      - postgres
-      - redis
-    command: celery -A bilyric.taskapp beat -l INFO
-
+networks:
+    bilyric-net:
+      external: true
