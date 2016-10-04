@@ -33,6 +33,40 @@ function Subtitles(subtitles) {
 
     this.player = new PlayerAdapter(document.getElementById("zmp3-frame").contentWindow);
 
+    this.reSetSubtitle = function (subtitles) {
+        this.subtitles = subtitles;
+        this.sub1 = new Srt(subtitles["sub1"]);
+        this.sub2 = new Srt(subtitles["sub2"]);
+    };
+
+    this.renderToForm = function () {
+        var subPanel = $(".cl-sub-panel").clone().css("display", "none");
+        var subContainer = $("#cl-subtitles-container");
+        var pnindex = 0;
+        var context = this;
+        this.sub1.lines.forEach(function (item, index) {
+            pnindex = pnindex + 1;
+            if(pnindex == 1){
+                context.lineToPanel(item, context.sub2.lines[index], "ps1");
+            } else {
+                var newId = "ps" + pnindex;
+                var newPanel = subPanel.clone();
+                newPanel.attr("id", newId);
+                newPanel.find(".ps-action").attr("fpn", newId);
+                subContainer.append(newPanel);
+                newPanel.show("fast");
+                context.lineToPanel(item, context.sub2.lines[index], newId);
+            }
+        })
+    };
+
+    this.lineToPanel = function (sub1, sub2, panelId) {
+        $("#"+panelId).find(".ps-start").val(sub1.start.abtime);
+        $("#"+panelId).find(".ps-end").val(sub1.end.abtime);
+        $("#"+panelId).find(".ps-sub1").val(sub1.subtitle);
+        $("#"+panelId).find(".ps-sub2").val(sub2.subtitle);
+    };
+
     this.appendTranscript = function () {
         var transcript = this.transcript.find("ul");
         for (i = 0; i < this.sub1.lines.length; i++) {
@@ -92,7 +126,7 @@ function Subtitles(subtitles) {
     };
 
     this.updateSubtitles = function () {
-        try {
+       try {
             currentTime = this.player.getCurrentTime();
             // if (autoplay == 1) {
             //     nextSong(currentTime);
@@ -158,7 +192,8 @@ function Subtitles(subtitles) {
                 }
             });
         });
-        
+
         setInterval(this.updateSubtitles.bind(this), 500);
     }
 }
+

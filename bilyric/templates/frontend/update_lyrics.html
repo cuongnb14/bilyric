@@ -1,0 +1,146 @@
+{% extends 'frontend/base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}{{ song.name }} - {{ song.artist }}{% endblock %}
+
+{% block style %}
+    <link href="{% static 'plugins/jquery/jquery.mCustomScrollbar.css' %}" rel="stylesheet">
+{% endblock %}
+
+
+{% block script %}
+    <script src="{% static 'plugins/srt/srt2.js' %}"></script>
+    <script src="{% static 'plugins/srt/srt.js' %}"></script>
+    <script src="{% static 'assets/js/subtitle.js' %}"></script>
+    <script src="{% static 'assets/js/generator_subtitles.js' %}"></script>
+    <script src="{% static 'plugins/jquery/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+    <script>
+        jQuery(document).ready(function ($) {
+
+            $.ajax({
+                url: "{% url 'songlyrics:ajax_subtitles' song.id %}",
+                async: false,
+                cache: false,
+                success: function (data) {
+                    subtitle = data;
+                    subtitleHandler = new Subtitles(data);
+                    subtitleHandler.start();
+                    subtitleHandler.renderToForm();
+                }
+            });
+
+        });
+
+    </script>
+{% endblock %}
+
+{% block content %}
+    <div class="container" id="play-page">
+        <div class="col-md-8">
+            <h3 class="song-title">{{ song.name }}
+                <small>{{ song.artist }}</small>
+            </h3>
+
+            <div id="song-frame">
+                <div id="subtitle">
+                    <p id="sub1">{{ song.name }}
+                    <p>
+                    <p id="sub2">{{ song.artist }}
+                    <p>
+                </div>
+                <iframe id="zmp3-frame" scrolling="no" width="100%" height="100%"
+                        src="{% url 'songlyrics:zmp3_song' song.zmp3_xml %}" frameborder="0" allowfullscreen="true">
+                </iframe>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <div class="action-item">
+                        <button class="btn btn-sm btn-bil" id="cl-apply-subs"><i class="fa fa-check-circle-o"
+                                                                                 aria-hidden="true"></i> Apply
+                        </button>
+
+                        <button class="btn btn-bil btn-sm" id="save-shift"
+                                data-url="{% url 'songlyrics:ajax_subtitles' song.id %}"><i class="fa fa-floppy-o"
+                                                                                            aria-hidden="true"></i>
+                            Save Lyrics
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+            <div id="cl-subtitles-container">
+                <div id="ps1" class="panel panel-default cl-sub-panel">
+                    <div class="panel-body">
+                        <div class="row form-group">
+                            <div class="col-md-4">
+                                <div class="input-group">
+                                    <input type="text" class="form-control ps-start">
+                                          <span class="input-group-btn">
+                                                <button class="btn btn-default ps-start-btn" type="button"><i
+                                                        class="fa fa-clock-o"
+                                                        aria-hidden="true"></i></button>
+                                          </span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="input-group">
+                                    <input type="text" class="form-control ps-end">
+                                          <span class="input-group-btn">
+                                                <button class="btn btn-default ps-end-btn" type="button"><i
+                                                        class="fa fa-clock-o"
+                                                        aria-hidden="true"></i></button>
+                                          </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-12">
+                                <input type="text" class="form-control ps-sub1" placeholder="english subtitles">
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-12">
+                                <input type="text" class="form-control ps-sub2" placeholder="vietnamese subtitles">
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-12">
+                                {#                                <button class="btn btn-default ps-action ps-clone" fpn="ps1">Clone</button>#}
+                                <button class="btn btn-default ps-action ps-remove" fpn="ps1"><i
+                                        class="fa fa-minus-circle" aria-hidden="true"></i>
+                                    Remove
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="input-group">
+                        <input type="number" class="form-control" value="1" id="cl-add-number">
+                      <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" id="cl-add-btn">Add</button>
+                      </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-4 sidebar">
+            <div id="transcript">
+                <ul>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <a href="#" class="back-to-top"><i class="fa fa-arrow-up" aria-hidden="true"></i>
+    </a>
+{% endblock %}

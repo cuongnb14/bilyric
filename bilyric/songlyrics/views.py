@@ -38,9 +38,9 @@ def zmp3_song(request, song_xml):
 
 
 @ratelimit(key='ip', rate=RATE, block=True)
-def play_song(request, song_slug):
+def play_song(request, song_slug, song_id):
     try:
-        song = Song.objects.get(slug=song_slug)
+        song = Song.objects.get(pk=song_id)
         # try:
         #     track = Tracking()
         #     track.ip = request.ip_client

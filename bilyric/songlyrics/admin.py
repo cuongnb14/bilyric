@@ -1,17 +1,55 @@
 import requests
 import re
+
+from django.shortcuts import render
 from lxml import html
 import traceback
+from django.utils.text import slugify
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
+from django.core.exceptions import PermissionDenied
+from django.shortcuts import redirect
 from ratelimit.decorators import ratelimit
 
 from bilyric.base.utils import require_ajax
 from bilyric.songlyrics.models import Subtitle, Song
 
 RATE = getattr(settings, 'RATE', '10/s')
+
+
+def select_song(request):
+    return render(request, 'frontend/select_song.html')
+
+
+def create_lyrics(request, song_xml):
+    data = {}
+    song = Song()
+    song.name = request.GET.get("name", "")
+    song.artist = request.GET.get("artist", "")
+    song.zmp3_xml = song_xml
+    song.zmp3_id = request.GET.get("id", "")
+    song.user = request.user
+    song.visible = 0
+    song.bybot = 0
+    song.slug = slugify(song.name + song.artist)
+    song.save()
+    subtitle = Subtitle()
+    subtitle.song = song
+    subtitle.save()
+
+    data["song"] = song
+    return redirect('songlyrics:update_lyrics', song_slug=song.slug, song_id=song.id)
+
+
+@login_required()
+def update_lyrics(request, song_slug, song_id):
+    song = Song.objects.get(pk=song_id)
+    #if song.user.id is not request.user.id:
+        #raise PermissionDenied
+    data = {"song": song}
+    return render(request, 'frontend/update_lyrics.html', data)
 
 
 # Ajax part
@@ -58,6 +96,7 @@ def ajax_song(request, song_id):
     else:
         data = {"status": "error", "message": "404"}
     return JsonResponse(data)
+
 
 @ratelimit(key='ip', rate=RATE, block=True)
 @login_required(login_url='/administration/login/')

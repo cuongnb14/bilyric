@@ -18,7 +18,7 @@
             <div class="clearfix song-item">
                 <i class="fa fa-music fa-2x pull-left"></i>
                 <div class="pull-left">
-                    <p class="song-name"><a href="{% url 'songlyrics:play_song' song_item.slug %}">{{ song_item.name }}</a>
+                    <p class="song-name"><a href="{% url 'songlyrics:play_song' song_item.slug song_item.id %}">{{ song_item.name }}</a>
                     </p>
                     <p class="song-artist">{{ song_item.artist }}</p>
                 </div>

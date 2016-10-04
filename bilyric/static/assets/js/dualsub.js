@@ -6,6 +6,7 @@ FAVOR_BASE_URL = "/ajax/favor/";
 AJAX_SONG_BASE_URL = "/ajax/songs/";
 GET_ZMP3ID_URL = "/ajax/get-zmp3id";
 AJAX_SUBTITLES_BASE_URL = "ajax/subtitles/";
+CREATE_LYRICS_BASE_URL = "/create-lyrics/";
 
 
 function updateSong(id, song, callback) {
@@ -37,8 +38,7 @@ function get_zmp3id(zmp3_link, callback) {
         dataType: 'json',
         success: function (data) {
             if (data.status == 'success') {
-                toastr[data.status](data.message.zmp3id);
-                console.log(data.message.zmp3id);
+                toastr[data.status]("Bài hát " + data.message.zmp3name);
                 if (callback != null) {
                     callback(data);
                 }
@@ -182,6 +182,50 @@ jQuery(document).ready(function ($) {
     $("#bl-zoom").click(function () {
         $("#content").toggleClass("zoom-x16");
     });
+
+
+    // select song page
+    var ss_song_xml = "";
+    var ss_song_id = "";
+    $("#ss-get-zmp3-song").click(function () {
+        get_zmp3id($("#zmp3-link").val(), function (data) {
+            $("#ss-song-info").css("display", "block");
+            $(".ss-song-name").text(data.message.zmp3name);
+            $(".ss-song-artist").text(data.message.zmp3artist);
+            ss_song_xml = data.message.zmp3xml;
+            ss_song_id = data.message.zmp3id;
+        })
+    });
+
+    $("#ss-create-lyric").click(function () {
+        if (ss_song_id != "") {
+            var data = encodeURI("?id=" + ss_song_id + "" + "&name=" + $(".ss-song-name").text() + "&artist=" + $(".ss-song-artist").text());
+            window.location.href = CREATE_LYRICS_BASE_URL + ss_song_xml + data;
+        } else {
+            toastr["error"]("Bạn chưa chọn bài hát");
+        }
+
+    });
+
+    // Back to top
+    var amountScrolled = 300;
+
+    $(window).scroll(function () {
+        if ($(window).scrollTop() > amountScrolled) {
+            $('a.back-to-top').fadeIn('slow');
+        } else {
+            $('a.back-to-top').fadeOut('slow');
+        }
+    });
+
+    $('a.back-to-top').click(function () {
+        $('html, body').animate({
+            scrollTop: 0
+        }, 700);
+        return false;
+    });
+
+
 });
 
 

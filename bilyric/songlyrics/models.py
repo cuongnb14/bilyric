@@ -25,6 +25,7 @@ class Song(TimeStampedModel):
     view = models.IntegerField(default=0)
     like = models.IntegerField(default=0)
     visible = models.IntegerField(default=1)
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING, default=None, null=True)
 
 class Subtitle(TimeStampedModel):
     song = models.OneToOneField(

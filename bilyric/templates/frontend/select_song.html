@@ -1,0 +1,35 @@
+{% extends 'frontend/base.html' %}
+{% load staticfiles %}
+{% block title %}Select song to create lyrics{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <h4 class="text-bil col-md-12">Bài hát bạn muốn tạo lyrics</h4>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <span class="col-md-12 ">Zing mp3 link: </span>
+                <div class="col-md-6">
+                    <input type="text" class="form-control input-sm" id="zmp3-link">
+                </div>
+                <div class="col-md-1">
+                    <button class="btn btn-bil btn-sm" id="ss-get-zmp3-song"> Get Song</button>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div id="ss-song-info" style="display: none;">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Thông tin bài hát</h3>
+                </div>
+                <div class="panel-body">
+                    <p><span class="text-muted">Tên bài hát: </span><span class="ss-song-name"></span></p>
+                    <p><span class="text-muted">Ca sĩ / Nhóm nhạc: </span><span class="ss-song-artist"></span></p>
+                    <p><button class="btn btn-bil btn-sm" id="ss-create-lyric"> Tạo Lyrics</button></p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
