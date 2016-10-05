@@ -37,6 +37,8 @@ function Subtitles(subtitles) {
         this.subtitles = subtitles;
         this.sub1 = new Srt(subtitles["sub1"]);
         this.sub2 = new Srt(subtitles["sub2"]);
+        this.transcript.find("ul").empty();
+        this.appendTranscript();
     };
 
     this.renderToForm = function () {
@@ -46,7 +48,7 @@ function Subtitles(subtitles) {
         var context = this;
         this.sub1.lines.forEach(function (item, index) {
             pnindex = pnindex + 1;
-            if(pnindex == 1){
+            if (pnindex == 1) {
                 context.lineToPanel(item, context.sub2.lines[index], "ps1");
             } else {
                 var newId = "ps" + pnindex;
@@ -61,10 +63,10 @@ function Subtitles(subtitles) {
     };
 
     this.lineToPanel = function (sub1, sub2, panelId) {
-        $("#"+panelId).find(".ps-start").val(sub1.start.abtime);
-        $("#"+panelId).find(".ps-end").val(sub1.end.abtime);
-        $("#"+panelId).find(".ps-sub1").val(sub1.subtitle);
-        $("#"+panelId).find(".ps-sub2").val(sub2.subtitle);
+        $("#" + panelId).find(".ps-start").val(sub1.start.abtime);
+        $("#" + panelId).find(".ps-end").val(sub1.end.abtime);
+        $("#" + panelId).find(".ps-sub1").val(sub1.subtitle);
+        $("#" + panelId).find(".ps-sub2").val(sub2.subtitle);
     };
 
     this.appendTranscript = function () {
@@ -126,7 +128,7 @@ function Subtitles(subtitles) {
     };
 
     this.updateSubtitles = function () {
-       try {
+        try {
             currentTime = this.player.getCurrentTime();
             // if (autoplay == 1) {
             //     nextSong(currentTime);
@@ -157,7 +159,8 @@ function Subtitles(subtitles) {
 
         // event for subtitles
         context = this;
-        $(".tline").click(function () {
+
+        this.transcript.on("click", ".tline", function () {
             context.index = $(this).data("index");
             context.player.playAt(context.sub1.lines[context.index].start.abtime);
             context.action(context.index);
