@@ -46,8 +46,9 @@ def create_lyrics(request, song_xml):
 @login_required()
 def update_lyrics(request, song_slug, song_id):
     song = Song.objects.get(pk=song_id)
-    #if song.user.id is not request.user.id:
-        #raise PermissionDenied
+    if not request.user.is_superuser:
+        if song.user and song.user.id is not request.user.id:
+            raise PermissionDenied
     data = {"song": song}
     return render(request, 'frontend/update_lyrics.html', data)
 
