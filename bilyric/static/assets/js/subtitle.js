@@ -42,24 +42,29 @@ function Subtitles(subtitles) {
     };
 
     this.renderToForm = function () {
-        var subPanel = $(".cl-sub-panel").clone().css("display", "none");
-        var subContainer = $("#cl-subtitles-container");
-        var pnindex = 0;
-        var context = this;
-        this.sub1.lines.forEach(function (item, index) {
-            pnindex = pnindex + 1;
-            if (pnindex == 1) {
-                context.lineToPanel(item, context.sub2.lines[index], "ps1");
-            } else {
-                var newId = "ps" + pnindex;
-                var newPanel = subPanel.clone();
-                newPanel.attr("id", newId);
-                newPanel.find(".ps-action").attr("fpn", newId);
-                subContainer.append(newPanel);
-                newPanel.show("fast");
-                context.lineToPanel(item, context.sub2.lines[index], newId);
-            }
-        })
+        try {
+            var subPanel = $(".cl-sub-panel").clone().css("display", "none");
+            var subContainer = $("#cl-subtitles-container");
+            var pnindex = 0;
+            var context = this;
+            this.sub1.lines.forEach(function (item, index) {
+                pnindex = pnindex + 1;
+                if (pnindex == 1) {
+                    context.lineToPanel(item, context.sub2.lines[index], "ps1");
+                } else {
+                    var newId = "ps" + pnindex;
+                    var newPanel = subPanel.clone();
+                    newPanel.attr("id", newId);
+                    newPanel.find(".ps-action").attr("fpn", newId);
+                    subContainer.append(newPanel);
+                    newPanel.show("fast");
+                    context.lineToPanel(item, context.sub2.lines[index], newId);
+                }
+            })
+        }  catch (err) {
+            console.log(err);
+        }
+
     };
 
     this.lineToPanel = function (sub1, sub2, panelId) {
@@ -70,27 +75,31 @@ function Subtitles(subtitles) {
     };
 
     this.appendTranscript = function () {
-        var transcript = this.transcript.find("ul");
-        for (i = 0; i < this.sub1.lines.length; i++) {
-            var element = "";
-            if (jQuery.type(this.sub2.lines) !== 'undefined') {
-                element = '<li class="tline" data-index="' + i + '" id="tline-' + i + '">' +
-                    '<p class="tsub1"> ' + this.sub1.lines[i].subtitle + '</p>' +
-                    '<p class="tsub2">' + this.sub2.lines[i].subtitle + '</p>' +
-                    '</li>';
-            } else {
-                element = '<li class="tline" data-index="' + i + '" id="tline-' + i + '">' +
-                    '<p class="tsub1">' + this.sub1.lines[i].subtitle + '</p>' +
-                    '</li>';
+        try {
+            var transcript = this.transcript.find("ul");
+            for (i = 0; i < this.sub1.lines.length; i++) {
+                var element = "";
+                if (jQuery.type(this.sub2.lines) !== 'undefined') {
+                    element = '<li class="tline" data-index="' + i + '" id="tline-' + i + '">' +
+                        '<p class="tsub1"> ' + this.sub1.lines[i].subtitle + '</p>' +
+                        '<p class="tsub2">' + this.sub2.lines[i].subtitle + '</p>' +
+                        '</li>';
+                } else {
+                    element = '<li class="tline" data-index="' + i + '" id="tline-' + i + '">' +
+                        '<p class="tsub1">' + this.sub1.lines[i].subtitle + '</p>' +
+                        '</li>';
+                }
+                transcript.append(element);
             }
-            transcript.append(element);
-        }
 
-        this.transcript.mCustomScrollbar({
-            axis: "y",
-            setHeight: 500,
-            theme: "dark"
-        });
+            this.transcript.mCustomScrollbar({
+                axis: "y",
+                setHeight: 500,
+                theme: "dark"
+            });
+        } catch (err) {
+            //console.log(err);
+        }
     };
 
     this.isInIndex = function (time, index) {
@@ -150,7 +159,7 @@ function Subtitles(subtitles) {
             }
             this.preTime = currentTime;
         } catch (err) {
-            console.log(err);
+            //console.log(err);
         }
     };
 
