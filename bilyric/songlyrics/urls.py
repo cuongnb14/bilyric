@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^song/(?P<song_slug>.+)-(?P<song_id>.+)$', views.play_song, name='play_song'),
     url(r'^favor-song$', views.favor_song, name='favor_song'),
     url(r'^logout/$', views.logout, name='logout'),
+    url(r'^song/(?P<username>.+)', views.user_song, name='user_song'),
     url(r'^create-lyrics/select-song$', admin.select_song, name='select_song'),
     url(r'^create-lyrics/(?P<song_xml>.+)$', admin.create_lyrics, name='create_lyrics'),
     url(r'^update-lyrics/(?P<song_slug>.+)-(?P<song_id>.+)$', admin.update_lyrics, name='update_lyrics'),

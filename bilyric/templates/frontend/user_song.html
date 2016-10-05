@@ -1,0 +1,15 @@
+{% extends 'frontend/base.html' %}
+{% load staticfiles %}
+{% load bootstrap_pagination %}
+{% block title %}All Songs{% endblock %}
+{% block content %}
+<div class="container">
+    <h4 class="text-bil col-md-12">Bài hát của {{ user.get_full_name }}</h4>
+    {% for song_item in songs %}
+        {% include "component/song_item.html" with song_item=song_item col_class="col-md-4" %}
+    {% endfor %}
+    <div class="col-md-12">
+        {% bootstrap_paginate songs range=5 show_first_last="true" first_label="First" last_label="End" %}
+    </div>
+</div>
+{% endblock %}

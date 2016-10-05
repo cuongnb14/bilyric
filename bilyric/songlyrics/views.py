@@ -9,6 +9,7 @@ from django.shortcuts import render, redirect
 from django.db.models import Q
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.models import User
 
 from ratelimit.decorators import ratelimit
 
@@ -93,7 +94,7 @@ def favor_song(request):
     favors = Favor.objects.filter(user=request.user)
     songs = [favor.song for favor in favors]
 
-    paginator = Paginator(songs, 21)  # Show 10 contacts per page
+    paginator = Paginator(songs, 21)
     page = request.GET.get('page', 1)
     try:
         songs = paginator.page(page)
@@ -105,6 +106,22 @@ def favor_song(request):
     data = {"songs": songs}
     return render(request, 'frontend/favor_song.html', data)
 
+
+@login_required(login_url='/administration/login/')
+def user_song(request, username):
+    user = User.objects.get(username=username)
+    songs = Song.objects.filter(user=user)
+    paginator = Paginator(songs, 20)
+    page = request.GET.get('page', 1)
+    try:
+        songs = paginator.page(page)
+    except PageNotAnInteger:
+        songs = paginator.page(1)
+    except EmptyPage:
+        songs = paginator.page(paginator.num_pages)
+    data = {"songs": songs}
+    data["user"] = user
+    return render(request, 'frontend/user_song.html', data)
 
 @ratelimit(key='ip', rate=RATE, block=True)
 def logout(request):
