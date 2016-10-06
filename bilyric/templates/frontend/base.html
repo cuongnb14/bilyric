@@ -57,7 +57,9 @@
                 <li><a href="{% url 'songlyrics:list_song' %}">ALL SONG</a></li>
                 {% if user.is_authenticated %}
                     <li><a href="{% url 'songlyrics:favor_song' %}">FAVOR SONG</a></li>
-                    <li><a href="{% url 'songlyrics:select_song' %}">CREATE LYRICS</a></li>
+                    {% if perms.songlyrics.add_subtitle %}
+                        <li><a href="{% url 'songlyrics:select_song' %}">CREATE LYRICS</a></li>
+                    {% endif %}
                 {% endif %}
             </ul>
             <form class="navbar-form navbar-left" role="search" action="{% url 'songlyrics:list_song' %}">
@@ -112,7 +114,6 @@
 <!-- Toastr and config -->
 <script src="{% static 'plugins' %}/toastr/toastr.min.js"></script>
 <script>
-
 
 
     toastr.options = {

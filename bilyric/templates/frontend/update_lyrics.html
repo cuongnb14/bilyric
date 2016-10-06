@@ -66,6 +66,17 @@
                                                                                             aria-hidden="true"></i>
                             Save Lyrics
                         </button>
+
+
+                        <button class="btn btn-bil btn-sm" id="visible" data-song="{{ song.id }}">
+                            {% if song.visible %}
+                                <i data-value="0" class="fa fa-eye"></i>
+                            {% else %}
+                                <i class="fa fa-eye-slash" data-value="1"></i>
+                            {% endif %}
+                        </button>
+             
+
                     </div>
                 </div>
             </div>

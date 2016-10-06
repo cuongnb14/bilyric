@@ -11,6 +11,7 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect
+from django.contrib.auth.decorators import permission_required
 from ratelimit.decorators import ratelimit
 
 from bilyric.base.utils import require_ajax
@@ -18,11 +19,12 @@ from bilyric.songlyrics.models import Subtitle, Song
 
 RATE = getattr(settings, 'RATE', '10/s')
 
-
+@permission_required('songlyrics.add_subtitle', raise_exception=True)
 def select_song(request):
     return render(request, 'frontend/select_song.html')
 
 
+@permission_required('songlyrics.add_subtitle', raise_exception=True)
 def create_lyrics(request, song_xml):
     data = {}
     song = Song()
@@ -43,6 +45,7 @@ def create_lyrics(request, song_xml):
     return redirect('songlyrics:update_lyrics', song_slug=song.slug, song_id=song.id)
 
 
+@permission_required('songlyrics.add_subtitle', raise_exception=True)
 @login_required()
 def update_lyrics(request, song_slug, song_id):
     song = Song.objects.get(pk=song_id)
@@ -64,7 +67,7 @@ def ajax_subtitles(request, song_id):
         subtitle = {'sub1': subtitle.sub1, 'sub2': subtitle.sub2}
         return JsonResponse(subtitle)
     if (request.method == 'POST'):
-        if request.user.is_authenticated() and request.user.has_perms('dualsub.change_subtitle'):
+        if request.user.is_authenticated() and request.user.has_perm('songlyrics.change_subtitle'):
             try:
                 subtitles = request.POST
                 subtitle = Subtitle.objects.get(song_id=song_id)
