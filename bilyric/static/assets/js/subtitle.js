@@ -1,3 +1,4 @@
+pnindex = 1;
 function PlayerAdapter(playerFrame) {
     this.playerFrame = playerFrame;
 
@@ -44,22 +45,24 @@ function Subtitles(subtitles) {
     this.renderToForm = function () {
         try {
             var subPanel = $(".cl-sub-panel").clone().css("display", "none");
-            var subContainer = $("#cl-subtitles-container");
-            var pnindex = 0;
+            var subContainer = $("#cl-subtitles-container ul");
+
             var context = this;
             this.sub1.lines.forEach(function (item, index) {
-                pnindex = pnindex + 1;
+
                 if (pnindex == 1) {
                     context.lineToPanel(item, context.sub2.lines[index], "ps1");
                 } else {
                     var newId = "ps" + pnindex;
                     var newPanel = subPanel.clone();
                     newPanel.attr("id", newId);
+                    newPanel.find(".ps-order").text(pnindex);
                     newPanel.find(".ps-action").attr("fpn", newId);
                     subContainer.append(newPanel);
                     newPanel.show("fast");
                     context.lineToPanel(item, context.sub2.lines[index], newId);
                 }
+                pnindex = pnindex + 1;
             })
         }  catch (err) {
             console.log(err);

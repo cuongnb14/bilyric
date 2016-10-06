@@ -1,22 +1,31 @@
 jQuery(document).ready(function ($) {
     var subPanel = $(".cl-sub-panel").clone().css("display", "none");
-    var subContainer = $("#cl-subtitles-container");
-    var index = 1;
+    var subContainer = $("#cl-subtitles-container ul");
+    //var pnindex = 1;
     var player = new PlayerAdapter(document.getElementById("zmp3-frame").contentWindow);
 
 
     $("#cl-add-btn").click(function () {
         var addNumber = $("#cl-add-number").val();
         for (i = 0; i < addNumber; i++) {
-            index = index + 1;
-            var newId = "ps" + index;
+            pnindex = pnindex + 1;
+            var newId = "ps" + pnindex;
             var newPanel = subPanel.clone();
             newPanel.attr("id", newId);
+            newPanel.find(".ps-order").text(pnindex);
             newPanel.find(".ps-action").attr("fpn", newId);
             subContainer.append(newPanel);
             newPanel.show("fast");
         }
-        $(document).scrollTop($(document).height());
+        setTimeout(function () {
+            $("#cl-subtitles-container").mCustomScrollbar("scrollTo", "#ps"+pnindex);
+        }, 300)
+
+    });
+
+    $("#cl-go-btn").click(function () {
+        var lineNumber = $("#cl-go-line").val();
+        $("#cl-subtitles-container").mCustomScrollbar("scrollTo", "#ps" + lineNumber);
     });
 
     $("#cl-apply-subs").click(function () {
@@ -53,5 +62,11 @@ jQuery(document).ready(function ($) {
     });
     $("#cl-subtitles-container").on("click", ".ps-end-btn", function () {
         $(this).closest(".cl-sub-panel").find(".ps-end").val(player.getCurrentTime());
+    });
+
+    $("#cl-subtitles-container").mCustomScrollbar({
+        axis: "y",
+        setHeight: 500,
+        theme: "dark"
     });
 });

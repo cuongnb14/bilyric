@@ -409,3 +409,9 @@ a.back-to-top {
   z-index: 999;
   background: rgb(0, 0, 0);
 }
+
+
+/**/
+#cl-subtitles-container ul {
+  padding-left: 0;
+}

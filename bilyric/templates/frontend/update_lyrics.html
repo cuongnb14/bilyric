@@ -75,7 +75,7 @@
                                 <i class="fa fa-eye-slash" data-value="1"></i>
                             {% endif %}
                         </button>
-             
+
 
                     </div>
                 </div>
@@ -83,51 +83,54 @@
 
             <hr>
             <div id="cl-subtitles-container">
-                <div id="ps1" class="panel panel-default cl-sub-panel">
-                    <div class="panel-body">
-                        <div class="row form-group">
-                            <div class="col-md-4">
-                                <div class="input-group">
-                                    <input type="text" class="form-control ps-start">
+                <ul>
+                    <div id="ps1" class="panel panel-default cl-sub-panel">
+                        <div class="panel-body">
+                            <div class="row form-group">
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control ps-start">
                                           <span class="input-group-btn">
                                                 <button class="btn btn-default ps-start-btn" type="button"><i
                                                         class="fa fa-clock-o"
                                                         aria-hidden="true"></i></button>
                                           </span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="input-group">
-                                    <input type="text" class="form-control ps-end">
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control ps-end">
                                           <span class="input-group-btn">
                                                 <button class="btn btn-default ps-end-btn" type="button"><i
                                                         class="fa fa-clock-o"
                                                         aria-hidden="true"></i></button>
                                           </span>
+                                    </div>
+                                </div>
+                                <span class="badge badge-success pull-right ps-order" style="margin-right: 7px">1</span>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-md-12">
+                                    <input type="text" class="form-control ps-sub1" placeholder="english subtitles">
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-md-12">
+                                    <input type="text" class="form-control ps-sub2" placeholder="vietnamese subtitles">
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-md-12">
+                                    {#                                <button class="btn btn-default ps-action ps-clone" fpn="ps1">Clone</button>#}
+                                    <button class="btn btn-default ps-action ps-remove" fpn="ps1"><i
+                                            class="fa fa-minus-circle" aria-hidden="true"></i>
+                                        Remove
+                                    </button>
                                 </div>
                             </div>
                         </div>
-                        <div class="row form-group">
-                            <div class="col-md-12">
-                                <input type="text" class="form-control ps-sub1" placeholder="english subtitles">
-                            </div>
-                        </div>
-                        <div class="row form-group">
-                            <div class="col-md-12">
-                                <input type="text" class="form-control ps-sub2" placeholder="vietnamese subtitles">
-                            </div>
-                        </div>
-                        <div class="row form-group">
-                            <div class="col-md-12">
-                                {#                                <button class="btn btn-default ps-action ps-clone" fpn="ps1">Clone</button>#}
-                                <button class="btn btn-default ps-action ps-remove" fpn="ps1"><i
-                                        class="fa fa-minus-circle" aria-hidden="true"></i>
-                                    Remove
-                                </button>
-                            </div>
-                        </div>
                     </div>
-                </div>
+                </ul>
             </div>
 
             <hr>
@@ -137,6 +140,14 @@
                         <input type="number" class="form-control" value="1" id="cl-add-number">
                       <span class="input-group-btn">
                         <button class="btn btn-default" type="button" id="cl-add-btn">Add</button>
+                      </span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="input-group">
+                        <input type="number" class="form-control" value="1" id="cl-go-line">
+                      <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" id="cl-go-btn">Go</button>
                       </span>
                     </div>
                 </div>
