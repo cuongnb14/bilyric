@@ -44,4 +44,4 @@ services:
 
 networks:
     bilyric-net:
-      external: true
+      #external: true
