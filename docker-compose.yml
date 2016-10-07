@@ -5,21 +5,42 @@
 version: "2"
 
 services:
-    bilyric-server:
-        restart: always
+    web:
+        #restart: always
         image: cuongnb14/bilyric:0.1
         networks:
-            - onfta-back
+            - bilyric-net
         expose:
             - "8000"
         ports:
-            - "8000:8000"
+            - "0.0.0.0:80:8000"
         volumes:
             - .:/usr/src/app
         env_file: docker-env
         environment:
             DJANGO_SETTINGS_MODULE: 'config.settings.local'
         command: /usr/local/bin/gunicorn config.wsgi:application -w 2 -b :8000
+
+    mysql:
+        image: mysql:5.7
+        networks:
+            - bilyric-net
+        volumes:
+            - ./mysql-data/:/var/lib/mysql/
+            - ./mysql-init-data/:/docker-entrypoint-initdb.d/
+        env_file:
+            - ./docker-env
+        ports:
+            - "0.0.0.0:3308:3306"
+        hostname: mysql
+        #domainname: bilyric.com
+        cpu_shares: 512             # 0.5 CPU
+        mem_limit: 1073741824       # 1024 MB RAM
+        # memswap_limit: 0            # 0 MB SWAP
+        # privileged: true
+        #restart: always
+        # stdin_open: true
+        # tty: true
 
 networks:
     bilyric-net:

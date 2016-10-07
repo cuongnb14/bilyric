@@ -57,5 +57,4 @@ requests==2.9.1
 django-bootstrap-pagination==1.6.1
 lxml==3.6.0
 gunicorn==19.6.0
-django-allauth=0.27.0
 django-ratelimit==1.0.0
