@@ -153,7 +153,7 @@ def ajax_search_song(request):
                                         Q(name__icontains=q) | Q(artist__icontains=q))
             result = []
             for song in songs:
-                result.append({'song_slug': song.slug + "-" + song.id, 'song_name': song.name, 'song_artist': song.artist,
+                result.append({'song_slug': song.slug + "-" + str(song.id), 'song_name': song.name, 'song_artist': song.artist,
                                'title': song.name + " - " + song.artist})
         else:
             result = []
