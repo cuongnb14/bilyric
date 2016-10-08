@@ -7,12 +7,11 @@
 <div class="container">
     {% if songs|length == 0 %}
     <div class="list-song col-md-12">
-        <h5 class="text-primary">BÀI HÁT YÊU THÍCH</h5>
+        <h3 class="text-bil col-md-12">Favorite songs</h3>
         <p>Bạn chưa có bài hát yêu thích nào</p>
     </div>
     {% else %}
-    <div class="list-song col-md-12">
-        <h5 class="text-primary">BÀI HÁT YÊU THÍCH</h5>
+        <h3 class="text-bil col-md-12">Favorite songs</h3>
         {% for song_item in songs %}
         <div class="col-md-4">
             <div class="clearfix song-item">
@@ -31,7 +30,6 @@
             </div>
         </div>
         {% endfor %}
-    </div>
 
     <div class="col-md-12">
         {% bootstrap_paginate songs range=5 show_first_last="true" first_label="First" last_label="End" %}
