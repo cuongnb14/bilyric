@@ -12,7 +12,7 @@ body {
 }
 
 .navbar {
-  background-color: #4e3654;
+  background-color: #5c136e;
   /*background-image: url("/static/assets/images/bg-topbar.jpg");*/
   border: none;
   -webkit-box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.49);
@@ -32,17 +32,17 @@ body {
 }
 
 .nav li {
-  border-top: #4e3654 solid 2px !important;
+  border-top: #5c136e solid 2px !important;
   /*border-bottom: #14a0f8 solid 3px !important;*/
 }
 
 .nav li:hover {
   border-top: #ffffff solid 2px !important;
-  background-color: #604466 !important;
+  background-color: #6f0e87 !important;
 }
 
 /*.nav li:hover a {*/
-  /*color: #4e3654 !important;*/
+  /*color: #5c136e !important;*/
 /*}*/
 
 .nav .dropdown-menu li {
@@ -50,7 +50,7 @@ body {
 }
 
 .navbar-default .navbar-nav > .open > a {
-  background-color: #4e3654 !important;
+  background-color: #5c136e !important;
 }
 
 .nav .dropdown-menu a {
@@ -58,17 +58,17 @@ body {
 }
 
 .btn-bil {
-  background-color: #4e3654;
+  background-color: #5c136e;
   color: #fff;
 }
 
 .btn-bil:hover {
-  background-color: #9d72a7;
+  background-color: #6f0e87;
   color: #fff;
 }
 
 .fa-music {
-  color: #4e3654;
+  color: #5c136e;
 }
 
 .song-title {
@@ -118,8 +118,8 @@ body {
 }
 
 .pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover {
-  background-color: #4e3654;
-  border-color: #4e3654;
+  background-color: #5c136e;
+  border-color: #5c136e;
 }
 
 .bil-tab li a {
@@ -166,7 +166,7 @@ body {
 #subtitle {
   position: absolute;
   width: 100%;
-  top: 30%;
+  top: 25%;
   left: 0px;
   z-index: 1000;
   font-family: 'Roboto', sans-serif !important;
@@ -177,12 +177,13 @@ body {
 
 #sub1 {
   text-align: center;
-  color: yellow;
+  color: #ffffff;
 }
 
 #sub2 {
   text-align: center;
-  color: #46ff19;
+  /*color: #46ff19;*/
+  color: #d400ff;
 }
 
 /* end song-frame  */
@@ -268,7 +269,7 @@ body {
 }
 
 #transcript .active p {
-  color: #ff6a06 !important;
+  color: #d400ff !important;
 }
 
 /* end  transcript  */
@@ -414,4 +415,9 @@ a.back-to-top {
 /**/
 #cl-subtitles-container ul {
   padding-left: 0;
+}
+
+/*toastr js*/
+#toast-container > div {
+    opacity:1;
 }
