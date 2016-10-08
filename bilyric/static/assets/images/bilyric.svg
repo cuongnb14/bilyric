@@ -16,7 +16,7 @@
    version="1.1"
    inkscape:version="0.91 r13725"
    sodipodi:docname="bilyric.svg"
-   inkscape:export-filename="/home/cuongnb/Computer/iProject/dualsubtitles/dualsub/static/thumb.png"
+   inkscape:export-filename="/home/cuongnb/Computer/iProject/bilyric/bilyric/static/icon.png"
    inkscape:export-xdpi="48.238895"
    inkscape:export-ydpi="48.238895">
   <defs
@@ -28,9 +28,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.47433846"
-     inkscape:cx="123.85465"
-     inkscape:cy="548.8821"
+     inkscape:zoom="0.33540794"
+     inkscape:cx="-125.01049"
+     inkscape:cy="407.89653"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -75,32 +75,32 @@
      style="display:inline;opacity:0.98999999"
      transform="translate(0,-152.36218)">
     <rect
-       style="display:inline;opacity:0.98999999;fill:#ffffff;fill-opacity:0.99215686"
-       id="rect4684-2-6"
-       width="182.3188"
-       height="652.34406"
-       x="6.7910948"
-       y="521.66461"
-       ry="91.330421"
-       transform="matrix(0.59511162,-0.80364305,0.57201219,0.82024512,0,0)"
-       inkscape:transform-center-x="-317.35997"
-       inkscape:transform-center-y="-214.75202"
-       inkscape:export-xdpi="25.714285"
-       inkscape:export-ydpi="25.714285"
-       rx="0" />
-    <rect
        style="display:inline;opacity:0.98999999;fill:#ffffff;fill-opacity:1"
        id="rect4684-2-6-9"
-       width="182.3188"
-       height="652.34406"
-       x="-214.5956"
-       y="311.1416"
-       ry="91.330421"
-       transform="matrix(0.59511162,-0.80364305,0.57201219,0.82024512,0,0)"
-       inkscape:transform-center-x="-317.36012"
-       inkscape:transform-center-y="-214.75184"
+       width="168.7674"
+       height="511.39474"
+       x="-172.6566"
+       y="407.84738"
+       ry="64.68573"
+       transform="matrix(0.56526354,-0.82491038,0.54221704,0.84023847,0,0)"
+       inkscape:transform-center-x="-266.59857"
+       inkscape:transform-center-y="-194.95454"
        inkscape:export-xdpi="25.714285"
        inkscape:export-ydpi="25.714285"
-       rx="0" />
+       rx="58.232536" />
+    <rect
+       style="display:inline;opacity:0.98999999;fill:#ffffff;fill-opacity:1"
+       id="rect4684-2-6-9-5"
+       width="168.7674"
+       height="511.39474"
+       x="49.214508"
+       y="567.284"
+       ry="64.68573"
+       transform="matrix(0.56526354,-0.82491038,0.54221704,0.84023847,0,0)"
+       inkscape:transform-center-x="-266.59857"
+       inkscape:transform-center-y="-194.95454"
+       inkscape:export-xdpi="25.714285"
+       inkscape:export-ydpi="25.714285"
+       rx="58.232536" />
   </g>
 </svg>
