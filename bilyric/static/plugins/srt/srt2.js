@@ -24,11 +24,13 @@ Srt.prototype = {
                 var counter = origin[0];
                 // time
                 var timeLine = origin[1];
+                console.log(timeLine);
                 var startText = timeLine.match(/^[0-9][0-9]:[0-9][0-9]:[0-9][0-9],[0-9][0-9][0-9]/)[0];
+
                 var endText = timeLine.match(/\s[0-9][0-9]:[0-9][0-9]:[0-9][0-9],[0-9][0-9][0-9]/)[0].replace(' ', '');
                 var startDate = this.stringToDate(startText);
                 var endDate = this.stringToDate(endText);
-                // subtitle 
+                // subtitle
                 var subtitle = '';
                 for (var j = 2; j < origin.length; j++) {
                     subtitle = subtitle + origin[j] + '\n';
@@ -89,8 +91,8 @@ Srt.prototype = {
     	var srt = '';
     	for (var i = 0; i < this.lines.length; i++) {
     		var line = this.lines[i];
-    		srt += line.counter + '\n' + 
-    			line.start.text + ' --> ' + line.end.text + '\n' + 
+    		srt += line.counter + '\n' +
+    			line.start.text + ' --> ' + line.end.text + '\n' +
     			line.subtitle + '\n\r\n';
     	};
     	this.srtContent = srt;

@@ -41,6 +41,9 @@ jQuery(document).ready(function ($) {
             lineSub2.endTime = lineSub1.endTime = $(this).find(".ps-end").val() * 1000;
             lineSub1.text = $(this).find(".ps-sub1").val();
             lineSub2.text = $(this).find(".ps-sub2").val();
+            if (lineSub2.text == ""){
+                lineSub2.text = "...";
+            }
             sub1.push(lineSub1);
             sub2.push(lineSub2);
         });

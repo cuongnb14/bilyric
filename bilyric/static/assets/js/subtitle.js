@@ -42,6 +42,14 @@ function Subtitles(subtitles) {
         this.appendTranscript();
     };
 
+    this.getLineSub2 = function (sub2, index) {
+        try {
+            return sub2.lines[index];
+        } catch (err) {
+            return "";
+        }
+    };
+
     this.renderToForm = function () {
         try {
             var subPanel = $(".cl-sub-panel").clone().css("display", "none");
@@ -51,7 +59,7 @@ function Subtitles(subtitles) {
             this.sub1.lines.forEach(function (item, index) {
 
                 if (pnindex == 1) {
-                    context.lineToPanel(item, context.sub2.lines[index], "ps1");
+                    context.lineToPanel(item, context.getLineSub2(context.sub2, index), "ps1");
                 } else {
                     var newId = "ps" + pnindex;
                     var newPanel = subPanel.clone();
@@ -60,11 +68,11 @@ function Subtitles(subtitles) {
                     newPanel.find(".ps-action").attr("fpn", newId);
                     subContainer.append(newPanel);
                     newPanel.show("fast");
-                    context.lineToPanel(item, context.sub2.lines[index], newId);
+                    context.lineToPanel(item, context.getLineSub2(context.sub2, index), newId);
                 }
                 pnindex = pnindex + 1;
             })
-        }  catch (err) {
+        } catch (err) {
             console.log(err);
         }
 
