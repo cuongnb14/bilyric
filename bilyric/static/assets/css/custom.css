@@ -80,6 +80,7 @@ body {
 }
 
 #parallax {
+  margin-top: -4px;
   height: 400px;
   background-image: url("/static/assets/images/parallax2.jpg");
 }
