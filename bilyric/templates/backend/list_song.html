@@ -1,8 +1,7 @@
-{% extends 'dualsub/base.html' %}
+{% extends 'backend/base.html' %}
 {% load staticfiles %}
-{% load bootstrap_pagination %}
 
-{% block page_title %} Tracking {% endblock %}
+{% block page_title %}All song{% endblock %}
 
 {% block style %}
 <link href="{% static 'gentelella' %}/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
@@ -14,29 +13,35 @@
     <thead>
     <tr>
         <th>ID</th>
-        <th>IP</th>
-        <th>Song id</th>
-        <th>Song name</th>
+        <th>Name</th>
         <th>Artist</th>
-        <th>Time</th>
+        <th>Slug</th>
+        <th>Zmp3 ID</th>
+        <th>Zmp3 XML</th>
+        <th>Bybot</th>
+        <th>Action</th>
     </tr>
     </thead>
 
     <tbody>
-    {% for track in tracks %}
+    {% for song in songs %}
     <tr>
-        <td>{{track.id}}</td>
-        <td>{{track.ip}}</td>
-        <td>{{track.song_id}}</td>
-        <td>{{track.song.name}}</td>
-        <td>{{track.song.artist}}</td>
-        <td class="mm-time">{{ track.created_at|date:"c" }}</td>
+        <td>{{song.id}}</td>
+        <td>{{song.name}}</td>
+        <td>{{song.artist}}</td>
+        <td>{{song.slug}}</td>
+        <td>{{song.zmp3_id}}</td>
+        <td>{{song.zmp3_xml}}</td>
+        <td>{{song.bybot}}</td>
+        <td>
+            <a target="_blank" href="{% url 'songlyrics:update_lyrics' song.slug song.id %}" class="btn btn-primary btn-xs"><i
+                    class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+        </td>
     </tr>
     {% endfor %}
     </tbody>
 </table>
 
-{% bootstrap_paginate tracks range=5 show_first_last="true" first_label="First" last_label="End" %}
 {% endblock %}
 
 

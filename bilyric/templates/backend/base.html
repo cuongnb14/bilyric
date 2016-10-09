@@ -36,7 +36,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="{% url 'dualsub:index' %}" class="site_title"><i class="fa fa-paw"></i> <span>BiLyric</span></a>
+              <a href="{% url 'songlyrics:admin_index' %}" class="site_title"><i class="fa fa-paw"></i> <span>BiLyric</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -60,20 +60,20 @@
               <div class="menu_section">
                 <h3>Administrator</h3>
                 <ul class="nav side-menu">
-                  <li><a href="{% url 'dualsub:index' %}"><i class="fa fa-home"></i> Home </a>
+{#                  <li><a href="{% url 'dualsub:index' %}"><i class="fa fa-home"></i> Home </a>#}
                   </li>
 
                   <li><a><i class="fa fa-music"></i> Song <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="{% url 'dualsub:list_song' %}"><i class="fa fa-list"></i> All song</a></li>
-                      <li><a href="{% url 'dualsub:add_song' %}"><i class="fa fa-plus"></i> Add song</a></li>
+                      <li><a href="{% url 'songlyrics:admin_list_song' %}"><i class="fa fa-list"></i> All song</a></li>
+                      <li><a href="{% url 'songlyrics:select_song' %}"><i class="fa fa-plus"></i> Create song</a></li>
                     </ul>
                   </li>
                   <li>
-                    <a href="{% url 'dualsub:tracking' %}"><i class="fa fa-eye"></i> Tracking </a>
+{#                    <a href="{% url 'dualsub:tracking' %}"><i class="fa fa-eye"></i> Tracking </a>#}
                   </li>
                   <li>
-                    <a href="{% url 'dualsub:ip_client' %}"><i class="fa fa-sign-in"></i> IP Client </a>
+{#                    <a href="{% url 'dualsub:ip_client' %}"><i class="fa fa-sign-in"></i> IP Client </a>#}
                   </li>
 
                 </ul>
