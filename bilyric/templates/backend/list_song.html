@@ -17,7 +17,7 @@
         <th>Artist</th>
         <th>Slug</th>
         <th>Zmp3 ID</th>
-        <th>Zmp3 XML</th>
+        <th>visible</th>
         <th>Bybot</th>
         <th>Action</th>
     </tr>
@@ -31,7 +31,7 @@
         <td>{{song.artist}}</td>
         <td>{{song.slug}}</td>
         <td>{{song.zmp3_id}}</td>
-        <td>{{song.zmp3_xml}}</td>
+        <td>{{song.visible}}</td>
         <td>{{song.bybot}}</td>
         <td>
             <a target="_blank" href="{% url 'songlyrics:update_lyrics' song.slug song.id %}" class="btn btn-primary btn-xs"><i
