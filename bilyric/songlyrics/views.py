@@ -123,6 +123,7 @@ def user_song(request, username):
     data["user"] = user
     return render(request, 'frontend/user_song.html', data)
 
+
 @ratelimit(key='ip', rate=RATE, block=True)
 def logout(request):
     auth_logout(request)
