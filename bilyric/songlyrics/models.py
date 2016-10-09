@@ -3,8 +3,8 @@ from bilyric.base.models import TimeStampedModel
 from django.contrib.auth.models import User
 from django.db.models import Q
 
-class FavorManager(models.Manager):
 
+class FavorManager(models.Manager):
     def is_favor(self, user, song):
         favor = Favor.objects.filter(Q(user=user), Q(song=song))
         if favor:
@@ -27,6 +27,7 @@ class Song(TimeStampedModel):
     visible = models.IntegerField(default=1)
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING, default=None, null=True)
 
+
 class Subtitle(TimeStampedModel):
     song = models.OneToOneField(
         Song,
@@ -36,16 +37,19 @@ class Subtitle(TimeStampedModel):
     sub1 = models.TextField(null=True)
     sub2 = models.TextField(null=True)
 
+
 class Favor(TimeStampedModel):
     id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     song = models.ForeignKey(Song, on_delete=models.CASCADE)
     objects = FavorManager()
 
+
 class IpAddress(TimeStampedModel):
     id = models.AutoField(primary_key=True)
     ip = models.CharField(max_length=60)
     counter = models.IntegerField(default=1)
+
 
 class Tracking(TimeStampedModel):
     id = models.AutoField(primary_key=True)
@@ -53,3 +57,7 @@ class Tracking(TimeStampedModel):
     song_id = models.IntegerField()
 
 
+class SongTracking(TimeStampedModel):
+    id = models.AutoField(primary_key=True)
+    song = models.ForeignKey(Song, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None, null=True)

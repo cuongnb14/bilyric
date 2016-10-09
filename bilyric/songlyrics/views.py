@@ -13,7 +13,7 @@ from django.contrib.auth.models import User
 
 from ratelimit.decorators import ratelimit
 
-from .models import Song, Subtitle, Favor
+from .models import *
 from bilyric.base.utils import require_ajax
 
 RATE = getattr(settings, 'RATE', '10/s')
@@ -139,6 +139,13 @@ def ajax_increment_view(request, song_id):
         song = Song.objects.get(id=song_id)
         song.view = song.view + 1
         song.save()
+        tracker = SongTracking()
+        tracker.song = song
+        if request.user.is_authenticated():
+            tracker.user = request.user
+        else:
+            tracker.user = None
+        tracker.save()
         return JsonResponse({"status": "success", "message": "increment view"})
     except Exception:
         traceback.print_exc()
