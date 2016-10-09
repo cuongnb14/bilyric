@@ -78,7 +78,7 @@
                            aria-expanded="false">{{ user.get_full_name }} <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             {% if user.is_superuser %} <li><a href="{% url 'songlyrics:admin_index' %}">Dashboard</a></li> {% endif %}
-                            <li><a href="{% url 'songlyrics:user_song' request.user.username %}">My lyrics</a></li>
+                            {% if perms.songlyrics.add_subtitle %} <li><a href="{% url 'songlyrics:user_song' request.user.username %}">My lyrics</a></li> {% endif %}
                             <li role="separator" class="divider"></li>
                             <li><a href="/logout">Logout</a></li>
                         </ul>

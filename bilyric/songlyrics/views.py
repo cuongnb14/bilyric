@@ -154,15 +154,16 @@ def ajax_increment_view(request, song_id):
 
 @require_ajax
 def ajax_search_song(request):
-    if (request.method == 'GET'):
+    if request.method == 'GET':
         q = request.GET.get("q", "")
         if q != "":
             songs = Song.objects.filter(Q(visible=1), Q(zmp3_xml__isnull=False),
                                         Q(name__icontains=q) | Q(artist__icontains=q))
             result = []
             for song in songs:
-                result.append({'song_slug': song.slug + "-" + str(song.id), 'song_name': song.name, 'song_artist': song.artist,
-                               'title': song.name + " - " + song.artist})
+                result.append(
+                    {'song_slug': song.slug + "-" + str(song.id), 'song_name': song.name, 'song_artist': song.artist,
+                     'title': song.name + " - " + song.artist})
         else:
             result = []
         return JsonResponse({'songs': result})
