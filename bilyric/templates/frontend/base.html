@@ -65,10 +65,8 @@
             </ul>
             <form class="navbar-form navbar-left" role="search" action="{% url 'songlyrics:list_song' %}">
                 <div class="form-group" id="search-box">
-                    <!--<input type="text" class="form-control" placeholder="Song name or artist" name="q">-->
                     <select></select>
                 </div>
-                <!--<button type="submit" class="btn btn-default">Submit</button>-->
             </form>
 
             <ul class="nav navbar-nav navbar-right">
@@ -77,10 +75,11 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                            aria-expanded="false">{{ user.get_full_name }} <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            {% if user.is_superuser %} <li><a href="{% url 'songlyrics:admin_index' %}">Dashboard</a></li> {% endif %}
-                            {% if perms.songlyrics.add_subtitle %} <li><a href="{% url 'songlyrics:user_song' request.user.username %}">My lyrics</a></li> {% endif %}
+                            {% if user.is_superuser %} <li><a href="{% url 'songlyrics:admin_index' %}"><i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard</a></li> {% endif %}
+                            {% if perms.songlyrics.add_subtitle %} <li><a href="{% url 'songlyrics:user_song' request.user.username %}"><i class="fa fa-music" aria-hidden="true"></i> My lyrics</a></li> {% endif %}
                             <li role="separator" class="divider"></li>
-                            <li><a href="/logout">Logout</a></li>
+                            <li><a href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i>
+ Logout</a></li>
                         </ul>
                     </li>
                 {% else %}

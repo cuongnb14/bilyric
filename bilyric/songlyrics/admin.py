@@ -15,10 +15,11 @@ from django.contrib.auth.decorators import permission_required
 from ratelimit.decorators import ratelimit
 from django.db.models import Sum
 from django.contrib.auth.decorators import user_passes_test
-
+from datetime import datetime
 
 from bilyric.base.utils import require_ajax
-from bilyric.songlyrics.models import Subtitle, Song
+from bilyric.songlyrics.models import *
+from .services import *
 
 RATE = getattr(settings, 'RATE', '10/s')
 
@@ -26,15 +27,11 @@ RATE = getattr(settings, 'RATE', '10/s')
 @user_passes_test(lambda u: u.is_superuser, login_url="/admin")
 def index(request):
     data = {}
-    total_song = Song.objects.count()
-    data["total_song"] = total_song
-    total_view = Song.objects.all().aggregate(Sum("view")).get('view__sum', 0.00)
-    data["total_view"] = total_view
-    # ip_client = IpAddress.objects.count()
-    # view_song = Tracking.objects.count()
-    # data = {"total_songs": total_songs}
-    # data['ip_client'] = ip_client
-    # data['view_song'] = view_song
+    data["total_song"] = Song.objects.count()
+    data["total_view"] = Song.objects.all().aggregate(Sum("view")).get('view__sum', 0.00)
+    to_day = datetime.now()
+    data["today_view"] = get_view_of_day(to_day)
+
     return render(request, 'backend/index.html', data)
 
 
