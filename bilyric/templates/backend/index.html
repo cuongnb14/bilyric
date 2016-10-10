@@ -1,7 +1,7 @@
 {% extends 'backend/base.html' %}
 {% load staticfiles %}
 
-{% block page_title %}Good day! Boss{% endblock %}
+{% block page_title %}Good day! {{ user.get_full_name }}{% endblock %}
 
 {% block style %}
 <link href="{% static 'gentelella' %}/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
@@ -21,7 +21,7 @@
         <div class="count">{{total_view}}</div>
         <a class="count_bottom" href="#"><i class="green">View all song <i class="fa fa-arrow-circle-right" aria-hidden="true"></i></i></a>
     </div>
-    
+
     <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
         <span class="count_top"><i class="fa fa-eye"></i> Today view</span>
         <div class="count">{{today_view}}</div>
