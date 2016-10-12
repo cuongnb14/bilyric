@@ -3,6 +3,12 @@
 {% load staticfiles %}
 
 {% block title %}{{ song.name }} - {{ song.artist }}{% endblock %}
+{% block description %}Bài hát {{ song.name }} với phụ đề song ngữ Anh - Việt{% endblock %}
+{% block keywords %}Bài hát {{ song.name }},  {{ song.artist }}{% endblock %}
+
+{% block ogtitle %}{{ song.name }} - {{ song.artist }}{% endblock %}
+{% block ogdescription %}Bài hát {{ song.name }} với phụ đề song ngữ Anh - Việt{% endblock %}
+
 
 {% block style %}
     <link href="{% static 'plugins/jquery/jquery.mCustomScrollbar.css' %}" rel="stylesheet">

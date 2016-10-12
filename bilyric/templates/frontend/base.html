@@ -9,8 +9,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>{% block title %}{% endblock %}</title>
-    <link rel="icon" href="{% static 'icon.png' %}" type="image/x-icon"/>
-    <meta property="og:image" itemprop="thumbnailUrl" content="{% static 'thumb.png' %}"/>
+    <meta name="description" content="{% block description %}{% endblock %}">
+    <meta name="keywords" content="bài hát phụ đề song ngữ, bai hat phu de song ngu, Học tiếng anh qua bài hát, Hoc tieng anh qua bai hat, {% block keywords %}{% endblock %}">
+
+
+    <link rel="icon" href="{% static 'icon.png' %}" type="ogimage/x-icon"/>
+    <meta property="og:image" itemprop="thumbnailUrl" content="{% static 'icon.png' %}"/>
+    <meta property="og:title" content="{% block ogtitle %}{% endblock %}" />
+    <meta property="og:ogdescription" content="{% block ogtitle %}{% endblock %}" />
 
     <!-- Bootstrap -->
     <link href="{% static 'plugins/bootstrap-3.3.6/css/bootstrap.min.css' %}" rel="stylesheet">

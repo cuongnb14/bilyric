@@ -1,10 +1,15 @@
 {% extends 'frontend/base.html' %}
 {% load staticfiles %}
 {% load bootstrap_pagination %}
-{% block title %}All Songs{% endblock %}
+{% block title %}{{ user.get_full_name }} Songs{% endblock %}
+{% block description %}Bilyric, Bài hát với phụ đề song ngữ Anh - Việt giúp dễ dàng hiểu nội dùng bài hát, tăng kĩ năng nghe và trau dồi từ vựng của bạn{% endblock %}
+
+{% block ogtitle %}BiLyric | Songs with bilingual subtitles{% endblock %}
+{% block ogdescription %}Bilyric, Bài hát với phụ đề song ngữ Anh - Việt giúp dễ dàng hiểu nội dùng bài hát, tăng kĩ năng nghe và trau dồi từ vựng của bạn{% endblock %}
+
 {% block content %}
 <div class="container">
-    <h4 class="text-bil col-md-12">Bài hát của {{ user.get_full_name }}</h4>
+    <h4 class="text-bil col-md-12">{{ user.get_full_name }} songs</h4>
     {% for song_item in songs %}
         {% include "component/song_item.html" with song_item=song_item col_class="col-md-4" %}
     {% endfor %}
