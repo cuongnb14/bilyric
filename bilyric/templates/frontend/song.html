@@ -122,7 +122,7 @@
             <hr>
             <div class="song-panel row">
                 <div class="clearfix col-md-12">
-                    <h4 class="title-panel text-bil pull-left" style="margin-top: 0">CÓ THỂ BẠN THÍCH NGHE</h4>
+                    <h4 class="title-panel text-bil pull-left" style="margin-top: 0">You may also like</h4>
 {#                    <div class="pull-right">#}
 {#                        Auto play: <input type="checkbox" id="auto-play" class="switch form-control input-xs">#}
 {#                    </div>#}
@@ -140,7 +140,7 @@
                 </ul>
             </div>
             <div class="song-panel family-song row">
-                <h4 class="title-panel text-bil col-md-12">BÀI HÁT TƯƠNG TỰ</h4>
+                <h4 class="title-panel text-bil col-md-12">Related song</h4>
                 {% for song_item in song_artist %}
                     {% include "component/song_item.html" with song_item=song_item col_class="col-md-12" %}
                 {% endfor %}

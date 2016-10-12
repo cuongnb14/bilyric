@@ -133,7 +133,7 @@ jQuery(document).ready(function ($) {
         valueField: 'song_slug',
         labelField: 'title',
         searchField: 'title',
-        placeholder: "Nhập tên bài hát hoặc ca sĩ",
+        placeholder: "Type song or artist",
         maxItems: 3,
         create: false,
         render: {
