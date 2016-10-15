@@ -18,6 +18,7 @@ urlpatterns = [
 urlpatterns += [
     url(r'^biadmin$', admin.index, name='admin_index'),
     url(r'^biadmin/list-song$', admin.list_song, name='admin_list_song'),
+    url(r'^biadmin/charts$', admin.chart, name='admin_chart'),
 ]
 
 urlpatterns += [
@@ -27,4 +28,5 @@ urlpatterns += [
     url(r'^ajax/search$', views.ajax_search_song, name='ajax_search_song'),
     url(r'^ajax/songs/(?P<song_id>\d*)$', admin.ajax_song, name='ajax_song'),
     url(r'^ajax/get-zmp3id$', admin.get_zmp3id, name='get_zmp3id'),
+    url(r'^ajax/get-view-everyday$', admin.get_song_tracking, name='get_view_everyday'),
 ]

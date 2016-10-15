@@ -16,6 +16,7 @@ from ratelimit.decorators import ratelimit
 from django.db.models import Sum
 from django.contrib.auth.decorators import user_passes_test
 from datetime import datetime
+import json
 
 from bilyric.base.utils import require_ajax
 from bilyric.songlyrics.models import *
@@ -42,6 +43,13 @@ def list_song(request):
     data = {"songs": songs}
     return render(request, 'backend/list_song.html', data)
 
+
+@ratelimit(key='ip', rate=RATE, block=True)
+@user_passes_test(lambda u: u.is_superuser, login_url="/admin")
+def chart(request):
+    songs = Song.objects.all()
+    data = {"songs": songs}
+    return render(request, 'backend/charts.html', data)
 
 # End Admin page
 #==========================================================
@@ -168,3 +176,14 @@ def get_zmp3id(request):
                 return JsonResponse(data)
 
         return JsonResponse({"status": "error", "message": "Can not find link music"})
+
+
+@ratelimit(key='ip', rate=RATE, block=True)
+@login_required(login_url='/administration/login/')
+def get_song_tracking(request):
+    # tracking = SongTracking.objects.all()
+    # tracking = [ [x.created_at, x.song_id] for x in tracking]
+    rows = count_view_everyday()
+    rows = [ [x[0].strftime('%Y/%m/%d'), x[1]]  for x in rows]
+    print(rows)
+    return JsonResponse({"data": rows})
