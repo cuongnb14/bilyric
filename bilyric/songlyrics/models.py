@@ -59,5 +59,6 @@ class Tracking(TimeStampedModel):
 
 class SongTracking(TimeStampedModel):
     id = models.AutoField(primary_key=True)
+    ip_address = models.CharField(max_length=60, null=True, default=None)
     song = models.ForeignKey(Song, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=None, null=True)

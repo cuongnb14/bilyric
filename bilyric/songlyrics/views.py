@@ -14,7 +14,7 @@ from django.contrib.auth.models import User
 from ratelimit.decorators import ratelimit
 
 from .models import *
-from bilyric.base.utils import require_ajax
+from bilyric.base.utils import require_ajax, get_client_ip
 
 RATE = getattr(settings, 'RATE', '10/s')
 
@@ -141,6 +141,7 @@ def ajax_increment_view(request, song_id):
         song.save()
         tracker = SongTracking()
         tracker.song = song
+        tracker.ip_address = get_client_ip(request)
         if request.user.is_authenticated():
             tracker.user = request.user
         else:
