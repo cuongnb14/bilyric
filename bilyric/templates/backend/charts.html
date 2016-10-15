@@ -12,11 +12,8 @@
         jQuery(document).ready(function ($) {
             $.ajax({
                 url: "{% url 'songlyrics:get_view_everyday' %}",
-                dataType: "text",
+                dataType: "json",
                 success: function (result) {
-                    console.log(result);
-                    var result = JSON.parse(result);
-                    console.log(result.data[0][0]);
                     // Load the Visualization API and the piechart package.
                     google.charts.load('current', {'packages': ['corechart']});
 
