@@ -70,6 +70,9 @@ jQuery(document).ready(function ($) {
     $("#cl-subtitles-container").mCustomScrollbar({
         axis: "y",
         setHeight: 470,
-        theme: "dark"
+        theme: "dark",
+        mouseWheelPixels: 150,
+        scrollButtons: {enable: true, scrollAmount: 35},
+        keyboard:{ enable: true },
     });
 });
