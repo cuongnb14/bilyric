@@ -1,4 +1,5 @@
 pnindex = 1;
+isMobile = (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()));
 function PlayerAdapter(playerFrame) {
     this.playerFrame = playerFrame;
 
@@ -139,7 +140,7 @@ function Subtitles(subtitles) {
         if (preLine < 0) {
             preLine = 0;
         }
-        if (!this.transcript.is(":hover")) {
+        if (!this.transcript.is(":hover") || isMobile) {
             this.transcript.mCustomScrollbar("scrollTo", "#tline-" + preLine);
         }
         this.transcript.find("#tline-" + this.preIndex).removeClass("active");
