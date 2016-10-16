@@ -60,6 +60,12 @@ jQuery(document).ready(function ($) {
             $("#" + idPanel).remove();
         });
     });
+    $("#cl-subtitles-container").on("click", ".ps-play", function () {
+        var idPanel = $(this).attr("fpn");
+        var startTime = $("#" + idPanel).find(".ps-start").val();
+        console.log(startTime);
+        subtitleHandler.player.playAt(parseInt(startTime));
+    });
     $("#cl-subtitles-container").on("click", ".ps-start-btn", function () {
         $(this).closest(".cl-sub-panel").find(".ps-start").val(player.getCurrentTime());
     });
