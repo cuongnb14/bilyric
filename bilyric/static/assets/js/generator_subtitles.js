@@ -69,7 +69,7 @@ jQuery(document).ready(function ($) {
 
     $("#cl-subtitles-container").mCustomScrollbar({
         axis: "y",
-        setHeight: 500,
+        setHeight: 470,
         theme: "dark"
     });
 });
