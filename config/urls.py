@@ -34,7 +34,7 @@ urlpatterns += [
     # url(r'^api/v1/', include('apiv1.urls', namespace="apiv1")),
     url(r'^', include('bilyric.songlyrics.urls', namespace='songlyrics')),
     url(r'^accounts/', include('allauth.urls')),
-    # url(r'^robots\.txt$', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
+    url(r'^robots\.txt$', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
 ]
 
 
