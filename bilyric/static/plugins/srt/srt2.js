@@ -24,6 +24,7 @@ Srt.prototype = {
                 var counter = origin[0];
                 // time
                 var timeLine = origin[1];
+                console.log(timeLine);
                 var startText = timeLine.match(/^[0-9][0-9]:[0-9][0-9]:[0-9][0-9],[0-9][0-9][0-9]/)[0];
 
                 var endText = timeLine.match(/\s[0-9][0-9]:[0-9][0-9]:[0-9][0-9],[0-9][0-9][0-9]/)[0].replace(' ', '');

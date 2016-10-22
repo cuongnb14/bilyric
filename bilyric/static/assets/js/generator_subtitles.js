@@ -1,5 +1,5 @@
 jQuery(document).ready(function ($) {
-    var subPanel = $(".cl-sub-panel").clone().css("display", "none");
+    var subPanel = $("#ps-tmpl").clone();
     var subContainer = $("#cl-subtitles-container ul");
     //var pnindex = 1;
     var player = new PlayerAdapter(document.getElementById("zmp3-frame").contentWindow);
@@ -12,6 +12,7 @@ jQuery(document).ready(function ($) {
             var newId = "ps" + pnindex;
             var newPanel = subPanel.clone();
             newPanel.attr("id", newId);
+            newPanel.addClass("cl-sub-panel");
             newPanel.find(".ps-order").text(pnindex);
             newPanel.find(".ps-action").attr("fpn", newId);
             subContainer.append(newPanel);
@@ -78,6 +79,18 @@ jQuery(document).ready(function ($) {
         };
         subtitleHandler.reSetSubtitle(subtitles);
         toastr["success"]("Subtitles applied");
+    });
+
+    $("#cl-ft-apply").click(function (){
+        var subtitles = {
+            sub1: $("#cl-ft-text").val(),
+            sub2: ""
+        };
+        subtitleHandler.reSetSubtitle(subtitles);
+        subtitleHandler.renderToForm();
+        $('.en-sub-modal').modal('hide');
+        toastr["success"]("Subtitles applied");
+
     });
 
     $("#cl-subtitles-container").on("click", ".ps-remove", function () {

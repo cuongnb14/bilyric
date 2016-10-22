@@ -40,6 +40,7 @@ function Subtitles(subtitles) {
     this.player = new PlayerAdapter(document.getElementById("zmp3-frame").contentWindow);
 
     this.reSetSubtitle = function (subtitles) {
+        console.log(subtitles["sub1"]);
         this.subtitles = subtitles;
         this.sub1 = new Srt(subtitles["sub1"]);
         this.sub2 = new Srt(subtitles["sub2"]);
@@ -57,25 +58,31 @@ function Subtitles(subtitles) {
 
     this.renderToForm = function () {
         try {
-            var subPanel = $(".cl-sub-panel").clone().css("display", "none");
+            var subPanel = $("#ps-tmpl").clone();
             var subContainer = $("#cl-subtitles-container ul");
+            subContainer.empty();
 
             var context = this;
+            pindex = 1;
             this.sub1.lines.forEach(function (item, index) {
 
-                if (pnindex == 1) {
-                    context.lineToPanel(item, context.getLineSub2(context.sub2, index), "ps1");
-                } else {
+                // if (pnindex == 1) {
+                //     context.lineToPanel(item, context.getLineSub2(context.sub2, index), "ps1");
+                // } else {
                     var newId = "ps" + pnindex;
                     var newPanel = subPanel.clone();
                     newPanel.attr("id", newId);
+                    newPanel.addClass("cl-sub-panel");
                     newPanel.find(".ps-order").text(pnindex);
                     newPanel.find(".ps-action").attr("fpn", newId);
                     subContainer.append(newPanel);
                     newPanel.show("fast");
                     context.lineToPanel(item, context.getLineSub2(context.sub2, index), newId);
-                }
+                // }
                 pnindex = pnindex + 1;
+
+                console.log(1);
+                return 1;
             })
         } catch (err) {
             console.log(err);

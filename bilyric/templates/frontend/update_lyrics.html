@@ -93,8 +93,7 @@
         </div>
         <div class="col-md-4 sidebar">
             <div id="cl-subtitles-container">
-                <ul>
-                    <div id="ps1" class="panel panel-default cl-sub-panel">
+                <div id="ps-tmpl" style="display: none" class="panel panel-default">
                         <div class="panel-body">
                             <div class="row form-group">
                                 <div class="col-md-6 cl-input">
@@ -107,16 +106,16 @@
                                           </span>
                                     </div>
                                 </div>
-{#                                <div class="col-md-5 cl-input">#}
-{#                                    <div class="input-group">#}
-{#                                        <input type="number" step="0.4" class="form-control ps-end">#}
-{#                                          <span class="input-group-btn">#}
-{#                                                <button class="btn btn-default ps-end-btn" type="button"><i#}
-{#                                                        class="fa fa-clock-o"#}
-{#                                                        aria-hidden="true"></i></button>#}
-{#                                          </span>#}
-{#                                    </div>#}
-{#                                </div>#}
+                                {#                                <div class="col-md-5 cl-input">#}
+                                {#                                    <div class="input-group">#}
+                                {#                                        <input type="number" step="0.4" class="form-control ps-end">#}
+                                {#                                          <span class="input-group-btn">#}
+                                {#                                                <button class="btn btn-default ps-end-btn" type="button"><i#}
+                                {#                                                        class="fa fa-clock-o"#}
+                                {#                                                        aria-hidden="true"></i></button>#}
+                                {#                                          </span>#}
+                                {#                                    </div>#}
+                                {#                                </div>#}
                                 <span class="badge badge-success pull-right ps-order" style="margin-right: 7px">1</span>
                             </div>
                             <div class="row form-group">
@@ -142,6 +141,8 @@
                             </div>
                         </div>
                     </div>
+                <ul>
+
                 </ul>
             </div>
 
@@ -170,6 +171,40 @@
                     </div>
                 </div>
             </div>
+
+            <hr>
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Or create from text:</h4>
+                </div>
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                            data-target=".en-sub-modal">English subtitle
+                    </button>
+                    <div class="modal fade en-sub-modal" tabindex="-1" role="dialog"
+                         aria-labelledby="myLargeModalLabel">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                            aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="gridSystemModalLabel">English subtitle</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <textarea class="form-control" rows="20" id="cl-ft-text"></textarea>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary" id="cl-ft-apply">Apply</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
             <hr>
             <div class="row">
                 <div class="col-md-12">
