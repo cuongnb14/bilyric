@@ -1,13 +1,17 @@
 pnindex = 1;
 isMobile = (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()));
 function PlayerAdapter(playerFrame) {
+    this.timeSong = 0;
+
     this.playerFrame = playerFrame;
 
     this.getTimeSong = function () {
-        var dtime = this.playerFrame.document.getElementsByClassName('jp-duration')[0].textContent;
-        dtime = dtime.split(":");
-        durationTime = parseInt(dtime[0]) * 60 + parseInt(dtime[1]);
-        return durationTime;
+        if(this.timeSong == 0){
+            var dtime = this.playerFrame.document.getElementsByClassName('jp-duration')[0].textContent;
+            dtime = dtime.split(":");
+            this.timeSong = parseInt(dtime[0]) * 60 + parseInt(dtime[1]);
+        }
+        return this.timeSong;
     };
 
     this.getCurrentTime = function () {
@@ -116,7 +120,7 @@ function Subtitles(subtitles) {
 
     this.isInIndex = function (time, index) {
         try {
-            return time > this.sub1.lines[index].start.abtime && time < this.sub1.lines[index].end.abtime;
+            return time >= this.sub1.lines[index].start.abtime && time < this.sub1.lines[index].end.abtime;
         } catch (err) {
             return false;
         }

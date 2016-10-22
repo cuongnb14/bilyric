@@ -18,7 +18,7 @@ jQuery(document).ready(function ($) {
             newPanel.show("fast");
         }
         setTimeout(function () {
-            $("#cl-subtitles-container").mCustomScrollbar("scrollTo", "#ps"+pnindex);
+            $("#cl-subtitles-container").mCustomScrollbar("scrollTo", "#ps" + pnindex);
         }, 300)
 
     });
@@ -44,26 +44,40 @@ jQuery(document).ready(function ($) {
         var sub1 = [];
         var sub2 = [];
         var lineId = 0;
+        var preLine1 = null;
+        var preLine2 = null;
         $(".cl-sub-panel").each(function (index) {
             lineId += 1;
             var lineSub1 = {};
             var lineSub2 = {};
+
             lineSub1.id = lineSub2.id = lineId;
             lineSub2.startTime = lineSub1.startTime = $(this).find(".ps-start").val() * 1000;
-            lineSub2.endTime = lineSub1.endTime = $(this).find(".ps-end").val() * 1000;
             lineSub1.text = $(this).find(".ps-sub1").val();
             lineSub2.text = $(this).find(".ps-sub2").val();
-            if (lineSub2.text == ""){
+            if (lineSub2.text == "") {
                 lineSub2.text = "...";
             }
-            sub1.push(lineSub1);
-            sub2.push(lineSub2);
+            if (preLine1 == null) {
+                preLine1 = lineSub1;
+                preLine2 = lineSub2;
+            } else {
+                preLine1.endTime = preLine2.endTime = lineSub2.startTime;
+                sub1.push(preLine1);
+                sub2.push(preLine2);
+                preLine1 = lineSub1;
+                preLine2 = lineSub2;
+            }
         });
+        preLine1.endTime = preLine2.endTime = player.getTimeSong() * 1000;
+        sub1.push(preLine1);
+        sub2.push(preLine2);
         var subtitles = {
             sub1: parser.toSrt(sub1),
             sub2: parser.toSrt(sub2)
         };
         subtitleHandler.reSetSubtitle(subtitles);
+        toastr["success"]("Subtitles applied");
     });
 
     $("#cl-subtitles-container").on("click", ".ps-remove", function () {
@@ -75,8 +89,7 @@ jQuery(document).ready(function ($) {
     $("#cl-subtitles-container").on("click", ".ps-play", function () {
         var idPanel = $(this).attr("fpn");
         var startTime = $("#" + idPanel).find(".ps-start").val();
-        console.log(startTime);
-        subtitleHandler.player.playAt(parseInt(startTime));
+        subtitleHandler.player.playAt(parseInt(startTime) - 2);
     });
     $("#cl-subtitles-container").on("click", ".ps-start-btn", function () {
         $(this).closest(".cl-sub-panel").find(".ps-start").val(player.getCurrentTime());
@@ -91,6 +104,6 @@ jQuery(document).ready(function ($) {
         theme: "dark",
         mouseWheelPixels: 150,
         scrollButtons: {enable: true, scrollAmount: 35},
-        keyboard:{ enable: true },
+        keyboard: {enable: true},
     });
 });
