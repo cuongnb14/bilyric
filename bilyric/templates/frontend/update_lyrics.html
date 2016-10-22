@@ -76,6 +76,11 @@
                             {% endif %}
                         </button>
 
+                        <a target="_blank" class="btn btn-bil btn-sm"
+                           href="{% url 'songlyrics:play_song' song.slug song.id %}">
+                            Go to song <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                        </a>
+
 
                     </div>
                 </div>
@@ -94,53 +99,53 @@
         <div class="col-md-4 sidebar">
             <div id="cl-subtitles-container">
                 <div id="ps-tmpl" style="display: none" class="panel panel-default">
-                        <div class="panel-body">
-                            <div class="row form-group">
-                                <div class="col-md-6 cl-input">
-                                    <div class="input-group">
-                                        <input type="number" step="0.4" class="form-control ps-start">
+                    <div class="panel-body">
+                        <div class="row form-group">
+                            <div class="col-md-6 cl-input">
+                                <div class="input-group">
+                                    <input type="number" step="0.4" class="form-control ps-start">
                                           <span class="input-group-btn">
                                                 <button class="btn btn-default ps-start-btn" type="button"><i
                                                         class="fa fa-clock-o"
                                                         aria-hidden="true"></i></button>
                                           </span>
-                                    </div>
-                                </div>
-                                {#                                <div class="col-md-5 cl-input">#}
-                                {#                                    <div class="input-group">#}
-                                {#                                        <input type="number" step="0.4" class="form-control ps-end">#}
-                                {#                                          <span class="input-group-btn">#}
-                                {#                                                <button class="btn btn-default ps-end-btn" type="button"><i#}
-                                {#                                                        class="fa fa-clock-o"#}
-                                {#                                                        aria-hidden="true"></i></button>#}
-                                {#                                          </span>#}
-                                {#                                    </div>#}
-                                {#                                </div>#}
-                                <span class="badge badge-success pull-right ps-order" style="margin-right: 7px">1</span>
-                            </div>
-                            <div class="row form-group">
-                                <div class="col-md-12">
-                                    <input type="text" class="form-control ps-sub1" placeholder="english subtitles">
                                 </div>
                             </div>
-                            <div class="row form-group">
-                                <div class="col-md-12">
-                                    <input type="text" class="form-control ps-sub2" placeholder="vietnamese subtitles">
-                                </div>
+                            {#                                <div class="col-md-5 cl-input">#}
+                            {#                                    <div class="input-group">#}
+                            {#                                        <input type="number" step="0.4" class="form-control ps-end">#}
+                            {#                                          <span class="input-group-btn">#}
+                            {#                                                <button class="btn btn-default ps-end-btn" type="button"><i#}
+                            {#                                                        class="fa fa-clock-o"#}
+                            {#                                                        aria-hidden="true"></i></button>#}
+                            {#                                          </span>#}
+                            {#                                    </div>#}
+                            {#                                </div>#}
+                            <span class="badge badge-success pull-right ps-order" style="margin-right: 7px">1</span>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-12">
+                                <input type="text" class="form-control ps-sub1" placeholder="english subtitles">
                             </div>
-                            <div class="row form-group cl-line-action">
-                                <div class="col-md-12">
-                                    <button class="btn btn-info ps-action ps-play" fpn="ps1"><i class="fa fa-play"
-                                                                                                aria-hidden="true"></i>
-                                    </button>
-                                    <button class="btn btn-warning ps-action ps-remove" fpn="ps1"><i
-                                            class="fa fa-minus-circle" aria-hidden="true"></i>
-                                        Remove
-                                    </button>
-                                </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-12">
+                                <input type="text" class="form-control ps-sub2" placeholder="vietnamese subtitles">
+                            </div>
+                        </div>
+                        <div class="row form-group cl-line-action">
+                            <div class="col-md-12">
+                                <button class="btn btn-info ps-action ps-play" fpn="ps1"><i class="fa fa-play"
+                                                                                            aria-hidden="true"></i>
+                                </button>
+                                <button class="btn btn-warning ps-action ps-remove" fpn="ps1"><i
+                                        class="fa fa-minus-circle" aria-hidden="true"></i>
+                                    Remove
+                                </button>
                             </div>
                         </div>
                     </div>
+                </div>
                 <ul>
 
                 </ul>
