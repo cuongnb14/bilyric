@@ -35,16 +35,8 @@
     <!-- Selectize -->
     <link href="{% static 'plugins/selectize/css/selectize.bootstrap3.css' %}" rel="stylesheet">
 
-    <script src="{% static 'plugins' %}/pace/pace.js"></script>
-    <link href="{% static 'plugins' %}/pace/theme.css" rel="stylesheet"/>
-    <script>
-        paceOptions = {
-            ajax: true,
-            elements: {
-                selectors: ['body']
-            }
-        }
-    </script>
+{#    <script src="{% static 'plugins' %}/pace/pace.js"></script>#}
+{#    <link href="{% static 'plugins' %}/pace/theme.css" rel="stylesheet"/>#}
 
 
     {% block style %}{% endblock %}
@@ -144,7 +136,9 @@
 <script src="{% static 'plugins' %}/toastr/toastr.min.js"></script>
 <script>
 
-
+    <!--
+    Toastr
+    config -->
     toastr.options = {
         "closeButton": false,
         "debug": false,
@@ -161,7 +155,21 @@
         "hideEasing": "linear",
         "showMethod": "fadeIn",
         "hideMethod": "fadeOut"
-    }
+    };
+
+    <!-- Pace config -->
+{#    paceOptions = {#}
+{#        ajax: false,#}
+{#        document: false,#}
+{#        eventLag: false,#}
+{#        elements: false#}
+{#    };#}
+{##}
+{#    jQuery(document).ready(function ($) {#}
+{#        $(document).ajaxStart(function () {#}
+{#            Pace.restart();#}
+{#        });#}
+{#    });#}
 </script>
 
 <!-- Custom -->
