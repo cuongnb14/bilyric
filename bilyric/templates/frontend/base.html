@@ -10,17 +10,19 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>{% block title %}{% endblock %}</title>
     <meta name="description" content="{% block description %}{% endblock %}">
-    <meta name="keywords" content="bài hát phụ đề song ngữ, bai hat phu de song ngu, Học tiếng anh qua bài hát, Hoc tieng anh qua bai hat, {% block keywords %}{% endblock %}">
+    <meta name="keywords"
+          content="bài hát phụ đề song ngữ, bai hat phu de song ngu, Học tiếng anh qua bài hát, Hoc tieng anh qua bai hat,
+                  {% block keywords %}{% endblock %}">
 
 
     <link rel="icon" href="{% static 'icon.png' %}" type="ogimage/x-icon"/>
     <meta property="og:image" itemprop="thumbnailUrl" content="{% static 'icon.png' %}"/>
-    <meta property="og:title" content="{% block ogtitle %}{% endblock %}" />
-    <meta property="og:description" content="{% block ogdescription %}{% endblock %}" />
+    <meta property="og:title" content="{% block ogtitle %}{% endblock %}"/>
+    <meta property="og:description" content="{% block ogdescription %}{% endblock %}"/>
 
     <!-- Bootstrap -->
     <link href="{% static 'plugins/bootstrap-3.3.6/css/bootstrap.min.css' %}" rel="stylesheet">
-{#    <link href="{% static 'plugins/bootstrap-3.3.6/cerulean.css' %}" rel="stylesheet">#}
+    {#    <link href="{% static 'plugins/bootstrap-3.3.6/cerulean.css' %}" rel="stylesheet">#}
     <link href="{% static 'plugins/bootstrap-3.3.6/switch/bootstrap-switch.min.css' %}" rel="stylesheet">
 
 
@@ -32,6 +34,19 @@
     <link href="{% static 'plugins' %}/toastr/toastr.min.css" rel="stylesheet">
     <!-- Selectize -->
     <link href="{% static 'plugins/selectize/css/selectize.bootstrap3.css' %}" rel="stylesheet">
+
+    <script src="{% static 'plugins' %}/pace/pace.js"></script>
+    <link href="{% static 'plugins' %}/pace/theme.css" rel="stylesheet"/>
+    <script>
+        paceOptions = {
+            ajax: true,
+            elements: {
+                selectors: ['body']
+            }
+        }
+    </script>
+
+
     {% block style %}{% endblock %}
 
     <!-- Custom css -->
@@ -81,11 +96,16 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                            aria-expanded="false">{{ user.get_full_name }} <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            {% if user.is_superuser %} <li><a href="{% url 'songlyrics:admin_index' %}"><i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard</a></li> {% endif %}
-                            {% if perms.songlyrics.add_subtitle %} <li><a href="{% url 'songlyrics:user_song' request.user.username %}"><i class="fa fa-music" aria-hidden="true"></i> My lyrics</a></li> {% endif %}
+                            {% if user.is_superuser %}
+                                <li><a href="{% url 'songlyrics:admin_index' %}"><i class="fa fa-tachometer"
+                                                                                    aria-hidden="true"></i>
+                                    Dashboard</a></li> {% endif %}
+                            {% if perms.songlyrics.add_subtitle %}
+                                <li><a href="{% url 'songlyrics:user_song' request.user.username %}"><i
+                                        class="fa fa-music" aria-hidden="true"></i> My lyrics</a></li> {% endif %}
                             <li role="separator" class="divider"></li>
                             <li><a href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i>
- Logout</a></li>
+                                Logout</a></li>
                         </ul>
                     </li>
                 {% else %}

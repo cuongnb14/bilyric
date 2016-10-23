@@ -6,7 +6,7 @@ function PlayerAdapter(playerFrame) {
     this.playerFrame = playerFrame;
 
     this.getTimeSong = function () {
-        if(this.timeSong == 0){
+        if (this.timeSong == 0) {
             var dtime = this.playerFrame.document.getElementsByClassName('jp-duration')[0].textContent;
             dtime = dtime.split(":");
             this.timeSong = parseInt(dtime[0]) * 60 + parseInt(dtime[1]);
@@ -58,30 +58,26 @@ function Subtitles(subtitles) {
 
     this.renderToForm = function () {
         try {
-            var subPanel = $("#ps-tmpl").clone();
             var subContainer = $("#cl-subtitles-container ul");
+            if(subContainer.length == 0) {
+                return 0;
+            }
+            var subPanel = $("#ps-tmpl").clone();
             subContainer.empty();
 
             var context = this;
-            pindex = 1;
+            pnindex = 1;
             this.sub1.lines.forEach(function (item, index) {
-
-                // if (pnindex == 1) {
-                //     context.lineToPanel(item, context.getLineSub2(context.sub2, index), "ps1");
-                // } else {
-                    var newId = "ps" + pnindex;
-                    var newPanel = subPanel.clone();
-                    newPanel.attr("id", newId);
-                    newPanel.addClass("cl-sub-panel");
-                    newPanel.find(".ps-order").text(pnindex);
-                    newPanel.find(".ps-action").attr("fpn", newId);
-                    subContainer.append(newPanel);
-                    newPanel.show("fast");
-                    context.lineToPanel(item, context.getLineSub2(context.sub2, index), newId);
-                // }
+                var newId = "ps" + pnindex;
+                var newPanel = subPanel.clone();
+                newPanel.attr("id", newId);
+                newPanel.addClass("cl-sub-panel");
+                newPanel.find(".ps-order").text(pnindex);
+                newPanel.find(".ps-action").attr("fpn", newId);
+                subContainer.append(newPanel);
+                newPanel.show("fast");
+                context.lineToPanel(item, context.getLineSub2(context.sub2, index), newId);
                 pnindex = pnindex + 1;
-
-                console.log(1);
                 return 1;
             })
         } catch (err) {
@@ -206,6 +202,7 @@ function Subtitles(subtitles) {
                 context.sub2 = new Srt(context.subtitles["sub2"]);
                 context.sub2.shift(value, "seconds");
             }
+            context.renderToForm();
         });
 
         $('#save-shift').click(function () {
