@@ -35,8 +35,12 @@
     <!-- Selectize -->
     <link href="{% static 'plugins/selectize/css/selectize.bootstrap3.css' %}" rel="stylesheet">
 
-{#    <script src="{% static 'plugins' %}/pace/pace.js"></script>#}
-{#    <link href="{% static 'plugins' %}/pace/theme.css" rel="stylesheet"/>#}
+    {#    <script src="{% static 'plugins' %}/pace/pace.js"></script>#}
+    {#    <link href="{% static 'plugins' %}/pace/theme.css" rel="stylesheet"/>#}
+
+    <!-- linedtextarea -->
+
+    <link href="{% static 'plugins' %}/linedtextarea/jquery.numberedtextarea.css" rel="stylesheet"/>
 
 
     {% block style %}{% endblock %}
@@ -134,11 +138,10 @@
 
 <!-- Toastr and config -->
 <script src="{% static 'plugins' %}/toastr/toastr.min.js"></script>
-<script>
 
-    <!--
-    Toastr
-    config -->
+<script src="{% static 'plugins' %}/linedtextarea/jquery.numberedtextarea.js"></script>
+
+<script>
     toastr.options = {
         "closeButton": false,
         "debug": false,
@@ -157,19 +160,27 @@
         "hideMethod": "fadeOut"
     };
 
-    <!-- Pace config -->
-{#    paceOptions = {#}
-{#        ajax: false,#}
-{#        document: false,#}
-{#        eventLag: false,#}
-{#        elements: false#}
-{#    };#}
-{##}
-{#    jQuery(document).ready(function ($) {#}
-{#        $(document).ajaxStart(function () {#}
-{#            Pace.restart();#}
-{#        });#}
-{#    });#}
+    jQuery(document).ready(function ($) {
+            $('.lined-area').numberedtextarea();
+
+{#        $(".lined-text").linedtextarea(#}
+{#                {selectedLine: 1}#}
+{#        );#}
+    });
+
+
+    {#    paceOptions = {#}
+    {#        ajax: false,#}
+    {#        document: false,#}
+    {#        eventLag: false,#}
+    {#        elements: false#}
+    {#    };#}
+    {##}
+    {#    jQuery(document).ready(function ($) {#}
+    {#        $(document).ajaxStart(function () {#}
+    {#            Pace.restart();#}
+    {#        });#}
+    {#    });#}
 </script>
 
 <!-- Custom -->

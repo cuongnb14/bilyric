@@ -40,7 +40,6 @@ function Subtitles(subtitles) {
     this.player = new PlayerAdapter(document.getElementById("zmp3-frame").contentWindow);
 
     this.reSetSubtitle = function (subtitles) {
-        console.log(subtitles["sub1"]);
         this.subtitles = subtitles;
         this.sub1 = new Srt(subtitles["sub1"]);
         this.sub2 = new Srt(subtitles["sub2"]);

@@ -1,7 +1,6 @@
 jQuery(document).ready(function ($) {
     var subPanel = $("#ps-tmpl").clone();
     var subContainer = $("#cl-subtitles-container ul");
-    //var pnindex = 1;
     var player = new PlayerAdapter(document.getElementById("zmp3-frame").contentWindow);
 
 
@@ -89,6 +88,45 @@ jQuery(document).ready(function ($) {
         subtitleHandler.reSetSubtitle(subtitles);
         subtitleHandler.renderToForm();
         $('.en-sub-modal').modal('hide');
+        toastr["success"]("Subtitles applied");
+
+    });
+
+    $("#cl-ft-txt-apply").click(function (){
+        var sub1 = $("#cl-ft-sub1-text").val().split("\n");
+        var sub2 = $("#cl-ft-sub2-text").val().split("\n");
+        var sub1Arr = [];
+        var sub2Arr = [];
+        sub1.forEach(function (item, index) {
+            var line1 = {};
+            var line2 = {};
+
+            line1.id = line2.id = index + 1;
+            line1.startTime = line1.endTime = line2.startTime = line2.endTime = 0;
+            line1.text = item;
+            try {
+                if(sub2.length > index){
+                    line2.text = sub2[index];
+                    if(line2.text == ""){
+                    line2.text = "...";
+                }
+                } else {
+                    line2.text = "...";
+                }
+            } catch (err) {
+                line2.text = "...";
+            }
+            sub1Arr.push(line1);
+            sub2Arr.push(line2);
+        });
+        var subtitles = {
+            sub1: parser.toSrt(sub1Arr),
+            sub2: parser.toSrt(sub2Arr)
+        };
+
+        subtitleHandler.reSetSubtitle(subtitles);
+        subtitleHandler.renderToForm();
+        $('.sub-txt-modal').modal('hide');
         toastr["success"]("Subtitles applied");
 
     });

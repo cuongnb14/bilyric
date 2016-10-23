@@ -188,7 +188,7 @@
                 </div>
                 <div class="col-md-12">
                     <button type="button" class="btn btn-bil" data-toggle="modal"
-                            data-target=".en-sub-modal">English subtitle
+                            data-target=".en-sub-modal">English subtitle srt text
                     </button>
                     <div class="modal fade en-sub-modal" tabindex="-1" role="dialog"
                          aria-labelledby="myLargeModalLabel">
@@ -197,10 +197,10 @@
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                             aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title" id="gridSystemModalLabel">English subtitle</h4>
+                                    <h4 class="modal-title" id="gridSystemModalLabel">English subtitle srt text</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <textarea class="form-control" rows="20" id="cl-ft-text"></textarea>
+                                    <textarea class="form-control lined-area" rows="20" id="cl-ft-text"></textarea>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -211,32 +211,69 @@
                     </div>
                 </div>
 
+                <div class="col-md-12" style="margin-top: 4px">
+                    <button type="button" class="btn btn-bil" data-toggle="modal"
+                            data-target=".sub-txt-modal">Subtitles txt
+                    </button>
+                    <div class="modal fade sub-txt-modal" tabindex="-1" role="dialog"
+                         aria-labelledby="myLargeModalLabel">
+                        <div class="modal-dialog modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                            aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="gridSystemModalLabel">Subtitles</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <textarea class="form-control lined-area" rows="20"
+                                                      id="cl-ft-sub1-text"></textarea>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <textarea class="form-control lined-area" rows="20"
+                                                      id="cl-ft-sub2-text"></textarea>
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary" id="cl-ft-txt-apply">Apply</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
 
-{#            <hr>#}
-{#            <div class="row">#}
-{#                <div class="col-md-12">#}
-{#                    <h4>Or create from file:</h4>#}
-{#                </div>#}
-{#                <form action="#" method="POST">#}
-{#                    <div class="col-md-12">#}
-{#                        <div class="form-group">#}
-{#                            <input type="file" id="cl-file-sub1" required>#}
-{#                            <p class="help-block">English subtitle</p>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                    <div class="col-md-12">#}
-{#                        <div class="form-group">#}
-{#                            <input type="file" id="cl-file-sub2">#}
-{#                            <p class="help-block">Vietnamese subtitle</p>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                    <div class="col-md-5">#}
-{#                        <button class="btn btn-default" type="submit" id="cl-file-create">Create</button>#}
-{#                    </div>#}
-{#                </form>#}
-{#            </div>#}
+            {#            <hr>#}
+            {#            <div class="row">#}
+            {#                <div class="col-md-12">#}
+            {#                    <h4>Or create from file:</h4>#}
+            {#                </div>#}
+            {#                <form action="#" method="POST">#}
+            {#                    <div class="col-md-12">#}
+            {#                        <div class="form-group">#}
+            {#                            <input type="file" id="cl-file-sub1" required>#}
+            {#                            <p class="help-block">English subtitle</p>#}
+            {#                        </div>#}
+            {#                    </div>#}
+            {#                    <div class="col-md-12">#}
+            {#                        <div class="form-group">#}
+            {#                            <input type="file" id="cl-file-sub2">#}
+            {#                            <p class="help-block">Vietnamese subtitle</p>#}
+            {#                        </div>#}
+            {#                    </div>#}
+            {#                    <div class="col-md-5">#}
+            {#                        <button class="btn btn-default" type="submit" id="cl-file-create">Create</button>#}
+            {#                    </div>#}
+            {#                </form>#}
+            {#            </div>#}
 
 
         </div>
