@@ -1,2 +1,5 @@
 User-agent: *
+Allow: /
 Disallow: /ajax/increment-view/
+
+Sitemap: http://bilyric.com/sitemap.xml
