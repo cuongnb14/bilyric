@@ -70,3 +70,4 @@ docker-env
 mysql-data/
 bilyric/static/gentelella/
 bilyric/static/plugins/select2-4.0.3/
+docker-compose.yml

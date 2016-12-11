@@ -9,7 +9,7 @@ services:
         #restart: always
         image: cuongnb14/bilyric:0.1
         networks:
-            - bilyric-net
+            - nginx-back
         expose:
             - "8000"
         ports:
@@ -20,11 +20,16 @@ services:
         environment:
             DJANGO_SETTINGS_MODULE: 'config.settings.local'
         command: /usr/local/bin/gunicorn config.wsgi:application -w 2 -b :8000
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "100M"
+                max-file: "3"
 
     mysql:
         image: mysql:5.7
         networks:
-            - bilyric-net
+            - nginx-back
         volumes:
             - ./mysql-data/:/var/lib/mysql/
             - ./mysql-init-data/:/docker-entrypoint-initdb.d/
@@ -41,7 +46,32 @@ services:
         #restart: always
         # stdin_open: true
         # tty: true
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "100M"
+                max-file: "3"
+
+    nginx:
+        image: nginx:1.11.6
+        depends_on:
+            - kibana
+        networks:
+            - nginx-back
+        ports:
+            - "0.0.0.0:80:80"
+        volumes:
+            - ./nginx-config/:/etc/nginx/conf.d/
+        command: /bin/bash -c "nginx -g 'daemon off;'"
+        cpu_shares: 512           # 0.5 CPU
+        mem_limit: 536870912      # 512 MB RAM
+        #restart: always
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "100M"
+                max-file: "3"
 
 networks:
-    bilyric-net:
+    nginx-back:
       #external: true
