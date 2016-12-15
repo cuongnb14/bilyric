@@ -55,13 +55,14 @@ services:
     nginx:
         image: nginx:1.11.6
         depends_on:
-            - kibana
+            - web
         networks:
             - nginx-back
         ports:
             - "0.0.0.0:80:80"
         volumes:
             - ./nginx-config/:/etc/nginx/conf.d/
+            - ./bilyric/static:/bilyric/static
         command: /bin/bash -c "nginx -g 'daemon off;'"
         cpu_shares: 512           # 0.5 CPU
         mem_limit: 536870912      # 512 MB RAM
